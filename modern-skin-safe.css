@@ -25,7 +25,7 @@
 
 /* fundal general (dacă nu vrei, comentează) */
 body{
-  background: radial-gradient(1200px 600px at 15% 10%, rgba(109,40,217,.25), transparent 55%),
+  background: radial-gradient(1200px 600px at 15% 10%, rgba(109,40,217,.25), transparent 10%),
               radial-gradient(900px 500px at 90% 5%, rgba(6,182,212,.22), transparent 60%),
               radial-gradient(900px 600px at 70% 90%, rgba(37,99,235,.18), transparent 60%),
               var(--um-bg);
