@@ -1,0 +1,130 @@
+/* =========================
+   MODERN SAFE SKIN
+   (nu afectează afișarea, doar cosmetizează)
+   ========================= */
+
+:root{
+  --zf-primary:#2f80ed;
+  --zf-primary2:#56ccf2;
+  --zf-accent:#ff8a00;
+  --zf-text:#1f2937;
+  --zf-muted:#6b7280;
+  --zf-border: rgba(17,24,39,.14);
+  --zf-card: rgba(255,255,255,.96);
+  --zf-shadow: 0 10px 26px rgba(17,24,39,.14);
+  --zf-radius: 14px;
+}
+
+/* IMPORTANT: nu atingem body/global layout */
+
+/* Container form: doar look */
+.new_f-container{
+  border-radius: var(--zf-radius) !important;
+  overflow: hidden;
+  box-shadow: var(--zf-shadow) !important;
+  border: 1px solid rgba(255,255,255,.25) !important;
+  background: linear-gradient(135deg, rgba(47,128,237,.96), rgba(86,204,242,.96)) !important;
+}
+
+/* Imaginile de fundal rămân, doar mai fine */
+.new_f-wrapper-bg-imgs{
+  opacity: .22;
+}
+
+/* Titlu */
+.new_f-title{
+  padding: 18px 0 14px !important;
+  height: auto !important;
+  font-size: 18px !important;
+  letter-spacing: .2px;
+}
+
+/* Câmpuri: card/glass */
+.new_f-form-field{
+  background: var(--zf-card) !important;
+  border-top: 1px solid var(--zf-border) !important;
+  border-bottom: 1px solid var(--zf-border) !important;
+  border-left: 1px solid transparent !important; /* păstrează logica ta */
+}
+
+/* să nu stricăm border-left-ul special de la .to */
+.new_f-form-field.to{
+  border-left-color: var(--zf-border) !important;
+  border-radius: 12px 0 0 12px !important;
+}
+
+/* separatoare mai soft */
+.new_f-form-field::before{
+  background-color: rgba(17,24,39,.10) !important;
+}
+
+/* Hover safe (fără transform care uneori produce „salturi”) */
+.new_f-form-field:not(.date):hover{
+  box-shadow: 0 6px 14px rgba(17,24,39,.10) !important;
+}
+
+/* Text input */
+.new_f-autocomplete-input,
+.new_f-datepicker-wrap button{
+  color: var(--zf-text) !important;
+}
+
+/* Placeholder */
+.new_f-autocomplete-input::-webkit-input-placeholder{ color: rgba(31,41,55,.45) !important; }
+.new_f-autocomplete-input::-moz-placeholder{ color: rgba(31,41,55,.45) !important; }
+.new_f-autocomplete-input:-ms-input-placeholder{ color: rgba(31,41,55,.45) !important; }
+.new_f-autocomplete-input:-moz-placeholder{ color: rgba(31,41,55,.45) !important; }
+
+/* Buton submit */
+.new_f-form .new_f-form-submit{
+  background: linear-gradient(135deg, #ff8a00, #ffb24a) !important;
+  box-shadow: 0 10px 22px rgba(255,138,0,.22) !important;
+  border-radius: 0 12px 12px 0 !important;
+}
+.new_f-form .new_f-form-submit:hover{
+  background: linear-gradient(135deg, #ff7a00, #ffad3a) !important;
+}
+
+/* Dropdown container: fără să schimbăm display/position */
+.new_f-dropdown-body{
+  border-radius: 12px !important;
+  border: 1px solid rgba(17,24,39,.14) !important;
+  box-shadow: 0 10px 22px rgba(17,24,39,.12) !important;
+}
+
+/* Dropdown items */
+.new_f-dropdown-item{
+  padding: 8px 12px !important;
+}
+.new_f-dropdown-item:hover{
+  background: rgba(47,128,237,.08) !important;
+}
+.new_f-dropdown-item.selected{
+  background: rgba(47,128,237,.12) !important;
+}
+
+/* People chips */
+.new_f-people-item{
+  border-radius: 10px !important;
+}
+.new_f-people-item.active{
+  background: linear-gradient(135deg, rgba(47,128,237,1), rgba(86,204,242,1)) !important;
+  color:#fff !important;
+}
+
+/* Ext search: doar fundal, fără schimbări de layout */
+.new_f-ext-container{
+  background: #eef3fb !important;
+}
+
+/* Mobile: doar radius/shadow */
+@media (max-width: 478px){
+  .new_mobile-form .new_f-form-field,
+  .new_m-mobile-form:not(.new_mobile-form) .new_f-form-field{
+    border-radius: 14px !important;
+    box-shadow: 0 10px 20px rgba(17,24,39,.10) !important;
+  }
+  .new_mobile-form .new_f-form .new_f-form-submit{
+    border-radius: 14px !important;
+  }
+}
