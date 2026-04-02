@@ -8,7 +8,7 @@ body {
 }
 .new_f-container #new_os-to .ui-autocomplete {
 	position: static !important;
-	width: 100% !important;
+	width: 30% !important;
 	display: block !important;
 	border: none !important;
 	background: #ffefff !important;
