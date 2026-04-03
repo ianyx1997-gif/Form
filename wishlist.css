@@ -586,3 +586,55 @@
 		height: 20px !important;
 	}
 }
+
+/* ============================================================
+   BEST DEAL HIGHLIGHT (applied via JS highlightBestDeal)
+   ============================================================ */
+.new_r-item-wrap.best-deal {
+	position: relative !important;
+}
+.new_r-item-wrap.best-deal .new_r-item {
+	border: 2px solid #ef4444 !important;
+	box-shadow: 0 0 25px rgba(239,68,68,0.2) !important;
+}
+.new_r-item-wrap.best-deal::before {
+	content: '🔥 Cel mai bun preț · REDUCERE -20%';
+	position: absolute;
+	top: -12px;
+	left: 10px;
+	background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+	color: #fff;
+	padding: 5px 14px;
+	border-radius: 8px;
+	font-size: 12px;
+	font-weight: 800;
+	z-index: 10;
+	letter-spacing: 0.3px;
+	box-shadow: 0 4px 12px rgba(239,68,68,0.4);
+	text-transform: uppercase;
+}
+@keyframes bestDealGlow {
+	0%, 100% { box-shadow: 0 0 15px rgba(239,68,68,0.15); }
+	50% { box-shadow: 0 0 30px rgba(239,68,68,0.3); }
+}
+.new_r-item-wrap.best-deal .new_r-item {
+	animation: bestDealGlow 2s ease infinite !important;
+}
+/* Discount badge on price */
+.new_r-item-wrap.best-deal .new_r-item-price {
+	position: relative !important;
+}
+.new_r-item-wrap.best-deal .new_r-item-price::before {
+	content: '-20%';
+	position: absolute;
+	top: -8px;
+	right: -8px;
+	background: #ef4444;
+	color: #fff;
+	font-size: 10px;
+	font-weight: 800;
+	padding: 2px 6px;
+	border-radius: 6px;
+	z-index: 5;
+	box-shadow: 0 2px 6px rgba(239,68,68,0.4);
+}
