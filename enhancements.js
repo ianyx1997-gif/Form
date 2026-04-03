@@ -13,33 +13,6 @@
     setTimeout(function() { clearInterval(check); }, 30000);
   }
 
-  // ===== 0. AUTO-LOAD MORE RESULTS (target: ~50) =====
-  function autoLoadMoreResults() {
-    var clicked = false;
-
-    function tryLoadMore() {
-      if (clicked) return;
-      var showMore = document.querySelector('.new_r-show-more-results');
-      if (!showMore || getComputedStyle(showMore).display === 'none') return;
-
-      clicked = true;
-      showMore.click();
-    }
-
-    // Try once after first results appear
-    setTimeout(tryLoadMore, 500);
-
-    // Also auto-load once when user triggers a new search
-    var observer = new MutationObserver(function() {
-      clicked = false;
-      setTimeout(tryLoadMore, 1500);
-    });
-    var wrapper = document.querySelector('.new_r-wrapper');
-    if (wrapper) {
-      observer.observe(wrapper, { childList: true });
-    }
-  }
-
   // ===== 1. SCROLL TO TOP BUTTON =====
   function createScrollTopButton() {
     var btn = document.createElement('button');
@@ -1041,7 +1014,10 @@
     shareRow2.appendChild(viberBtn2);
     footer.appendChild(shareRow2);
 
-    // Clear all button
+    // Bottom row: clear + close
+    var bottomRow = document.createElement('div');
+    bottomRow.style.cssText = 'display:flex!important;gap:8px!important;justify-content:center!important;';
+
     var clearBtn = document.createElement('button');
     clearBtn.className = 'zebra-wishlist-clear-btn';
     clearBtn.textContent = 'Șterge toate';
@@ -1050,7 +1026,17 @@
       renderWishlistPanel();
       document.querySelectorAll('.zebra-heart-btn.active').forEach(function(h) { h.classList.remove('active'); });
     });
-    footer.appendChild(clearBtn);
+    bottomRow.appendChild(clearBtn);
+
+    var closeBtn = document.createElement('button');
+    closeBtn.className = 'zebra-wishlist-close-btn';
+    closeBtn.textContent = 'Închide';
+    closeBtn.addEventListener('click', function() {
+      toggleWishlistPanel(false);
+    });
+    bottomRow.appendChild(closeBtn);
+
+    footer.appendChild(bottomRow);
   }
 
 
@@ -1188,7 +1174,7 @@
   }
 
   waitForWidget(function() {
-    autoLoadMoreResults();
+
     createResultsCounter();
     highlightBestDeal();
     setupScrollReveal();
