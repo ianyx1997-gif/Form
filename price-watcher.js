@@ -1,16 +1,15 @@
 /* ============================================================
    ZEBRA TOUR – PRICE WATCHER (Frontend)
-   Adds "Urmareste pretul" button in wishlist & on tour results
-   Sends data to backend API for price tracking & email alerts
+   Adds "Urmareste pretul" button on tour results
+   Sends data + search params to backend for price tracking
    ============================================================ */
-
 (function() {
   'use strict';
 
   // ===== CONFIG — change this to your Railway backend URL =====
   var PW_API_URL = 'https://web-production-a7362.up.railway.app';
   var PW_WISHLIST_KEY = 'zebra_wishlist';
-  var PW_EMAIL_KEY = 'pw_user_email'; // remember email in localStorage
+  var PW_EMAIL_KEY = 'pw_user_email';
 
   // ===== TOAST =====
   function pwToast(msg) {
@@ -37,54 +36,94 @@
     }
   }
 
-  // ===== GET SAVED EMAIL =====
+  // ===== GET/SAVE EMAIL =====
   function getSavedEmail() {
-    try { return localStorage.getItem(PW_EMAIL_KEY) || ''; }
-    catch(e) { return ''; }
+    try { return localStorage.getItem(PW_EMAIL_KEY) || ''; } catch(e) { return ''; }
+  }
+  function saveEmail(email) {
+    try { localStorage.setItem(PW_EMAIL_KEY, email); } catch(e) {}
   }
 
-  function saveEmail(email) {
-    try { localStorage.setItem(PW_EMAIL_KEY, email); }
-    catch(e) {}
+  // ===== EXTRACT SEARCH PARAMS FROM WIDGET =====
+  // Uses Performance API to find the last Otpusk search URL and extract its params
+  function extractSearchParams() {
+    try {
+      var entries = performance.getEntriesByType('resource');
+      var searchEntries = entries.filter(function(e) {
+        return e.name.indexOf('tours/search') > -1 && e.name.indexOf('api.otpusk.com') > -1;
+      });
+
+      if (searchEntries.length === 0) return null;
+
+      // Get the most recent search URL
+      var lastSearch = searchEntries[searchEntries.length - 1];
+      var url = new URL(lastSearch.name);
+      var params = {};
+
+      // Extract the important search parameters
+      var keys = ['to', 'checkIn', 'checkTo', 'length', 'lengthTo', 'people', 'food', 'transport', 'stars', 'deptCity', 'currencyLocal', 'rating', 'price', 'priceTo', 'services'];
+      keys.forEach(function(k) {
+        var v = url.searchParams.get(k);
+        if (v !== null && v !== '') params[k] = v;
+      });
+
+      // Map to server-expected format
+      return {
+        countryId: params.to || null,
+        checkIn: params.checkIn || null,
+        checkTo: params.checkTo || params.checkIn || null,
+        length: params.length || '7',
+        lengthTo: params.lengthTo || '',
+        people: params.people || '2',
+        food: params.food || '',
+        transport: params.transport || 'air',
+        stars: params.stars || '',
+        deptCity: params.deptCity || '1831',
+        currencyLocal: params.currencyLocal || 'eur',
+        price: params.price || '',
+        priceTo: params.priceTo || ''
+      };
+    } catch(e) {
+      console.log('[PriceWatcher] Could not extract search params:', e.message);
+      return null;
+    }
   }
 
   // ===== EXTRACT TOUR DATA FROM RESULT CARD (Otpusk widget) =====
   function extractTourFromCard(card) {
     var tour = {};
 
-    // Hotel name — Otpusk uses .new_r-item-hotel
+    // Hotel name
     var nameEl = card.querySelector('.new_r-item-hotel');
     if (nameEl) tour.name = nameEl.textContent.trim();
 
-    // Price — Otpusk uses .new_price-value
+    // Price
     var priceEl = card.querySelector('.new_price-value');
     if (priceEl) {
       var priceText = priceEl.textContent.replace(/[^\d.,]/g, '').replace(',', '.');
       tour.price = parseFloat(priceText);
     }
 
-    // Currency from price description
+    // Currency
     var priceDesc = card.querySelector('.new_price-desc');
     if (priceDesc) {
       var descText = priceDesc.textContent.trim();
       if (descText.indexOf('€') > -1 || descText.indexOf('eur') > -1) tour.currency = 'EUR';
       else if (descText.indexOf('$') > -1 || descText.indexOf('usd') > -1) tour.currency = 'USD';
     }
-    // Also check the price value itself for currency symbol
     if (!tour.currency && priceEl) {
       var pvt = priceEl.textContent;
       if (pvt.indexOf('€') > -1) tour.currency = 'EUR';
       else if (pvt.indexOf('$') > -1) tour.currency = 'USD';
     }
 
-    // Geo — Otpusk uses .new_r-item-geo
+    // Geo
     var geoEl = card.querySelector('.new_r-item-geo');
     if (geoEl) {
-      var geoText = geoEl.textContent.trim().replace('Arată pe hartă', '').trim();
-      tour.geo = geoText;
+      tour.geo = geoEl.textContent.trim().replace('Arată pe hartă', '').trim();
     }
 
-    // Food — Otpusk uses .new_r-item-food
+    // Food
     var foodEl = card.querySelector('.new_r-item-food');
     if (foodEl) tour.food = foodEl.textContent.trim();
 
@@ -92,12 +131,18 @@
     var imgEl = card.querySelector('.new_r-item-img img, img');
     if (imgEl) tour.img = imgEl.src || imgEl.getAttribute('data-src') || '';
 
-    // Tour link — find the main link in the card
+    // Tour link
     var linkEl = card.querySelector('a[href]');
     if (linkEl) tour.link = linkEl.href;
 
-    // Tour ID — extract from link (hid parameter or path)
-    if (tour.link) {
+    // Tour/Hotel ID — from the parent wrapper data-id attribute
+    var wrapper = card.closest('.new_r-item-wrap[data-id]') || card.closest('[data-id]');
+    if (wrapper) {
+      tour.id = wrapper.getAttribute('data-id');
+    }
+
+    // Fallback: extract from link
+    if (!tour.id && tour.link) {
       var hidMatch = tour.link.match(/hid=(\d+)/);
       if (hidMatch) tour.id = hidMatch[1];
       else {
@@ -105,12 +150,21 @@
         if (pathMatch) tour.id = pathMatch[1];
       }
     }
+
     // Fallback ID from name
     if (!tour.id && tour.name) {
       tour.id = tour.name.toLowerCase().replace(/[^a-z0-9]/g, '_');
     }
 
-    // Dates — try to find from .new_r-item-col or table
+    // Stars — from wrapper or card
+    var starsEl = card.querySelector('.new_r-item-stars, [class*="stars"]');
+    if (starsEl) {
+      var starsText = starsEl.textContent.trim();
+      var starsNum = parseInt(starsText);
+      if (starsNum >= 1 && starsNum <= 5) tour.stars = starsNum;
+    }
+
+    // Dates
     var cols = card.querySelectorAll('.new_r-item-col');
     cols.forEach(function(col) {
       var text = col.textContent.trim();
@@ -134,9 +188,7 @@
     var overlay = document.createElement('div');
     overlay.id = 'pwModalOverlay';
     overlay.className = 'pw-modal-overlay';
-    overlay.addEventListener('click', function(e) {
-      if (e.target === overlay) closePwModal();
-    });
+    overlay.addEventListener('click', function(e) { if (e.target === overlay) closePwModal(); });
 
     var modal = document.createElement('div');
     modal.className = 'pw-modal';
@@ -144,7 +196,7 @@
     // Header
     var header = document.createElement('div');
     header.className = 'pw-modal-header';
-    header.innerHTML = '<span class="pw-modal-title">🔔 Urmareste pretul</span>';
+    header.innerHTML = '<span class="pw-modal-title">\uD83D\uDD14 Urmareste pretul</span>';
     var closeBtn = document.createElement('button');
     closeBtn.className = 'pw-modal-close';
     closeBtn.innerHTML = '&times;';
@@ -161,8 +213,8 @@
     tourInfo.className = 'pw-tour-info';
     var html = '<div class="pw-tour-name">' + (tour.name || 'Hotel') + '</div>';
     html += '<div class="pw-tour-price">' + (tour.price || '') + (tour.currency ? ' ' + tour.currency : '') + '</div>';
-    if (tour.geo) html += '<div class="pw-tour-detail">📍 ' + tour.geo + '</div>';
-    if (tour.dates) html += '<div class="pw-tour-detail">📅 ' + tour.dates + '</div>';
+    if (tour.geo) html += '<div class="pw-tour-detail">\uD83D\uDCCD ' + tour.geo + '</div>';
+    if (tour.dates) html += '<div class="pw-tour-detail">\uD83D\uDCC5 ' + tour.dates + '</div>';
     tourInfo.innerHTML = html;
     body.appendChild(tourInfo);
 
@@ -174,7 +226,6 @@
     label.textContent = 'Email-ul tau:';
     label.setAttribute('for', 'pwEmailInput');
     inputGroup.appendChild(label);
-
     var emailInput = document.createElement('input');
     emailInput.type = 'email';
     emailInput.id = 'pwEmailInput';
@@ -187,7 +238,7 @@
     // Submit button
     var submitBtn = document.createElement('button');
     submitBtn.className = 'pw-submit-btn';
-    submitBtn.textContent = '🔔 Activeaza urmarirea pretului';
+    submitBtn.textContent = '\uD83D\uDD14 Activeaza urmarirea pretului';
     submitBtn.addEventListener('click', function() {
       var email = emailInput.value.trim();
       if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -197,10 +248,12 @@
       }
 
       submitBtn.disabled = true;
-      submitBtn.textContent = '⏳ Se trimite...';
+      submitBtn.textContent = '\u23F3 Se trimite...';
       saveEmail(email);
 
-      // Send to API
+      // Capture search params from the widget's last search
+      var searchParams = extractSearchParams();
+
       var payload = {
         email: email,
         tourId: tour.id || tour.name || 'unknown',
@@ -208,11 +261,12 @@
         tourUrl: tour.link || null,
         tourImg: tour.img || null,
         price: tour.price,
-        currency: tour.currency || 'USD',
+        currency: tour.currency || 'EUR',
         geo: tour.geo || null,
         dates: tour.dates || null,
         stars: tour.stars || null,
-        food: tour.food || null
+        food: tour.food || null,
+        searchParams: searchParams
       };
 
       fetch(PW_API_URL + '/api/watch', {
@@ -226,22 +280,20 @@
           body.innerHTML = '';
           var success = document.createElement('div');
           success.className = 'pw-success-msg';
-          success.innerHTML =
-            '<div class="pw-success-icon">✅</div>' +
+          success.innerHTML = '<div class="pw-success-icon">\u2705</div>' +
             '<div class="pw-success-text">Urmarirea pretului activata!</div>' +
             '<div class="pw-success-sub">Vei primi o notificare pe <strong>' + email + '</strong> cand pretul se schimba cu mai mult de 3%.</div>';
           body.appendChild(success);
-
           setTimeout(closePwModal, 3000);
         } else {
           submitBtn.disabled = false;
-          submitBtn.textContent = '🔔 Activeaza urmarirea pretului';
+          submitBtn.textContent = '\uD83D\uDD14 Activeaza urmarirea pretului';
           pwToast(data.error || 'Eroare. Incearca din nou.');
         }
       })
       .catch(function() {
         submitBtn.disabled = false;
-        submitBtn.textContent = '🔔 Activeaza urmarirea pretului';
+        submitBtn.textContent = '\uD83D\uDD14 Activeaza urmarirea pretului';
         pwToast('Eroare de conexiune. Incearca din nou.');
       });
     });
@@ -250,15 +302,13 @@
     // Hint
     var hint = document.createElement('div');
     hint.className = 'pw-hint';
-    hint.textContent = 'Verificam pretul la fiecare ora. Te poti dezabona oricand din email.';
+    hint.textContent = 'Verificam pretul periodic. Te poti dezabona oricand din email.';
     body.appendChild(hint);
 
     modal.appendChild(body);
     overlay.appendChild(modal);
     document.body.appendChild(overlay);
     setTimeout(function() { overlay.classList.add('pw-modal-open'); }, 10);
-
-    // Focus email input if empty
     if (!emailInput.value) {
       setTimeout(function() { emailInput.focus(); }, 400);
     }
@@ -271,22 +321,16 @@
   function addWatchButtonsToWishlist() {
     var panel = document.getElementById('zebraWishlistPanel');
     if (!panel) return;
-
     var items = panel.querySelectorAll('.zebra-wishlist-item');
     items.forEach(function(item) {
-      if (item.querySelector('.pw-watch-btn')) return; // already has button
-
-      // Get tour data from the wishlist item
+      if (item.querySelector('.pw-watch-btn')) return;
       var tour = {};
       try {
         var wishlist = JSON.parse(localStorage.getItem(PW_WISHLIST_KEY)) || [];
-        // Try to match by index or name
         var idx = Array.prototype.indexOf.call(item.parentElement.children, item);
         if (wishlist[idx]) tour = wishlist[idx];
       } catch(e) {}
-
       if (!tour.price) return;
-
       var btn = document.createElement('button');
       btn.className = 'pw-watch-btn';
       btn.innerHTML = bellSvg + ' Urmareste pretul';
@@ -294,28 +338,19 @@
         e.stopPropagation();
         openWatchModal(tour);
       });
-
-      // Insert button near the price or at the bottom of the item
       var priceEl = item.querySelector('.zebra-wishlist-price, [class*="price"]');
-      if (priceEl) {
-        priceEl.parentNode.insertBefore(btn, priceEl.nextSibling);
-      } else {
-        item.appendChild(btn);
-      }
+      if (priceEl) priceEl.parentNode.insertBefore(btn, priceEl.nextSibling);
+      else item.appendChild(btn);
     });
   }
 
   // ===== ADD WATCH BUTTON TO TOUR RESULT CARDS =====
   function addWatchButtonsToResults() {
-    // Otpusk widget uses .new_r-item for tour cards
     var cards = document.querySelectorAll('.new_r-item');
-
     cards.forEach(function(card) {
-      if (card.querySelector('.pw-result-watch-btn')) return; // already has button
-
+      if (card.querySelector('.pw-result-watch-btn')) return;
       var tour = extractTourFromCard(card);
       if (!tour.price) return;
-
       var btn = document.createElement('button');
       btn.className = 'pw-result-watch-btn';
       btn.innerHTML = bellSvg + ' Urmareste pretul';
@@ -324,18 +359,12 @@
         e.preventDefault();
         openWatchModal(tour);
       });
-
-      // Insert near the price block or after the heart button
       var priceBlock = card.querySelector('.new_r-item-price');
-      if (priceBlock) {
-        priceBlock.parentNode.insertBefore(btn, priceBlock.nextSibling);
-      } else {
+      if (priceBlock) priceBlock.parentNode.insertBefore(btn, priceBlock.nextSibling);
+      else {
         var heartBtn = card.querySelector('.zebra-heart-btn');
-        if (heartBtn) {
-          heartBtn.parentNode.insertBefore(btn, heartBtn.nextSibling);
-        } else {
-          card.appendChild(btn);
-        }
+        if (heartBtn) heartBtn.parentNode.insertBefore(btn, heartBtn.nextSibling);
+        else card.appendChild(btn);
       }
     });
   }
@@ -343,26 +372,18 @@
   // ===== WATCH FOR DOM CHANGES =====
   function watchForChanges() {
     var observer = new MutationObserver(function() {
-      // Re-inject buttons when DOM changes (new results loaded, wishlist opened)
       var panel = document.getElementById('zebraWishlistPanel');
       if (panel && panel.classList.contains('open')) {
         setTimeout(addWatchButtonsToWishlist, 200);
       }
       setTimeout(addWatchButtonsToResults, 200);
     });
-
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true,
-      attributes: true,
-      attributeFilter: ['class']
-    });
+    observer.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['class'] });
   }
 
   // ===== INIT =====
   function initPriceWatcher() {
     watchForChanges();
-    // Try to inject immediately and after delays (for async-loaded content)
     setTimeout(addWatchButtonsToWishlist, 2000);
     setTimeout(addWatchButtonsToResults, 2000);
     setTimeout(addWatchButtonsToWishlist, 5000);
