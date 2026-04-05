@@ -2702,27 +2702,26 @@
    MODERN UI OVERRIDES — aesthetic only, no functional changes
    ============================================================ */
 
-/* ===== MAIN CONTAINER — deep glass gradient + glow ===== */
+/* ===== MAIN CONTAINER — soft glass gradient ===== */
 .new_f-container {
-	background: linear-gradient(135deg, #2563a8 0%, #3b82d4 40%, #5ba3e6 70%, #7dc4ff 100%) !important;
+	background: linear-gradient(135deg, rgba(80,160,230,0.9) 0%, rgba(105,185,248,0.85) 50%, rgba(130,200,255,0.8) 100%) !important;
 	border-radius: 20px !important;
-	border: 1px solid rgba(255,255,255,0.3) !important;
+	border: 1px solid rgba(255,255,255,0.35) !important;
 	box-shadow:
-		0 16px 48px rgba(20,50,120,0.25),
-		0 4px 12px rgba(0,0,0,0.1),
-		inset 0 1px 0 rgba(255,255,255,0.35),
-		inset 0 -1px 0 rgba(0,0,0,0.05) !important;
+		0 12px 40px rgba(60,120,200,0.15),
+		0 2px 8px rgba(0,0,0,0.05),
+		inset 0 1px 0 rgba(255,255,255,0.4) !important;
 }
 .new_f-container.ext-opened {
 	border-radius: 20px !important;
 }
 
-/* ===== TITLE — bold, modern ===== */
+/* ===== TITLE — clean, light ===== */
 .new_f-title {
-	font-size: 21px !important;
-	font-weight: 700 !important;
-	letter-spacing: 0.4px !important;
-	text-shadow: 0 2px 6px rgba(0,0,0,0.2) !important;
+	font-size: 20px !important;
+	font-weight: 600 !important;
+	letter-spacing: 0.3px !important;
+	text-shadow: 0 1px 3px rgba(0,0,0,0.1) !important;
 }
 
 /* ===== FORM FIELDS — crisp white, soft hover glow ===== */
@@ -2753,42 +2752,41 @@
 	color: #444 !important;
 }
 
-/* ===== SEARCH BUTTON — bold gradient + glow ===== */
+/* ===== SEARCH BUTTON — warm, soft ===== */
 .new_f-form .new_f-form-submit {
 	border-radius: 0 14px 14px 0 !important;
-	background: linear-gradient(160deg, #f7941d 0%, #ff6b35 100%) !important;
-	box-shadow: 0 4px 16px rgba(247,107,53,0.35) !important;
+	background: linear-gradient(160deg, #f9a840 0%, #f7941d 100%) !important;
+	box-shadow: 0 3px 12px rgba(247,148,29,0.25) !important;
 	transition: all 0.3s ease !important;
 	font-size: 15px !important;
-	letter-spacing: 0.5px !important;
+	letter-spacing: 0.3px !important;
 }
 .new_f-form .new_f-form-submit:hover {
-	background: linear-gradient(160deg, #ff8c00 0%, #ff5722 100%) !important;
-	box-shadow: 0 6px 24px rgba(247,107,53,0.5) !important;
+	background: linear-gradient(160deg, #f7941d 0%, #f08010 100%) !important;
+	box-shadow: 0 5px 18px rgba(247,148,29,0.35) !important;
 	transform: translateY(-1px);
 }
 
-/* ===== "CAUTARE AVANSATA" BUTTON — highlighted ===== */
+/* ===== "CAUTARE AVANSATA" BUTTON — glass pill ===== */
 .new_f-ext-btn-container {
 	margin-top: 10px !important;
 	margin-bottom: 22px !important;
 }
 .new_f-form .new_f-ext-btn {
-	background: rgba(255,255,255,0.18) !important;
-	border: 1px solid rgba(255,255,255,0.3) !important;
-	border-radius: 10px !important;
-	padding: 6px 16px 6px 14px !important;
+	background: rgba(255,255,255,0.15) !important;
+	border: 1px solid rgba(255,255,255,0.25) !important;
+	border-radius: 20px !important;
+	padding: 5px 16px 5px 14px !important;
 	transition: all 0.25s ease !important;
 }
 .new_f-form .new_f-ext-btn:hover {
-	background: rgba(255,255,255,0.28) !important;
-	border-color: rgba(255,255,255,0.45) !important;
+	background: rgba(255,255,255,0.25) !important;
+	border-color: rgba(255,255,255,0.4) !important;
 }
 .new_f-ext-btn-text {
 	text-decoration: none !important;
-	font-weight: 600 !important;
+	font-weight: 500 !important;
 	font-size: 13px !important;
-	letter-spacing: 0.3px !important;
 }
 
 /* ===== ARROW ICONS — soft ===== */
@@ -2802,7 +2800,7 @@
 }
 .new_f-dropdown-btn .cnt::after,
 .new_f-dropdown-btn::after {
-	border-color: #5ba3e6 transparent transparent !important;
+	border-color: #8ab8e6 transparent transparent !important;
 }
 
 /* ===== DROPDOWNS — rounded + layered shadow ===== */
@@ -2812,11 +2810,11 @@
 	box-shadow: 0 12px 40px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.06) !important;
 }
 
-/* ===== DROPDOWN / MODAL HEADER — gradient ===== */
+/* ===== DROPDOWN / MODAL HEADER — soft gradient ===== */
 .new_t-tab-content-top,
 .new_t-modal-body-top,
 .new_f-dropdown-body-top {
-	background: linear-gradient(135deg, #2563a8 0%, #3b82d4 100%) !important;
+	background: linear-gradient(135deg, rgba(80,160,230,0.95) 0%, rgba(110,188,250,0.95) 100%) !important;
 }
 
 /* ===== DROPDOWN CLOSE — fade ===== */
@@ -2835,39 +2833,39 @@
 /* ===== CHECKBOXES — CSS-only checkmark (no SVG needed) ===== */
 [class*='new_f-'] input[type="checkbox"] + *::before {
 	border-radius: 4px !important;
-	border: 1.5px solid #b0b8c4 !important;
+	border: 1.5px solid #c0c8d0 !important;
 	background-color: #fff !important;
 }
 [class*='new_f-'] input[type="checkbox"]:checked + *::before {
-	background-color: #2563a8 !important;
-	border-color: #2563a8 !important;
+	background-color: #6aafe6 !important;
+	border-color: #6aafe6 !important;
 }
 [class*='new_f-'] input[type="checkbox"]:checked + *::after {
 	background: none !important;
 	background-image: none !important;
-	width: 5px !important;
-	height: 9px !important;
+	width: 4px !important;
+	height: 8px !important;
 	border: solid #fff !important;
-	border-width: 0 2.5px 2.5px 0 !important;
+	border-width: 0 2px 2px 0 !important;
 	transform: rotate(45deg) !important;
-	left: 5px !important;
-	top: 4px !important;
+	left: 6px !important;
+	top: 5px !important;
 	visibility: visible !important;
 	display: block !important;
 	opacity: 1 !important;
 }
-/* Fallback: if white tick invisible, also color the box distinctly */
+/* Recommend checkboxes */
 .new_f-ext-col-recommend input[type="checkbox"]:checked + ::before {
-	background-color: #2563a8 !important;
-	border-color: #2563a8 !important;
+	background-color: #6aafe6 !important;
+	border-color: #6aafe6 !important;
 }
 .new_f-ext-col-recommend input[type="checkbox"]:checked + ::after {
 	background: none !important;
 	background-image: none !important;
-	width: 5px !important;
-	height: 9px !important;
+	width: 4px !important;
+	height: 8px !important;
 	border: solid #fff !important;
-	border-width: 0 2.5px 2.5px 0 !important;
+	border-width: 0 2px 2px 0 !important;
 	transform: rotate(45deg) !important;
 	visibility: visible !important;
 	display: block !important;
@@ -2881,25 +2879,24 @@
 	border: 1px solid rgba(0,0,0,0.07) !important;
 }
 
-/* ===== EXTENDED FILTERS — glass-style panel ===== */
+/* ===== EXTENDED FILTERS — soft panel ===== */
 .new_f-ext-container {
 	border-radius: 0 0 20px 20px !important;
-	border: 1px solid rgba(0,0,0,0.05) !important;
+	border: 1px solid rgba(0,0,0,0.04) !important;
 	border-top: none !important;
-	background: linear-gradient(180deg, #f4f7fa 0%, #edf1f5 100%) !important;
-	box-shadow: inset 0 1px 0 rgba(255,255,255,0.6) !important;
+	background: rgba(248,250,252,0.95) !important;
 }
 
 /* ===== EXTENDED FILTERS — APPLY BUTTON ===== */
 .new_f-ext-container .new_f-dropdown-btn-apply {
 	border-radius: 10px !important;
-	background: linear-gradient(160deg, #f7941d 0%, #ff6b35 100%) !important;
-	box-shadow: 0 3px 12px rgba(247,107,53,0.25) !important;
+	background: linear-gradient(160deg, #f9a840 0%, #f7941d 100%) !important;
+	box-shadow: 0 3px 10px rgba(247,148,29,0.2) !important;
 	transition: all 0.3s ease !important;
 }
 .new_f-ext-container .new_f-dropdown-btn-apply:hover {
-	background: linear-gradient(160deg, #ff8c00 0%, #ff5722 100%) !important;
-	box-shadow: 0 5px 18px rgba(247,107,53,0.4) !important;
+	background: linear-gradient(160deg, #f7941d 0%, #f08010 100%) !important;
+	box-shadow: 0 4px 14px rgba(247,148,29,0.3) !important;
 	transform: translateY(-1px);
 }
 
@@ -2907,12 +2904,12 @@
 .new_f-ext-container .ui-slider .ui-slider-handle {
 	border-radius: 50% !important;
 	box-shadow: 0 2px 6px rgba(0,0,0,0.18) !important;
-	border: 2px solid #3b82d4 !important;
+	border: 2px solid #8ab8e6 !important;
 	background: #fff !important;
 	transition: box-shadow 0.2s ease !important;
 }
 .new_f-ext-container .ui-slider .ui-slider-handle:hover {
-	box-shadow: 0 3px 12px rgba(59,130,212,0.35) !important;
+	box-shadow: 0 3px 10px rgba(100,170,230,0.3) !important;
 }
 
 /* ===== FILTER CHECKBOX WRAPS ===== */
@@ -2923,7 +2920,7 @@
 /* ===== "NOT FOUND" BUTTON ===== */
 .new_not-found-message .os-order-form-submit_button {
 	border-radius: 10px !important;
-	background: linear-gradient(160deg, #f7941d 0%, #ff6b35 100%) !important;
+	background: linear-gradient(160deg, #f9a840 0%, #f7941d 100%) !important;
 }
 
 /* ===== MOBILE — rounded fields + button ===== */
@@ -2933,8 +2930,8 @@
 }
 .new_m-mobile-form:not(.new_mobile-form) .new_f-form-submit {
 	border-radius: 12px !important;
-	background: linear-gradient(160deg, #f7941d 0%, #ff6b35 100%) !important;
-	box-shadow: 0 4px 16px rgba(247,107,53,0.3) !important;
+	background: linear-gradient(160deg, #f9a840 0%, #f7941d 100%) !important;
+	box-shadow: 0 3px 12px rgba(247,148,29,0.2) !important;
 }
 
 /* ===== SCROLLBAR — thin, elegant ===== */
