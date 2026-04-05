@@ -5,239 +5,291 @@
 
 /* ===== WATCH PRICE BUTTON (in wishlist, next to each tour) ===== */
 .pw-watch-btn {
-	display: inline-flex !important;
-	align-items: center !important;
-	gap: 4px !important;
-	padding: 5px 10px !important;
-	border: none !important;
-	border-radius: 8px !important;
-	font-size: 11px !important;
-	font-weight: 600 !important;
-	cursor: pointer !important;
-	transition: all 0.2s ease !important;
-	background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
-	color: #fff !important;
-	box-shadow: 0 2px 6px rgba(245,158,11,0.3) !important;
-	line-height: 1.2 !important;
-	white-space: nowrap !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  padding: 5px 10px !important;
+  border: none !important;
+  border-radius: 8px !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+  color: #fff !important;
+  box-shadow: 0 2px 6px rgba(245,158,11,0.3) !important;
+  line-height: 1.2 !important;
+  white-space: nowrap !important;
 }
 .pw-watch-btn:hover {
-	transform: translateY(-1px) !important;
-	box-shadow: 0 3px 10px rgba(245,158,11,0.4) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 3px 10px rgba(245,158,11,0.4) !important;
 }
 .pw-watch-btn.pw-watching {
-	background: linear-gradient(135deg, #16a34a 0%, #15803d 100%) !important;
-	box-shadow: 0 2px 6px rgba(22,163,74,0.3) !important;
+  background: linear-gradient(135deg, #16a34a 0%, #15803d 100%) !important;
+  box-shadow: 0 2px 6px rgba(22,163,74,0.3) !important;
 }
 .pw-watch-btn.pw-watching:hover {
-	box-shadow: 0 3px 10px rgba(22,163,74,0.4) !important;
+  box-shadow: 0 3px 10px rgba(22,163,74,0.4) !important;
 }
 .pw-watch-btn svg {
-	flex-shrink: 0 !important;
-	width: 14px !important;
-	height: 14px !important;
+  flex-shrink: 0 !important;
+  width: 14px !important;
+  height: 14px !important;
 }
 
 /* ===== WATCH BUTTON ON TOUR PAGE (results) ===== */
 .pw-result-watch-btn {
-	display: inline-flex !important;
-	align-items: center !important;
-	gap: 5px !important;
-	padding: 7px 14px !important;
-	border: none !important;
-	border-radius: 10px !important;
-	font-size: 12.5px !important;
-	font-weight: 600 !important;
-	cursor: pointer !important;
-	transition: all 0.2s ease !important;
-	background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
-	color: #fff !important;
-	box-shadow: 0 2px 8px rgba(245,158,11,0.3) !important;
-	margin-top: 6px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  padding: 7px 14px !important;
+  border: none !important;
+  border-radius: 10px !important;
+  font-size: 12.5px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+  color: #fff !important;
+  box-shadow: 0 2px 8px rgba(245,158,11,0.3) !important;
+  margin-top: 6px !important;
 }
 .pw-result-watch-btn:hover {
-	transform: translateY(-1px) !important;
-	box-shadow: 0 4px 14px rgba(245,158,11,0.4) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 14px rgba(245,158,11,0.4) !important;
 }
 .pw-result-watch-btn.pw-watching {
-	background: linear-gradient(135deg, #16a34a 0%, #15803d 100%) !important;
+  background: linear-gradient(135deg, #16a34a 0%, #15803d 100%) !important;
 }
 
 /* ===== MODAL ===== */
 .pw-modal-overlay {
-	position: fixed !important;
-	top: 0 !important;
-	left: 0 !important;
-	width: 100% !important;
-	height: 100% !important;
-	background: rgba(0,0,0,0.5) !important;
-	z-index: 100001 !important;
-	display: flex !important;
-	align-items: center !important;
-	justify-content: center !important;
-	opacity: 0 !important;
-	transition: opacity 0.3s ease !important;
-	padding: 16px !important;
-	box-sizing: border-box !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: rgba(0,0,0,0.5) !important;
+  z-index: 100001 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  opacity: 0 !important;
+  transition: opacity 0.3s ease !important;
+  padding: 16px !important;
+  box-sizing: border-box !important;
 }
 .pw-modal-overlay.pw-modal-open {
-	opacity: 1 !important;
+  opacity: 1 !important;
 }
 .pw-modal {
-	background: #fff !important;
-	border-radius: 18px !important;
-	width: 100% !important;
-	max-width: 400px !important;
-	box-shadow: 0 20px 60px rgba(0,0,0,0.3) !important;
-	overflow: hidden !important;
-	transform: scale(0.9) !important;
-	transition: transform 0.3s ease !important;
+  background: #fff !important;
+  border-radius: 18px !important;
+  width: 100% !important;
+  max-width: 400px !important;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3) !important;
+  overflow: hidden !important;
+  transform: scale(0.9) !important;
+  transition: transform 0.3s ease !important;
 }
 .pw-modal-open .pw-modal {
-	transform: scale(1) !important;
+  transform: scale(1) !important;
 }
 .pw-modal-header {
-	background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
-	padding: 18px 20px !important;
-	display: flex !important;
-	align-items: center !important;
-	justify-content: space-between !important;
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+  padding: 18px 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
 }
 .pw-modal-title {
-	color: #fff !important;
-	font-size: 16px !important;
-	font-weight: 700 !important;
+  color: #fff !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
 }
 .pw-modal-close {
-	background: rgba(255,255,255,0.2) !important;
-	border: none !important;
-	color: #fff !important;
-	font-size: 22px !important;
-	cursor: pointer !important;
-	border-radius: 8px !important;
-	width: 32px !important;
-	height: 32px !important;
-	display: flex !important;
-	align-items: center !important;
-	justify-content: center !important;
-	line-height: 1 !important;
+  background: rgba(255,255,255,0.2) !important;
+  border: none !important;
+  color: #fff !important;
+  font-size: 22px !important;
+  cursor: pointer !important;
+  border-radius: 8px !important;
+  width: 32px !important;
+  height: 32px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  line-height: 1 !important;
 }
 .pw-modal-body {
-	padding: 24px 20px !important;
+  padding: 24px 20px !important;
 }
 .pw-tour-info {
-	background: #f8fafc !important;
-	border-radius: 12px !important;
-	padding: 14px !important;
-	margin-bottom: 20px !important;
-	border: 1px solid #e2e8f0 !important;
+  background: #f8fafc !important;
+  border-radius: 12px !important;
+  padding: 14px !important;
+  margin-bottom: 20px !important;
+  border: 1px solid #e2e8f0 !important;
 }
 .pw-tour-name {
-	font-size: 15px !important;
-	font-weight: 700 !important;
-	color: #1e293b !important;
-	margin-bottom: 4px !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  color: #1e293b !important;
+  margin-bottom: 4px !important;
 }
 .pw-tour-price {
-	font-size: 20px !important;
-	font-weight: 800 !important;
-	color: #f59e0b !important;
+  font-size: 20px !important;
+  font-weight: 800 !important;
+  color: #f59e0b !important;
 }
 .pw-tour-detail {
-	font-size: 12px !important;
-	color: #64748b !important;
-	margin-top: 2px !important;
+  font-size: 12px !important;
+  color: #64748b !important;
+  margin-top: 2px !important;
 }
+
+/* ===== TELEGRAM BUTTON ===== */
+.pw-telegram-btn {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  padding: 12px 16px !important;
+  background: #0088cc !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 10px !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  font-family: Arial, sans-serif !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  box-sizing: border-box !important;
+  box-shadow: 0 3px 12px rgba(0,136,204,0.3) !important;
+}
+.pw-telegram-btn:hover {
+  background: #006da3 !important;
+  color: #fff !important;
+  text-decoration: none !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 5px 18px rgba(0,136,204,0.4) !important;
+}
+.pw-telegram-btn svg {
+  flex-shrink: 0 !important;
+  margin-right: 6px !important;
+}
+
+/* ===== SEPARATOR (between Telegram and Email) ===== */
+.pw-separator {
+  display: flex !important;
+  align-items: center !important;
+  margin: 16px 0 !important;
+  color: #94a3b8 !important;
+  font-size: 13px !important;
+}
+.pw-separator::before,
+.pw-separator::after {
+  content: "" !important;
+  flex: 1 !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+}
+.pw-separator span {
+  padding: 0 12px !important;
+}
+
+/* ===== INPUT ===== */
 .pw-input-group {
-	margin-bottom: 16px !important;
+  margin-bottom: 16px !important;
 }
 .pw-input-label {
-	display: block !important;
-	font-size: 13px !important;
-	font-weight: 600 !important;
-	color: #374151 !important;
-	margin-bottom: 6px !important;
+  display: block !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: #374151 !important;
+  margin-bottom: 6px !important;
 }
 .pw-email-input {
-	width: 100% !important;
-	padding: 12px 14px !important;
-	border: 2px solid #e2e8f0 !important;
-	border-radius: 10px !important;
-	font-size: 15px !important;
-	outline: none !important;
-	transition: border-color 0.2s !important;
-	box-sizing: border-box !important;
+  width: 100% !important;
+  padding: 12px 14px !important;
+  border: 2px solid #e2e8f0 !important;
+  border-radius: 10px !important;
+  font-size: 15px !important;
+  outline: none !important;
+  transition: border-color 0.2s !important;
+  box-sizing: border-box !important;
 }
 .pw-email-input:focus {
-	border-color: #f59e0b !important;
+  border-color: #f59e0b !important;
 }
 .pw-submit-btn {
-	width: 100% !important;
-	padding: 13px !important;
-	border: none !important;
-	border-radius: 10px !important;
-	font-size: 15px !important;
-	font-weight: 700 !important;
-	cursor: pointer !important;
-	background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
-	color: #fff !important;
-	transition: all 0.2s ease !important;
-	box-shadow: 0 3px 12px rgba(245,158,11,0.3) !important;
+  width: 100% !important;
+  padding: 13px !important;
+  border: none !important;
+  border-radius: 10px !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+  color: #fff !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 3px 12px rgba(245,158,11,0.3) !important;
 }
 .pw-submit-btn:hover {
-	transform: translateY(-1px) !important;
-	box-shadow: 0 5px 18px rgba(245,158,11,0.4) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 5px 18px rgba(245,158,11,0.4) !important;
 }
 .pw-submit-btn:disabled {
-	opacity: 0.6 !important;
-	cursor: not-allowed !important;
-	transform: none !important;
+  opacity: 0.6 !important;
+  cursor: not-allowed !important;
+  transform: none !important;
 }
 .pw-hint {
-	font-size: 11.5px !important;
-	color: #94a3b8 !important;
-	text-align: center !important;
-	margin-top: 12px !important;
-	line-height: 1.4 !important;
+  font-size: 11.5px !important;
+  color: #94a3b8 !important;
+  text-align: center !important;
+  margin-top: 12px !important;
+  line-height: 1.4 !important;
 }
 .pw-success-msg {
-	text-align: center !important;
-	padding: 20px !important;
+  text-align: center !important;
+  padding: 20px !important;
 }
 .pw-success-icon {
-	font-size: 48px !important;
-	margin-bottom: 12px !important;
+  font-size: 48px !important;
+  margin-bottom: 12px !important;
 }
 .pw-success-text {
-	font-size: 15px !important;
-	color: #1e293b !important;
-	font-weight: 600 !important;
-	margin-bottom: 6px !important;
+  font-size: 15px !important;
+  color: #1e293b !important;
+  font-weight: 600 !important;
+  margin-bottom: 6px !important;
 }
 .pw-success-sub {
-	font-size: 13px !important;
-	color: #64748b !important;
+  font-size: 13px !important;
+  color: #64748b !important;
 }
 
 /* ===== TOAST ===== */
 .pw-toast {
-	position: fixed !important;
-	bottom: 30px !important;
-	left: 50% !important;
-	transform: translateX(-50%) translateY(20px) !important;
-	background: #1e293b !important;
-	color: #fff !important;
-	padding: 12px 24px !important;
-	border-radius: 12px !important;
-	font-size: 14px !important;
-	font-weight: 600 !important;
-	z-index: 200000 !important;
-	opacity: 0 !important;
-	transition: all 0.3s ease !important;
-	box-shadow: 0 6px 20px rgba(0,0,0,0.3) !important;
-	pointer-events: none !important;
+  position: fixed !important;
+  bottom: 30px !important;
+  left: 50% !important;
+  transform: translateX(-50%) translateY(20px) !important;
+  background: #1e293b !important;
+  color: #fff !important;
+  padding: 12px 24px !important;
+  border-radius: 12px !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  z-index: 200000 !important;
+  opacity: 0 !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3) !important;
+  pointer-events: none !important;
 }
 .pw-toast-show {
-	opacity: 1 !important;
-	transform: translateX(-50%) translateY(0) !important;
+  opacity: 1 !important;
+  transform: translateX(-50%) translateY(0) !important;
 }
