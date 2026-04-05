@@ -439,18 +439,15 @@
         openWatchModal(tour);
       });
 
-      // Insert button after the heart/favorite button
-      var heartBtn = card.querySelector('.zebra-heart-btn, .new_r-item-fav, [class*="heart"], [class*="fav"]');
-      if (heartBtn) {
-        heartBtn.insertAdjacentElement('afterend', btn);
+      // Insert button on the same line as the food type (e.g. "All inclusive"), floated right
+      var foodEl = card.querySelector('.new_r-item-food');
+      if (foodEl) {
+        foodEl.style.display = 'flex';
+        foodEl.style.alignItems = 'center';
+        foodEl.style.justifyContent = 'space-between';
+        foodEl.appendChild(btn);
       } else {
-        // Fallback: insert at the top-right area (after hotel name)
-        var nameEl = card.querySelector('.new_r-item-hotel');
-        if (nameEl) {
-          nameEl.insertAdjacentElement('afterend', btn);
-        } else {
-          card.appendChild(btn);
-        }
+        card.appendChild(btn);
       }
     });
   }
