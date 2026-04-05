@@ -2711,9 +2711,11 @@
 	border-radius: 16px !important;
 	border: 1px solid rgba(255,255,255,0.25) !important;
 	box-shadow: 0 8px 32px rgba(31,38,135,0.15), inset 0 1px 0 rgba(255,255,255,0.2) !important;
+	overflow: visible !important;
 }
 .new_f-container.ext-opened {
 	border-radius: 16px !important;
+	overflow: visible !important;
 }
 
 /* ===== FORM FIELDS — frosted glass style ===== */
@@ -2723,6 +2725,12 @@
 	backdrop-filter: blur(8px) !important;
 	-webkit-backdrop-filter: blur(8px) !important;
 	transition: all 0.3s ease !important;
+	overflow: visible !important;
+}
+.new_f-form,
+.new_f-wrapper,
+.new_f-dropdown-container {
+	overflow: visible !important;
 }
 .new_f-form-field:hover,
 .new_f-form-field:focus-within {
@@ -2757,7 +2765,7 @@
 	border: 1px solid rgba(200,200,200,0.4) !important;
 	border-radius: 12px !important;
 	box-shadow: 0 8px 32px rgba(0,0,0,0.1) !important;
-	overflow: hidden;
+	overflow: visible !important;
 }
 #new_os-to .new_f-dropdown-body {
 	border-radius: 12px !important;
@@ -2841,7 +2849,6 @@
 	border-radius: 14px !important;
 	box-shadow: 0 8px 32px rgba(0,0,0,0.12) !important;
 	border: 1px solid rgba(200,200,200,0.3) !important;
-	overflow: hidden;
 }
 
 /* ===== MOBILE FORM — rounded fields ===== */
