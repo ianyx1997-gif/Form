@@ -115,6 +115,8 @@
       currency: tour.currency || 'EUR',
       geo: tour.geo || null,
       dates: tour.dates || null,
+      offerDate: tour.offerDate || null,
+      offerNights: tour.offerNights || null,
       stars: tour.stars || null,
       food: tour.food || null,
       searchParams: searchParams
@@ -207,7 +209,15 @@
       if (starsNum >= 1 && starsNum <= 5) tour.stars = starsNum;
     }
 
-    // Dates — try to find from .new_r-item-col or table
+    // Dates & nights — extract from the offer link (od=date, ol=nights)
+    if (tour.link) {
+      var odMatch = tour.link.match(/od=([^&]+)/);
+      var olMatch = tour.link.match(/ol=(\d+)/);
+      if (odMatch) tour.offerDate = decodeURIComponent(odMatch[1]);
+      if (olMatch) tour.offerNights = parseInt(olMatch[1]);
+    }
+
+    // Visible dates from card columns (as fallback display text)
     var cols = card.querySelectorAll('.new_r-item-col');
     cols.forEach(function(col) {
       var text = col.textContent.trim();
@@ -215,6 +225,11 @@
         tour.dates = text.replace(/\s+/g, ' ').substring(0, 50);
       }
     });
+
+    // Build dates string from offer-specific data if available
+    if (tour.offerDate && tour.offerNights) {
+      tour.dates = tour.offerDate + ', ' + tour.offerNights + ' nopți';
+    }
 
     return tour;
   }
@@ -735,11 +750,12 @@
   // ===== WATCH FOR DOM CHANGES =====
   function watchForChanges() {
     var observer = new MutationObserver(function() {
-      var panel = document.getElementById('zebraWishlistPanel');
-      if (panel && panel.classList.contains('open')) {
-        setTimeout(addWatchButtonsToWishlist, 200);
-        setTimeout(addWatchAllButtonToWishlist, 300);
-      }
+      // Wishlist price watcher disabled
+      // var panel = document.getElementById('zebraWishlistPanel');
+      // if (panel && panel.classList.contains('open')) {
+      //   setTimeout(addWatchButtonsToWishlist, 200);
+      //   setTimeout(addWatchAllButtonToWishlist, 300);
+      // }
       setTimeout(addWatchButtonsToResults, 200);
       setTimeout(addWatchButtonToTourPage, 200);
     });
@@ -749,14 +765,15 @@
   // ===== INIT =====
   function initPriceWatcher() {
     watchForChanges();
-    setTimeout(addWatchButtonsToWishlist, 2000);
+    // Wishlist price watcher disabled
+    // setTimeout(addWatchButtonsToWishlist, 2000);
+    // setTimeout(addWatchAllButtonToWishlist, 2500);
+    // setTimeout(addWatchButtonsToWishlist, 5000);
+    // setTimeout(addWatchAllButtonToWishlist, 5500);
     setTimeout(addWatchButtonsToResults, 2000);
     setTimeout(addWatchButtonToTourPage, 2000);
-    setTimeout(addWatchAllButtonToWishlist, 2500);
-    setTimeout(addWatchButtonsToWishlist, 5000);
     setTimeout(addWatchButtonsToResults, 5000);
     setTimeout(addWatchButtonToTourPage, 5000);
-    setTimeout(addWatchAllButtonToWishlist, 5500);
   }
 
   if (document.readyState === 'loading') {
