@@ -2697,3 +2697,175 @@
 .new_mobile-form .new_f-form::after {
 	display: none;
 }
+
+/* ============================================================
+   GLASSMORPHISM & MODERN UI OVERRIDES
+   Aesthetic only — no functional changes
+   ============================================================ */
+
+/* ===== MAIN FORM CONTAINER — glass effect ===== */
+.new_f-container {
+	background: linear-gradient(135deg, rgba(76,156,224,0.75) 0%, rgba(101,178,243,0.7) 100%) !important;
+	backdrop-filter: blur(16px) !important;
+	-webkit-backdrop-filter: blur(16px) !important;
+	border-radius: 16px !important;
+	border: 1px solid rgba(255,255,255,0.25) !important;
+	box-shadow: 0 8px 32px rgba(31,38,135,0.15), inset 0 1px 0 rgba(255,255,255,0.2) !important;
+}
+.new_f-container.ext-opened {
+	border-radius: 16px !important;
+}
+
+/* ===== FORM FIELDS — frosted glass style ===== */
+.new_f-form-field {
+	background-color: rgba(255,255,255,0.85) !important;
+	border: 1px solid rgba(255,255,255,0.5) !important;
+	backdrop-filter: blur(8px) !important;
+	-webkit-backdrop-filter: blur(8px) !important;
+	transition: all 0.3s ease !important;
+}
+.new_f-form-field:hover,
+.new_f-form-field:focus-within {
+	background-color: rgba(255,255,255,0.95) !important;
+	box-shadow: 0 2px 12px rgba(76,156,224,0.15) !important;
+}
+.new_f-form-field.to {
+	border-radius: 12px 0 0 12px !important;
+}
+.new_f-form-field::before {
+	background-color: rgba(76,156,224,0.15) !important;
+}
+
+/* ===== SEARCH BUTTON — modern gradient ===== */
+.new_f-form .new_f-form-submit {
+	border-radius: 0 12px 12px 0 !important;
+	background: linear-gradient(135deg, #f7941d 0%, #ff6b35 100%) !important;
+	box-shadow: 0 4px 15px rgba(247,148,29,0.35) !important;
+	transition: all 0.3s ease !important;
+}
+.new_f-form .new_f-form-submit:hover {
+	background: linear-gradient(135deg, #ff6b35 0%, #f7941d 100%) !important;
+	box-shadow: 0 6px 20px rgba(247,148,29,0.45) !important;
+	transform: translateY(-1px);
+}
+
+/* ===== DROPDOWNS — rounded glass ===== */
+.new_f-dropdown-body {
+	background: rgba(255,255,255,0.95) !important;
+	backdrop-filter: blur(12px) !important;
+	-webkit-backdrop-filter: blur(12px) !important;
+	border: 1px solid rgba(200,200,200,0.4) !important;
+	border-radius: 12px !important;
+	box-shadow: 0 8px 32px rgba(0,0,0,0.1) !important;
+	overflow: hidden;
+}
+#new_os-to .new_f-dropdown-body {
+	border-radius: 12px !important;
+}
+.new_f-dropdown-container.people .new_f-dropdown-body {
+	border-radius: 12px !important;
+}
+
+/* ===== DROPDOWN ITEMS — hover effect ===== */
+.new_f-dropdown-item {
+	border-radius: 6px !important;
+	margin: 2px 4px !important;
+	transition: background-color 0.2s ease !important;
+}
+.new_f-dropdown-item:hover {
+	background-color: rgba(76,156,224,0.1) !important;
+}
+.new_f-dropdown-item.selected {
+	background-color: rgba(76,156,224,0.15) !important;
+	border-radius: 6px !important;
+}
+
+/* ===== DROPDOWN HEADER — rounded top ===== */
+.new_t-tab-content-top,
+.new_t-modal-body-top,
+.new_f-dropdown-body-top {
+	background: linear-gradient(135deg, rgba(76,156,224,0.9) 0%, rgba(101,178,243,0.9) 100%) !important;
+	backdrop-filter: blur(8px) !important;
+	-webkit-backdrop-filter: blur(8px) !important;
+}
+
+/* ===== EXTENDED FILTERS CONTAINER ===== */
+.new_f-ext-container {
+	border-radius: 0 0 16px 16px !important;
+	background: rgba(255,255,255,0.9) !important;
+	backdrop-filter: blur(12px) !important;
+	-webkit-backdrop-filter: blur(12px) !important;
+	border: 1px solid rgba(200,200,200,0.3) !important;
+	border-top: none !important;
+}
+
+/* ===== EXTENDED FILTERS — APPLY BUTTON ===== */
+.new_f-ext-container .new_f-dropdown-btn-apply {
+	border-radius: 10px !important;
+	background: linear-gradient(135deg, #f7941d 0%, #ff6b35 100%) !important;
+	box-shadow: 0 3px 12px rgba(247,148,29,0.3) !important;
+	transition: all 0.3s ease !important;
+}
+.new_f-ext-container .new_f-dropdown-btn-apply:hover {
+	box-shadow: 0 5px 18px rgba(247,148,29,0.4) !important;
+	transform: translateY(-1px);
+}
+
+/* ===== SLIDER HANDLES — more rounded ===== */
+.new_f-ext-container .ui-slider .ui-slider-handle {
+	border-radius: 50% !important;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+	transition: box-shadow 0.2s ease !important;
+}
+.new_f-ext-container .ui-slider .ui-slider-handle:hover {
+	box-shadow: 0 3px 12px rgba(0,0,0,0.25) !important;
+}
+
+/* ===== CHECKBOXES IN FILTERS — rounded ===== */
+.new_f-ext-container .new_f-ext-checkbox-wrap {
+	border-radius: 8px !important;
+}
+
+/* ===== COUNTRY LIST in dropdown ===== */
+#new_os-to .ui-autocomplete .ui-menu-item .label {
+	border-radius: 4px !important;
+}
+#new_os-to #cntList .ui-menu-item.active a,
+#new_os-to #cntList .ui-menu-item.active a * {
+	background: rgba(76,156,224,0.12) !important;
+	border-radius: 6px !important;
+}
+
+/* ===== DATE PICKER — rounded ===== */
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div {
+	border-radius: 14px !important;
+	box-shadow: 0 8px 32px rgba(0,0,0,0.12) !important;
+	border: 1px solid rgba(200,200,200,0.3) !important;
+	overflow: hidden;
+}
+
+/* ===== MOBILE FORM — rounded fields ===== */
+.new_m-mobile-form:not(.new_mobile-form) .new_f-form-submit,
+.new_m-mobile-form:not(.new_mobile-form) .new_f-form-field {
+	border-radius: 12px !important;
+}
+
+/* ===== TITLE TEXT — subtle shadow ===== */
+.new_f-title {
+	text-shadow: 0 1px 3px rgba(0,0,0,0.1) !important;
+}
+
+/* ===== "NOT FOUND" BUTTON — rounded ===== */
+.new_not-found-message .os-order-form-submit_button {
+	border-radius: 10px !important;
+	background: linear-gradient(135deg, #f7941d 0%, #ff6b35 100%) !important;
+}
+
+/* ===== ARROW ICONS — blue tint ===== */
+.new_f-dropdown-btn .cnt {
+	border-radius: 6px !important;
+	background-color: rgba(76,156,224,0.08) !important;
+}
+.new_f-dropdown-btn .cnt:hover {
+	background-color: rgba(76,156,224,0.15) !important;
+}
