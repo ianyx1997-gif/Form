@@ -102,7 +102,7 @@
       parts.push(searchParams.length || '7');                       // 3: nights
       parts.push(searchParams.people || '2');                       // 4: people (Otpusk format: "20405" = 2 adults + kids 4,5)
       parts.push(searchParams.stars || '0');                        // 5: stars (0 = any)
-      parts.push(searchParams.food || 'any');                       // 6: food code (ai, hb, bb, etc.)
+      parts.push((searchParams.food || 'any').replace(/,/g, '-'));   // 6: food code (ai-uai, hb, bb — comma replaced with dash for Telegram)
       parts.push(tour.price ? Math.round(tour.price) : '0');       // 7: current price
       parts.push(searchParams.transport || 'air');                  // 8: transport type
     } else {
