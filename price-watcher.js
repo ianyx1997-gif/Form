@@ -91,7 +91,7 @@
 
   // ===== BUILD TELEGRAM DEEP LINK PAYLOAD =====
   // Encodes tour + search data into a string for t.me/bot?start=PAYLOAD
-  // Format: countryId_deptCity_checkInYYYYMMDD_nights_people_stars_food_price_transport
+  // Format: countryId_deptCity_checkInYYYYMMDD_nights_people_stars_food_price_transport_hotelId
   // The Telegram bot parses this on /start and creates a price alert automatically
   function encodeTelegramPayload(tour, searchParams) {
     var parts = [];
@@ -105,9 +105,10 @@
       parts.push((searchParams.food || 'any').replace(/,/g, '-'));   // 6: food code (ai-uai, hb, bb — comma replaced with dash for Telegram)
       parts.push(tour.price ? Math.round(tour.price) : '0');       // 7: current price
       parts.push(searchParams.transport || 'air');                  // 8: transport type
+      parts.push(tour.id || '0');                                    // 9: hotel/tour ID (for specific hotel tracking)
     } else {
       // Fallback when search params not available
-      parts.push(tour.id || '0');
+      parts.push('0');   // 0: country
       parts.push('1831');
       parts.push('0');
       parts.push('7');
@@ -116,6 +117,7 @@
       parts.push('any');
       parts.push(tour.price ? Math.round(tour.price) : '0');
       parts.push('air');
+      parts.push(tour.id || '0');                                    // 9: hotel/tour ID
     }
     return parts.join('_');
   }
