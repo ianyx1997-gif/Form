@@ -89,37 +89,45 @@
     }
   }
 
-  // ===== BUILD TELEGRAM DEEP LINK PAYLOAD =====
-  // Encodes tour + search data into a string for t.me/bot?start=PAYLOAD
-  // Format: countryId_deptCity_checkInYYYYMMDD_nights_people_stars_food_price_transport_hotelId
-  // The Telegram bot parses this on /start and creates a price alert automatically
-  function encodeTelegramPayload(tour, searchParams) {
-    var parts = [];
-    if (searchParams && searchParams.countryId) {
-      parts.push(searchParams.countryId);                           // 0: country ID
-      parts.push(searchParams.deptCity || '1831');                  // 1: departure city ID
-      parts.push((searchParams.checkIn || '').replace(/-/g, ''));   // 2: checkIn YYYYMMDD
-      parts.push(searchParams.length || '7');                       // 3: nights
-      parts.push(searchParams.people || '2');                       // 4: people (Otpusk format: "20405" = 2 adults + kids 4,5)
-      parts.push(searchParams.stars || '0');                        // 5: stars (0 = any)
-      parts.push((searchParams.food || 'any').replace(/,/g, '-'));   // 6: food code (ai-uai, hb, bb — comma replaced with dash for Telegram)
-      parts.push(tour.price ? Math.round(tour.price) : '0');       // 7: current price
-      parts.push(searchParams.transport || 'air');                  // 8: transport type
-      parts.push(tour.id || '0');                                    // 9: hotel/tour ID (for specific hotel tracking)
-    } else {
-      // Fallback when search params not available
-      parts.push('0');   // 0: country
-      parts.push('1831');
-      parts.push('0');
-      parts.push('7');
-      parts.push('2');
-      parts.push('0');
-      parts.push('any');
-      parts.push(tour.price ? Math.round(tour.price) : '0');
-      parts.push('air');
-      parts.push(tour.id || '0');                                    // 9: hotel/tour ID
+  // ===== GENERATE SHORT TOKEN FOR TELEGRAM PRE-REGISTRATION =====
+  // Instead of encoding everything in 64-char deep link, we pre-register
+  // the full tour data on our backend and use a short token in the deep link.
+  // This way the bot gets: tour name, URL, image, search params — just like email.
+  function generateToken() {
+    var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var token = '';
+    for (var i = 0; i < 12; i++) {
+      token += chars.charAt(Math.floor(Math.random() * chars.length));
     }
-    return parts.join('_');
+    return 'tg' + token; // prefix so bot knows it's a token, not old-format payload
+  }
+
+  // ===== PRE-REGISTER TOUR DATA FOR TELEGRAM =====
+  // Sends ALL tour data to backend (like email does), gets stored with token
+  function preRegisterTelegram(token, tour, searchParams) {
+    var payload = {
+      token: token,
+      tourId: tour.id || null,
+      tourName: tour.name || null,
+      tourUrl: tour.link || null,
+      tourImg: tour.img || null,
+      price: tour.price || null,
+      currency: tour.currency || 'EUR',
+      geo: tour.geo || null,
+      dates: tour.dates || null,
+      stars: tour.stars || null,
+      food: tour.food || null,
+      searchParams: searchParams
+    };
+
+    // Fire-and-forget — don't block the user
+    fetch(PW_API_URL + '/api/telegram-preregister', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).catch(function(e) {
+      console.log('[PriceWatcher] Telegram pre-register failed:', e.message);
+    });
   }
 
   // ===== EXTRACT TOUR DATA FROM RESULT CARD (Otpusk widget) =====
@@ -254,11 +262,12 @@
     body.appendChild(tourInfo);
 
     // ===== TELEGRAM BUTTON (first — most visible) =====
-    // Encodes tour data (country, dates, people, price etc.) into a deep link
-    // When user opens this link in Telegram, the bot auto-creates a price alert
+    // Pre-registers ALL tour data on backend (name, URL, searchParams — like email)
+    // Then opens Telegram with a short token; bot looks up the full data
     var searchParams = extractSearchParams();
-    var tgPayload = encodeTelegramPayload(tour, searchParams);
-    var tgLink = 'https://t.me/' + PW_TELEGRAM_BOT + '?start=' + tgPayload;
+    var tgToken = generateToken();
+    preRegisterTelegram(tgToken, tour, searchParams);
+    var tgLink = 'https://t.me/' + PW_TELEGRAM_BOT + '?start=' + tgToken;
 
     var tgBtn = document.createElement('a');
     tgBtn.href = tgLink;
