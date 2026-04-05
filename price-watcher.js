@@ -10,6 +10,7 @@
   var PW_API_URL = 'https://web-production-a7362.up.railway.app';
   var PW_WISHLIST_KEY = 'zebra_wishlist';
   var PW_EMAIL_KEY = 'pw_user_email';
+  var PW_TELEGRAM_BOT = 'zebrapricebot'; // Telegram bot username (without @)
 
   // ===== TOAST =====
   function pwToast(msg) {
@@ -42,6 +43,36 @@
   }
   function saveEmail(email) {
     try { localStorage.setItem(PW_EMAIL_KEY, email); } catch(e) {}
+  }
+
+  // ===== BUILD TELEGRAM DEEP LINK PAYLOAD =====
+  // Encodes tour data into a compact string for Telegram /start deep link
+  // Format: countryId_deptCity_checkIn_nights_adults_childAges_stars_food_maxPrice
+  function encodeTelegramPayload(tour, searchParams) {
+    var parts = [];
+    if (searchParams && searchParams.countryId) {
+      parts.push(searchParams.countryId);                           // 0: country
+      parts.push(searchParams.deptCity || '1831');                  // 1: departure
+      parts.push((searchParams.checkIn || '').replace(/-/g, ''));   // 2: checkIn YYYYMMDD
+      parts.push(searchParams.length || '7');                       // 3: nights
+      parts.push(searchParams.people || '2');                       // 4: people (Otpusk format)
+      parts.push(searchParams.stars || '0');                        // 5: stars
+      parts.push(searchParams.food || 'any');                       // 6: food
+      parts.push(tour.price ? Math.round(tour.price) : '0');       // 7: price
+      parts.push(searchParams.transport || 'air');                  // 8: transport
+    } else {
+      // Fallback: minimal info
+      parts.push(tour.id || '0');
+      parts.push('1831');
+      parts.push('0');
+      parts.push('7');
+      parts.push('2');
+      parts.push('0');
+      parts.push('any');
+      parts.push(tour.price ? Math.round(tour.price) : '0');
+      parts.push('air');
+    }
+    return parts.join('_');
   }
 
   // ===== EXTRACT SEARCH PARAMS FROM WIDGET =====
@@ -234,6 +265,27 @@
     emailInput.value = getSavedEmail();
     inputGroup.appendChild(emailInput);
     body.appendChild(inputGroup);
+
+    // Telegram button (above email)
+    var searchParams = extractSearchParams();
+    var tgPayload = encodeTelegramPayload(tour, searchParams);
+    var tgLink = 'https://t.me/' + PW_TELEGRAM_BOT + '?start=' + tgPayload;
+
+    var tgBtn = document.createElement('a');
+    tgBtn.href = tgLink;
+    tgBtn.target = '_blank';
+    tgBtn.className = 'pw-telegram-btn';
+    tgBtn.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" style="vertical-align:middle;margin-right:6px;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg> Urmareste pe Telegram';
+    tgBtn.addEventListener('click', function() {
+      setTimeout(closePwModal, 500);
+    });
+    body.appendChild(tgBtn);
+
+    // Separator
+    var separator = document.createElement('div');
+    separator.className = 'pw-separator';
+    separator.innerHTML = '<span>sau prin email</span>';
+    body.appendChild(separator);
 
     // Submit button
     var submitBtn = document.createElement('button');
