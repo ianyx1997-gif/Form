@@ -2725,7 +2725,7 @@
 
 /* ===== FORM FIELDS — frosted white ===== */
 .new_f-form-field {
-	background-color: rgba(255,255,255,0.95) !important;
+	background-color: rgba(255,255,255,1) !important;
 	border-top-color: rgba(255,255,255,0.6) !important;
 	border-bottom-color: rgba(226,232,240,0.4) !important;
 }
@@ -2783,6 +2783,7 @@
 /* ===== DROPDOWNS — colors only, no layout changes ===== */
 .new_f-dropdown-body {
 	border-color: rgba(0,0,0,0.08) !important;
+	background-color: rgba(255,255,255,0.98) !important;
 }
 
 /* ===== DROPDOWN / MODAL HEADER — gradient ===== */
@@ -2874,7 +2875,7 @@
 	background: rgba(255,255,255,0.15) !important;
 	border: 1px solid rgba(255,255,255,0.3) !important;
 	border-radius: 20px !important;
-	padding: 4px 14px 4px 12px !important;
+	padding: 4px 20px 4px 18px !important;
 	transition: all 0.25s ease !important;
 }
 .new_f-ext-btn:hover {
