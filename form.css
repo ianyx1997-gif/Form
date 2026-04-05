@@ -2766,7 +2766,6 @@
 .new_f-form .new_f-form-submit:hover {
 	background: linear-gradient(135deg, #d97706 0%, #ea580c 100%) !important;
 	box-shadow: 0 6px 24px rgba(245,158,11,0.45) !important;
-	transform: translateY(-1px);
 }
 .hvr-ripple-out:before {
 	border-color: #d97706 !important;
@@ -2897,14 +2896,7 @@
 	border-radius: 10px !important;
 }
 
-/* ===== SUBMIT BUTTON SHINE ===== */
-@keyframes formSlideIn {
-	from { opacity: 0; transform: translateY(-20px); }
-	to { opacity: 1; transform: translateY(0); }
-}
-.new_f-container {
-	animation: formSlideIn 0.6s ease both !important;
-}
+/* ===== ANIMATION REMOVED — creates stacking context that traps dropdowns ===== */
 
 /* ===== CHECKBOX FIX — CSS-only checkmark ===== */
 [class*='new_f-'] input[type="checkbox"] + *::before {
