@@ -68,6 +68,20 @@
   background: #16a34a !important;
 }
 
+/* ===== WATCH BUTTON ON TOUR DETAIL PAGE (below total price) ===== */
+.pw-tour-page-btn {
+  display: inline-flex !important;
+  padding: 7px 14px !important;
+  font-size: 12px !important;
+  gap: 4px !important;
+  border-radius: 6px !important;
+  margin-left: 0 !important;
+}
+.pw-tour-page-btn svg {
+  width: 12px !important;
+  height: 12px !important;
+}
+
 /* ===== MODAL ===== */
 .pw-modal-overlay {
   position: fixed !important;

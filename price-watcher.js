@@ -452,6 +452,89 @@
     });
   }
 
+  // ===== ADD WATCH BUTTON TO TOUR DETAIL PAGE =====
+  function addWatchButtonToTourPage() {
+    // Only run on tour detail pages (URL has page=tour&hid=)
+    var hash = window.location.hash || '';
+    if (hash.indexOf('page=tour') === -1 || hash.indexOf('hid=') === -1) return;
+
+    // Don't add twice
+    if (document.querySelector('.pw-tour-page-btn')) return;
+
+    // Find the price description area (empty div below price)
+    var priceDescr = document.querySelector('.new_t-order-price-descr');
+    if (!priceDescr) return;
+
+    // Extract tour data from the page and URL hash
+    var tour = {};
+
+    // Hotel name from page header
+    var hotelName = document.querySelector('.new_t-header-title');
+    if (hotelName) {
+      // May contain duplicated text or stars — clean up
+      var nameText = hotelName.textContent.trim();
+      // Remove duplicate (Otpusk sometimes repeats name)
+      var half = Math.floor(nameText.length / 2);
+      if (half > 5 && nameText.substring(0, half) === nameText.substring(half)) {
+        nameText = nameText.substring(0, half);
+      }
+      tour.name = nameText;
+    }
+
+    // Fallback: from URL hash hnm parameter
+    if (!tour.name) {
+      var hnmMatch = hash.match(/hnm=([^&]+)/);
+      if (hnmMatch) tour.name = decodeURIComponent(hnmMatch[1]).replace(/_/g, ' ');
+    }
+
+    // Hotel ID from hash hid parameter
+    var hidMatch = hash.match(/hid=(\d+)/);
+    if (hidMatch) tour.id = hidMatch[1];
+
+    // Price from the order section
+    var priceEl = document.querySelector('.new_t-order-price .new_price');
+    if (priceEl) {
+      var priceText = priceEl.textContent.replace(/[^\d.,]/g, '').replace(',', '.').trim();
+      tour.price = parseFloat(priceText);
+    }
+
+    // Currency
+    var currencyEl = document.querySelector('.new_t-order-price .currency');
+    if (currencyEl) {
+      var cur = currencyEl.textContent.trim();
+      if (cur === '€') tour.currency = 'EUR';
+      else if (cur === '$') tour.currency = 'USD';
+    }
+    if (!tour.currency) tour.currency = 'EUR';
+
+    // Tour link — current page URL
+    tour.link = window.location.href;
+
+    // Stars from hash
+    var stMatch = hash.match(/st=(\d)/);
+    if (stMatch) tour.stars = parseInt(stMatch[1]);
+
+    // Geo from header
+    var geoEl = document.querySelector('.new_t-header-geo');
+    if (geoEl) tour.geo = geoEl.textContent.trim();
+
+    if (!tour.price) return;
+
+    // Create the button
+    var btn = document.createElement('button');
+    btn.className = 'pw-result-watch-btn pw-tour-page-btn';
+    btn.innerHTML = bellSvg + ' Urmareste pretul';
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      openWatchModal(tour);
+    });
+
+    // Style the priceDescr container to show the button nicely
+    priceDescr.style.marginTop = '8px';
+    priceDescr.appendChild(btn);
+  }
+
   // ===== WATCH FOR DOM CHANGES =====
   function watchForChanges() {
     var observer = new MutationObserver(function() {
@@ -460,6 +543,7 @@
         setTimeout(addWatchButtonsToWishlist, 200);
       }
       setTimeout(addWatchButtonsToResults, 200);
+      setTimeout(addWatchButtonToTourPage, 200);
     });
     observer.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['class'] });
   }
@@ -469,8 +553,10 @@
     watchForChanges();
     setTimeout(addWatchButtonsToWishlist, 2000);
     setTimeout(addWatchButtonsToResults, 2000);
+    setTimeout(addWatchButtonToTourPage, 2000);
     setTimeout(addWatchButtonsToWishlist, 5000);
     setTimeout(addWatchButtonsToResults, 5000);
+    setTimeout(addWatchButtonToTourPage, 5000);
   }
 
   if (document.readyState === 'loading') {
