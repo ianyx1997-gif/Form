@@ -80,24 +80,27 @@
 .new_f-ext-container .ui-slider-range,
 .new_f-ext-container .slider-container .ui-widget-content,
 .new_f-container {
-	background: linear-gradient(135deg, rgba(59,130,246,0.85) 0%, rgba(96,165,250,0.9) 50%, rgba(147,197,253,0.85) 100%);
-	backdrop-filter: blur(20px);
-	-webkit-backdrop-filter: blur(20px);
+	background: rgb(76,156,224);
+	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzRjOWNlMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjUwJSIgc3RvcC1jb2xvcj0iIzU0YTNlNiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM2NWIyZjMiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+	background: -moz-linear-gradient(left, rgba(76,156,224,1) 0%, rgba(84,163,230,1) 50%, rgba(101,178,243,1) 100%);
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(76,156,224,1)), color-stop(50%,rgba(84,163,230,1)), color-stop(100%,rgba(101,178,243,1)));
+	background: -webkit-linear-gradient(left, rgba(76,156,224,1) 0%,rgba(84,163,230,1) 50%,rgba(101,178,243,1) 100%);
+	background: -o-linear-gradient(left, rgba(76,156,224,1) 0%,rgba(84,163,230,1) 50%,rgba(101,178,243,1) 100%);
+	background: -ms-linear-gradient(left, rgba(76,156,224,1) 0%,rgba(84,163,230,1) 50%,rgba(101,178,243,1) 100%);
+	background: linear-gradient(to right, rgba(76,156,224,1) 0%,rgba(84,163,230,1) 50%,rgba(101,178,243,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c9ce0', endColorstr='#65b2f3',GradientType=1 );
 }
 /* контейнер формы */
 .new_f-container {
-	border-radius: 24px;
-	margin: 0 auto 24px;
+	border-radius: 3px;
+	margin: 0 auto 20px;
 	position: relative;
 	z-index: 2;
 	max-width: 1200px;
-	box-shadow: 0 12px 40px rgba(59,130,246,0.3), 0 0 0 1px rgba(255,255,255,0.15);
-	border: 1px solid rgba(255,255,255,0.25);
-	padding: 6px;
 }
 /* контейнер формы при открытом "расширенный поиск" */
 .new_f-container.ext-opened {
-	border-radius: 24px;
+	border-radius: 4px;
 }
 /* изображения компаса и самолета на форме */
 .new_f-wrapper-bg-imgs {
@@ -106,8 +109,7 @@
 	right: 0;
 	top: 0;
 	bottom: 0;
-	background: url(https://export.otpusk.com/images/onsite/compass-icon.png) no-repeat left -35px top 56px, url(https://export.otpusk.com/images/onsite/plane-icon.png) no-repeat right 15px top 14px;
-	opacity: 0.3;
+	background: url(../../images/onsite/compass-icon.png) no-repeat left -35px top 56px, url(../../images/onsite/plane-icon.png) no-repeat right 15px top 14px;
 }
 .new_f-wrapper {
 	position: relative;
@@ -128,12 +130,11 @@
 	font-weight: 700;
 	padding: 20px 0;
 	height: 66px;
-	text-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 .new_f-form {
 	margin: 0;
 	padding: 0;
-	color: #475569;
+	color: #666;
 	font-size: 14px;
 }
 .new_f-form input {
@@ -142,17 +143,15 @@
 .new_f-form-field,
 .new_f-form .new_f-form-submit {
 	float: left;
-	height: 48px;
+	height: 40px;
 }
 /* стили полей формы */
 .new_f-form-field {
-	background-color: rgba(255,255,255,0.95);
+	background-color: #fff;
 	position: relative;
-	border-top: 1px solid rgba(255,255,255,0.6);
-	border-bottom: 1px solid rgba(226,232,240,0.4);
+	border-top: 1px solid #D4D4D4;
+	border-bottom: 1px solid #D4D4D4;
 	border-left: 1px solid transparent;
-	backdrop-filter: blur(14px);
-	-webkit-backdrop-filter: blur(14px);
 }
 .new_f-form-field:not(.date) {
 	-webkit-transition-duration: 0.3s;
@@ -164,13 +163,13 @@
 .new_f-form-field:not(.date):hover,
 .new_f-form-field:not(.date):focus,
 .new_f-form-field:not(.date):active {
-	box-shadow: 0 0 0 3px rgba(59,130,246,0.15), inset 0 0 0 1px rgba(59,130,246,0.1);
+	box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.1), 1px 0 1px transparent;
 }
 
 .new_f-form-field.to {
 	width: 204px;
-	border-left-color: #e2e8f0;
-	border-radius: 16px 0 0 16px;
+	border-left-color: #D4D4D4;
+	border-radius: 3px 0 0 3px;
 }
 /* разделители между полями формы */
 .new_f-form-field::before {
@@ -181,7 +180,7 @@
 	bottom: 8px;
 	display: block;
 	width: 1px;
-	background-color: #e2e8f0;
+	background-color: #E0E0E0;
 }
 .new_f-form-field.to::before {
 	display: none;
@@ -202,7 +201,7 @@
 .new_not-found-message .os-order-form-submit_button,
 .new_f-ext-container .new_f-dropdown-btn-apply,
 .new_f-form .new_f-form-submit {
-	background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+	background: #f7941d;
 	border: none;
 	color: #fff;
 	font-weight: 700;
@@ -214,23 +213,18 @@
     text-align: center;
 }
 .new_f-form .new_f-form-submit {
-	border-radius: 0 16px 16px 0;
-	box-shadow: 0 4px 16px rgba(245,158,11,0.3);
+	border-radius: 0 3px 3px 0;
+	box-shadow: none;
 	color: #ffffff !important;
 	margin: 0;
 	padding: 0;
 	width: 107px;
-	transition: all .3s ease !important;
-	text-shadow: 0 1px 2px rgba(0,0,0,0.15);
-}
-.new_f-form .new_f-form-submit:hover {
-	box-shadow: 0 6px 24px rgba(245,158,11,0.45);
-	transform: translateY(-1px);
+	transition: background .5s ease !important;
 }
 .new_not-found-message .os-order-form-submit_button:hover,
 .new_f-form .new_f-form-submit:hover,
 .new_f-container .new_f-dropdown-btn-apply:hover{
-	background: #d97706;
+	background: #ec8100;
 }
 /* Ripple Out Animation on click */
 @-webkit-keyframes hvr-ripple-out {
@@ -262,7 +256,7 @@
 .hvr-ripple-out:before {
 	content: '';
 	position: absolute;
-	border: #d97706 solid 6px;
+	border: #ec8100 solid 6px;
 	top: 0;
 	right: 0;
 	bottom: 0;
@@ -276,8 +270,8 @@
 }
 /* элемент внутри полей формы */
 .new_f-dropdown-btn {
-	height: 46px;
-	padding: 13px 8px 0;
+	height: 38px;
+	padding: 9px 8px 0;
 	position: relative;
 }
 /* иконки стрелок внутри полей формы */
@@ -285,14 +279,14 @@
 .new_f-dropdown-btn::after {
 	content: '';
 	position: absolute;
-	top: 21px;
+	top: 17px;
 	right: 8px;
 	pointer-events: none;
 	width: 0;
 	height: 0;
 	border-style: solid;
 	border-width: 6px 4px 0;
-	border-color: #3b82f6 transparent transparent;
+	border-color: #4C9CE0 transparent transparent;
 }
 #new_os-to .new_f-dropdown-btn::after,
 #new_os-date-check .new_f-dropdown-btn::after {
@@ -301,17 +295,13 @@
 /* выпадающая область полей формы */
 .new_f-dropdown-body {
 	display: none;
-	background: rgba(255,255,255,0.97);
+	background: #fff;
 	padding: 1px 1px 0;
 	position: absolute;
 	left: 0;
-	top: 46px;
+	top: 38px;
 	z-index: 2;
-	border: 1px solid rgba(0,0,0,0.08);
-	border-radius: 16px;
-	box-shadow: 0 20px 50px rgba(0,0,0,0.15), 0 0 0 1px rgba(255,255,255,0.1);
-	backdrop-filter: blur(24px);
-	-webkit-backdrop-filter: blur(24px);
+	border: 1px solid #cbcbcb;
 }
 /* выпадающая область туристов */
 .new_f-dropdown-container.people .new_f-dropdown-body {
@@ -319,26 +309,19 @@
 	right: 0;
 	min-width: 216px;
 	padding: 15px 14px 14px;
-	border-radius: 14px;
 }
 /* элементы списка в выпадающей области полей */
 .new_f-dropdown-item {
 	white-space: nowrap;
 	cursor: pointer;
-	padding: 6px 10px;
+	padding: 3px 7px;
 	margin: 0 0 1px;
 	font-size: 13px;
-	border-radius: 8px;
-	transition: background 0.15s ease;
-}
-.new_f-dropdown-item:hover {
-	background-color: rgba(59,130,246,0.06);
 }
 /* активный элемент списка */
 .new_f-dropdown-item.selected {
-	background-color: rgba(59,130,246,0.1);
+	background-color: #E1E7EF;
 	font-weight: 600;
-	color: #2563eb;
 }
 
 /*= стили для модальных окон =*/
@@ -350,7 +333,7 @@
 	display: block;
 	text-align: center;
 	font-weight: normal;
-	color: #475569;
+	color: #666;
 	background: transparent;
 }
 .new_f-dropdown-body-date .new_f-dropdown-body-top .new_f-dropdown-body-close {
@@ -360,7 +343,7 @@
 .new_t-tab-content-top,
 .new_t-modal-body-top,
 .new_f-dropdown-body-top {
-	background: linear-gradient(135deg, rgba(59,130,246,0.95), rgba(37,99,235,0.95));
+	background: #4C9CE0;
 	color: #fff;
 	height: 44px;
 	line-height: 44px;
@@ -369,8 +352,6 @@
 	font-size: 16px;
 	overflow: hidden;
 	-webkit-overflow-scrolling: touch;
-	backdrop-filter: blur(20px);
-	-webkit-backdrop-filter: blur(20px);
 }
 /* элемент "×" для закрытия окна */
 .new_t-tab-content-close,
@@ -405,30 +386,30 @@
 	border-radius: 0;
 	display: block;
 	width: 100% !important;
-	height: 46px !important;
+	height: 38px !important;
 	margin: 0 !important;
 	background: transparent !important;
 	font-size: 14px !important;
-	color: #1e293b;
+	color: #666666;
 }
 .new_f-autocomplete-input::-webkit-input-placeholder {
-	color: #94a3b8 !important;
+	color: #a3a3a3 !important;
 	opacity: 1 !important;
 	font-size: 14px !important;
 }
 .new_f-autocomplete-input::-moz-placeholder {
-	color: #94a3b8 !important;
+	color: #a3a3a3 !important;
 	opacity: 1 !important;
 	line-height: 38px !important;
 	font-size: 14px !important;
 }
 .new_f-autocomplete-input:-ms-input-placeholder {
-	color: #94a3b8 !important;
+	color: #a3a3a3 !important;
 	opacity: 1 !important;
 	font-size: 14px !important;
 }
 .new_f-autocomplete-input:-moz-placeholder {
-	color: #94a3b8 !important;
+	color: #a3a3a3 !important;
 	opacity: 1 !important;
 	line-height: 38px !important;
 	font-size: 14px !important;
@@ -442,9 +423,9 @@
 }
 .new_input-mask {
 	white-space: nowrap;
-	padding-top: 13px !important;
+	padding-top: 9px !important;
 	display: none;
-	height: 46px;
+	height: 38px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
@@ -458,7 +439,7 @@
 	width: 16px;
 	height: 30px;
 	border-radius: 2px;
-	background-color: #eff6ff;
+	background-color: #E1E7EF;
 }
 .new_f-dropdown-btn .cnt:hover {
 	background-color: #F3F3F3;
@@ -505,7 +486,7 @@
 }
 #new_os-to #cntList .ui-menu-item.active a,
 #new_os-to #cntList .ui-menu-item.active a * {
-	background: #eff6ff !important;
+	background: #E1E7EF !important;
 }
 #cntList .ui-menu-item a * {
 	background: #fff;
@@ -554,7 +535,7 @@
 	padding-bottom: 0;
 	padding-right: 25px;
 	position: static;
-	color: #475569;
+	color: #666;
 	font-size: 14px;
 	display: block;
 	height: 22px;
@@ -600,7 +581,7 @@
 	display: none;
 	width: 205px;
 	height: 153px;
-	background: #f1f5f9;
+	background: #E2E8EF;
 	position: absolute;
 	left: 100% !important;
 	top: 0;
@@ -617,7 +598,7 @@
 	display: none;
 }
 #ctyList::before {
-	background: #f1f5f9 url("https://export.otpusk.com/images/onsite/loader.svg") no-repeat scroll center center !important;
+	background: #E2E8EF url("../../images/onsite/loader.svg") no-repeat scroll center center !important;
 	bottom: 44px;
 	content: "";
 	left: 0;
@@ -643,7 +624,7 @@
 }
 #ctyList li {
 	font-size: 14px;
-	background-color: #f1f5f9;
+	background-color: #E2E8EF;
 }
 #ctyList li label {
 	display: block;
@@ -674,7 +655,7 @@
 }
 #ctyList .labelName,
 #ctyList .itemPrice {
-	background: #f1f5f9;
+	background: #E2E8EF;
 }
 
 /*= стили для чекбоксов =*/
@@ -696,13 +677,13 @@
 	width: 16px;
 	height: 16px;
 	border-radius: 2px;
-	border: 1px solid #cbd5e1;
+	border: 1px solid #D5D5D5;
 	background-color: #fff;
 	left: 0;
 	top: 3px;
 }
 [class*='new_f-'] input[type="checkbox"]:checked + *::after {
-	background: url(https://export.otpusk.com/images/onsite/check.svg) no-repeat center;
+	background: url(../../images/onsite/check.svg) no-repeat center;
 	width: 12px;
 	height: 12px;
 	left: 2px;
@@ -727,8 +708,8 @@
 /*===== стили для "выбора дат" формы поиска =====*/
 /* контейнер */
 .new_f-search-dates-wrap {
-	height: 46px;
-	padding: 8px 6px 4px 30px;
+	height: 38px;
+	padding: 4px 6px 4px 30px;
 	position: relative;
 	display: flex;
 }
@@ -736,20 +717,20 @@
 .new_f-search-dates-wrap svg {
 	position: absolute;
 	width: 17px;
-	top: 14px;
+	top: 10px;
 	left: 7px;
-	fill: #3b82f6;
+	fill: #4C9CE0;
 }
 /* подсказка "Выберите даты начала тура" */
 .new_f-search-dates-popup {
 	position: absolute;
-	background-color: #eff6ff;
+	background-color: #E1E7EF;
 	border-radius: 5px;
 	font-size: 12px;
 	right: 7px;
 	left: 30px;
 	top: -25px;
-	color: #475569;
+	color: #666;
 	padding: 2px 7px;
 	text-align: center;
 	height: 20px;
@@ -763,7 +744,7 @@
 }
 .new_f-search-dates-popup:before,
 .new_f-search-dates-popup:after {
-	border-color: #f1f5f9 transparent transparent;
+	border-color: #E2E8EF transparent transparent;
 	border-style: solid;
 	border-width: 4px 4px 0;
 	content: "";
@@ -792,7 +773,7 @@
 	display: block;
 	padding: 0 0 1px 6px !important;
 	font-size: 14px;
-	background: #eff6ff;
+	background: #E1E7EF;
 	border: none;
 	cursor: text;
 	text-align: left !important;
@@ -816,7 +797,7 @@
 	left: -18px;
 	width: 13px;
 	height: 1px;
-	background-color: #475569;
+	background-color: #666;
 }
 .new_f-datepicker-wrap-2 {
 	margin-left: 23px;
@@ -841,10 +822,7 @@
 /* выпадающий элемент внутри которого находятся календари */
 .new_f-dropdown-body-date {
 	width: 500px;
-	background-color: rgba(241,245,249,0.95);
-	backdrop-filter: blur(20px);
-	-webkit-backdrop-filter: blur(20px);
-	border-radius: 16px;
+	background-color: #E1E7EF;
 }
 
 /* контейнер календарей */
@@ -869,7 +847,7 @@
 	display: block !important;
 }
 #new_f-dates-container.new_f-dates-container #ui-datepicker-div::after {
-	background-color: #eff6ff !important;
+	background-color: #e1e7ef !important;
 	bottom: 0 !important;
 	content: "" !important;
 	display: block !important;
@@ -910,7 +888,7 @@
 .new_f-dates-container#new_f-dates-container #ui-datepicker-div .ui-datepicker-header {
 	position: relative !important;
 	text-align: center !important;
-	color: #3b82f6 !important;
+	color: #4c9ce0 !important;
 	font-weight: 600 !important;
 	text-transform: uppercase !important;
 	font-size: 13px !important;
@@ -921,7 +899,7 @@
 }
 .new_f-dates-container#new_f-dates-container #ui-datepicker-div.ui-datepicker .ui-datepicker-title {
 	line-height: normal !important;
-	color: #3b82f6 !important;
+	color: #4c9ce0 !important;
 	padding: 0 !important;
 	margin: 0 !important;
 }
@@ -938,7 +916,7 @@
 	height: 18px !important;
 	cursor: pointer;
 	overflow: hidden;
-	background: url(https://export.otpusk.com/images/onsite/arr-left.svg) no-repeat center !important;
+	background: url(../../images/onsite/arr-left.svg) no-repeat center !important;
 	border: none !important;
 	margin: 0 !important;
 	padding: 0 !important;
@@ -1000,11 +978,11 @@
 }
 .new_f-dates-container#new_f-dates-container #ui-datepicker-div .ui-datepicker-calendar td a {
 	text-decoration: none;
-	color: #3b82f6 !important;
+	color: #4c9ce0 !important;
 	background: none !important;
 }
 .new_f-dates-container#new_f-dates-container #ui-datepicker-div .ui-datepicker-calendar td span {
-	color: #3b82f6 !important;
+	color: #4c9ce0 !important;
 	cursor: pointer;
 }
 /* недоступная дата */
@@ -1014,7 +992,7 @@
 }
 /* стилизация дней следующих за интервалом */
 .new_f-dates-container#new_f-dates-container #ui-datepicker-div .ui-datepicker-calendar td.ui-state-disabled.ceil-max-date .ui-state-default {
-	color: #3b82f6 !important;
+	color: #4c9ce0 !important;
 }
 /* нет тура */
 .new_f-dates-container#new_f-dates-container #ui-datepicker-div .ui-datepicker-calendar td.ui-state-disabled.new_ceil-no-tours *,
@@ -1027,7 +1005,7 @@
 }
 /* сегодня */
 .new_f-dates-container#new_f-dates-container #ui-datepicker-div .ui-datepicker-calendar td.ui-datepicker-today .ui-state-default {
-	color: #3b82f6 !important;
+	color: #4c9ce0 !important;
 	background-color: #fef2e0;
 }
 
@@ -1197,7 +1175,7 @@
 }
 .duration .new_f-dropdown-item .new_f-duration-days {
 	font-weight: normal;
-	color: #94a3b8;
+	color: #a3a3a3;
 }
 
 /*===== стили для "туристов" формы поиска =====*/
@@ -1216,10 +1194,8 @@
 }
 /* активный элемент выбора количества взрослых */
 .new_f-people-item.active {
-	background: linear-gradient(135deg, #3b82f6, #2563eb);
+	background-color: #4C9CE0;
 	color: #fff;
-	border-radius: 12px;
-	box-shadow: 0 2px 8px rgba(59,130,246,0.3);
 }
 /* кнопка "добавить ребёнка" */
 .new_f-children-accordion-btn {
@@ -1298,13 +1274,12 @@
 	margin: 0 8px 8px 0;
 }
 .new_f-children-list-item {
-	background: linear-gradient(135deg, #3b82f6, #818cf8);
+	background: #4C9CE0;
 	color: #ffffff;
 	height: 40px;
 	padding: 4px 24px 0 0;
 	position: relative;
 	width: 70px;
-	border-radius: 10px;
 }
 .new_f-children-age-item {
 	width: 36px;
@@ -1372,12 +1347,10 @@
 /* контейнер */
 .new_f-ext-container {
 	display: none;
-	background: rgba(241,245,249,0.85);
+	background: #E2E7EF url(../../images/onsite/compass-icon.png) no-repeat left -35px top -101px;
 	border-radius: 0 0 3px 3px;
 	padding: 35px 0 30px;
 	box-shadow: inset 0 0 5px rgba(0,0,0,.08);
-	backdrop-filter: blur(24px);
-	-webkit-backdrop-filter: blur(24px);
 }
 /* тень сверху контейнера */
 .new_f-ext-container::before {
@@ -1416,7 +1389,7 @@
 .new_f-ext-bl-title {
 	font-size: 14px;
 	font-weight: 700;
-	color: #3b82f6;
+	color: #4C9CE0;
 	position: relative;
 }
 /* подзаголовок фильтров */
@@ -1425,7 +1398,7 @@
 	position: absolute;
 	left: 0;
 	top: 18px;
-	color: #94a3b8;
+	color: #a3a3a3;
 	font-weight: normal;
 }
 .new_f-ext-bl .new_f-ext-bl-title {
@@ -1449,7 +1422,7 @@
 }
 .new_f-ext-bl label {
 	position: relative;
-	color: #475569;
+	color: #666;
 }
 /* черточка между чекбоксом и значением */
 .new_f-ext-bl-price .slider-container::before,
@@ -1531,7 +1504,7 @@
 	border: none;
 	top: 14px;
 	width: 55px;
-	color: #475569;
+	color: #666;
 }
 .new_f-ext-bl-price .slider-container input:nth-child(1) {
 	left: -5px;
@@ -1568,7 +1541,7 @@
 .new_f-ext-col-recommend input[type="checkbox"] + ::before {
 	width: 15px;
 	height: 15px;
-	border: 1px solid #cbd5e1;
+	border: 1px solid #D5D5D5;
 	background-color: #fff;
 	left: 0;
 	top: 3px;
@@ -1588,8 +1561,8 @@
 }
 [class*='new_f-'] input[type="radio"]:checked + ::before,
 .new_f-ext-col-recommend input[type="checkbox"]:checked + ::before {
-	border-color: #4f46e5 !important;
-	background: #3b82f6;
+	border-color: #4a89cb !important;
+	background: #4C9CE0;
 }
 /* стили для услуг */
 .new_f-services-label-wrap {
@@ -1638,7 +1611,7 @@
 	}
 }
 .new_f-label-name {
-	color: #3b82f6;
+	color: #4C9CE0;
 	margin-bottom: 8px;
 }
 .new_f-services-label-wrap .new_f-services-label span,
@@ -1657,8 +1630,8 @@
 }
 .new_f-ext-container .ui-slider .ui-slider-handle {
 	cursor: default;
-	background: #fff;
-	border: 2px solid #3b82f6;
+	background: #F6F7F9;
+	border: 1px solid #4C9CE0;
 	border-radius: 50%;
 	height: 15px;
 	position: absolute;
@@ -1666,7 +1639,6 @@
 	margin-left: -8px;
 	top: -3px;
 	z-index: 1;
-	box-shadow: 0 2px 8px rgba(59,130,246,0.3);
 	outline: none;
 }
 .new_f-ext-container .ui-slider-range,
@@ -1709,7 +1681,7 @@
 }
 .new_f-ext-clear-btn {
 	bottom: -31px;
-	color: #3b82f6;
+	color: #4c9ce0;
 	cursor: pointer;
 	position: absolute;
 	right: 205px;
@@ -1733,7 +1705,7 @@
 	width: auto;
 }
 .new_m-mobile-form:not(.new_mobile-form) .new_f-wrapper-bg-imgs {
-	background: url("https://export.otpusk.com/images/onsite/compass-icon.png") no-repeat scroll left -35px top 178px, rgba(0, 0, 0, 0) url("https://export.otpusk.com/images/onsite/plane-icon.png") no-repeat scroll right 15px top 14px;
+	background: url("../../images/onsite/compass-icon.png") no-repeat scroll left -35px top 178px, rgba(0, 0, 0, 0) url("../../images/onsite/plane-icon.png") no-repeat scroll right 15px top 14px;
 }
 .new_m-mobile-form:not(.new_mobile-form) .new_f-form {
 	padding: 0 9px;
@@ -1750,7 +1722,7 @@
 	border-radius: 3px !important;
 }
 .new_m-mobile-form:not(.new_mobile-form) .new_f-form-field {
-	border: 1px solid #e2e8f0;
+	border: 1px solid #d4d4d4;
 }
 .new_m-mobile-form:not(.new_mobile-form) .new_f-search-dates-popup,
 .new_m-mobile-form:not(.new_mobile-form) .new_f-form-field::before {
@@ -1837,7 +1809,7 @@
 	float: none;
 	width: auto;
 	margin-bottom: 12px;
-	border: 1px solid #e2e8f0;
+	border: 1px solid #d4d4d4;
 	border-radius: 3px;
 }
 .new_mobile-form .new_f-form-field::before {
@@ -2048,7 +2020,7 @@
 		font-size: 16px;
 		width: 60px;
 		height: 30px;
-		background-color: #3b82f6;
+		background-color: #4C9CE0;
 		right: 7px;
 		top: 7px;
 		cursor: pointer;
@@ -2156,10 +2128,10 @@
 	/*===== стили для "туристов" формы поиска =====*/
 	.new_f-people-item:hover {
 		background-color: #F3F3F3;
-		color: #475569;
+		color: #666;
 	}
 	.new_f-children-age-item:hover {
-		background: #3b82f6;
+		background: #4C9CE0;
 		color: #ffffff;
 	}
 
@@ -2178,7 +2150,7 @@
 	}
 	.new_f-ext-container .new_f-dropdown-btn-apply {
 		height: 40px;
-		border-radius: 12px;
+		border-radius: 3px;
 		text-align: center;
 		width: 180px;
 		line-height: 40px;
@@ -2205,7 +2177,7 @@
 	/*=== Highlighting the active menu item ===*/
 	body:not(.iOS) .new_f-container #new_os-to .ui-menu .ui-menu-item.active .ui-corner-all,
 	body:not(.iOS) .new_f-container #new_os-to .ui-menu .ui-menu-item.active .ui-corner-all * {
-		background: #f1f5f9 !important;
+		background: #e2e8ef !important;
 	}
 	.new_f-dropdown-item:hover {
 		background-color: #F3F3F3;
@@ -2273,12 +2245,12 @@
 	}
 	.new_f-dropdown-btn-cancel {
 		left: 0;
-		background-color: #f1f5f9;
+		background-color: #DFE8F0;
 		border-top-color: #C8D4DF;
 	}
 	.new_f-dropdown-btn-apply {
 		right: 0;
-		background-color: #f59e0b;
+		background-color: #F7941D;
 		color: #fff;
 		font-weight: 600;
 	}
@@ -2495,7 +2467,7 @@
 		display: block !important;
 	}
 	.new_f-dropdown-body-date .new_f-dropdown-body-top {
-		background: #3b82f6;
+		background: #4C9CE0;
 		color: #fff;
 		font-weight: 700;
 		text-align: left;
@@ -2575,12 +2547,12 @@
 		text-align: center;
 		top: 0;
 		width: 14.25%;
-		color: #94a3b8;
+		color: #a3a3a3;
 	}
 	.new_f-dates-container#new_f-dates-container .calendar-tip {
 		height: 29px;
 		line-height: 29px;
-		background-color: #f59e0b;
+		background-color: #F7941D;
 		color: #ffffff;
 		display: none;
 		left: 0;
@@ -2724,224 +2696,4 @@
 
 .new_mobile-form .new_f-form::after {
 	display: none;
-}
-
-/* ===== ENHANCED FORM EFFECTS ===== */
-
-/* Submit button shine animation */
-@keyframes btnShine {
-	0% { background-position: -200% center; }
-	100% { background-position: 200% center; }
-}
-.new_f-form .new_f-form-submit {
-	background-size: 200% auto !important;
-	transition: all 0.3s ease !important;
-	position: relative !important;
-	overflow: hidden !important;
-}
-.new_f-form .new_f-form-submit:hover {
-	background-position: right center !important;
-	box-shadow: 0 6px 20px rgba(245,158,11,0.4) !important;
-	transform: translateY(-1px) !important;
-}
-
-/* Form container entrance animation */
-@keyframes formSlideIn {
-	from { opacity: 0; transform: translateY(-20px); }
-	to { opacity: 1; transform: translateY(0); }
-}
-.new_f-container {
-	animation: formSlideIn 0.6s ease both !important;
-}
-
-/* Extended search smooth toggle */
-.new_f-ext-container {
-	transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
-}
-
-/* Form field focus glow */
-.new_f-form-field {
-	transition: all 0.3s ease !important;
-}
-.new_f-form-field:hover {
-	background-color: rgba(255,255,255,0.95) !important;
-}
-
-/* Extended search button - INLINE, well-positioned, prominent */
-.new_f-ext-btn-container {
-	text-align: center !important;
-	padding: 4px 0 6px !important;
-	margin: 0 !important;
-	position: relative !important;
-	z-index: 1 !important;
-	clear: both !important;
-}
-.new_f-ext-btn {
-	transition: all 0.3s cubic-bezier(0.4,0,0.2,1) !important;
-	background: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.15) 100%) !important;
-	border: 2px solid rgba(255,255,255,0.6) !important;
-	border-radius: 14px !important;
-	padding: 10px 28px !important;
-	cursor: pointer !important;
-	display: inline-flex !important;
-	align-items: center !important;
-	gap: 8px !important;
-	backdrop-filter: blur(8px) !important;
-	-webkit-backdrop-filter: blur(8px) !important;
-	box-shadow: 0 2px 8px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.3) !important;
-	position: relative !important;
-	overflow: hidden !important;
-}
-.new_f-ext-btn::before {
-	content: '' !important;
-	position: absolute !important;
-	top: 0 !important;
-	left: -100% !important;
-	width: 100% !important;
-	height: 100% !important;
-	background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent) !important;
-	transition: left 0.5s ease !important;
-}
-.new_f-ext-btn:hover::before {
-	left: 100% !important;
-}
-.new_f-ext-btn:hover {
-	background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.25) 100%) !important;
-	border-color: rgba(255,255,255,0.9) !important;
-	transform: translateY(-1px) !important;
-	box-shadow: 0 4px 16px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.4) !important;
-}
-.new_f-ext-btn-text {
-	font-size: 14px !important;
-	font-weight: 700 !important;
-	color: #fff !important;
-	letter-spacing: 0.5px !important;
-	text-transform: uppercase !important;
-	text-shadow: 0 1px 3px rgba(0,0,0,0.2) !important;
-}
-/* Filters count badge */
-.new_f-ext-btn-filters-num {
-	background: linear-gradient(135deg, #f59e0b, #f97316) !important;
-	color: #fff !important;
-	border-radius: 8px !important;
-	min-width: 24px !important;
-	height: 24px !important;
-	display: inline-flex !important;
-	align-items: center !important;
-	justify-content: center !important;
-	font-size: 12px !important;
-	font-weight: 800 !important;
-	box-shadow: 0 2px 8px rgba(245,158,11,0.5) !important;
-}
-/* Subtle glow animation */
-@keyframes extBtnGlow {
-	0%, 100% { box-shadow: 0 2px 8px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.3); }
-	50% { box-shadow: 0 2px 12px rgba(59,130,246,0.25), inset 0 1px 0 rgba(255,255,255,0.4); }
-}
-.new_f-ext-btn {
-	animation: extBtnGlow 3s ease infinite !important;
-}
-
-/* ===== MODERN RESPONSIVE ENHANCEMENTS ===== */
-
-/* Tablet: stack form fields in 2 rows */
-@media all and (min-width: 479px) and (max-width: 960px) {
-	.new_f-ext-body,
-	.new_f-wrapper > .new_f-title,
-	.new_f-form > .clearfix,
-	.new_f-ext-btn-container {
-		width: 100% !important;
-		padding-left: 16px !important;
-		padding-right: 16px !important;
-	}
-	.new_f-form-field.to {
-		width: 40% !important;
-		border-radius: 16px 0 0 0 !important;
-	}
-	.new_f-form-field.from {
-		width: 25% !important;
-	}
-	.new_f-form-field.date {
-		width: 35% !important;
-		border-radius: 0 16px 0 0 !important;
-	}
-	.new_f-form-field.date::before {
-		display: block !important;
-	}
-	.new_f-form-field.duration {
-		width: 30% !important;
-		border-radius: 0 0 0 16px !important;
-	}
-	.new_f-form-field.duration::before {
-		display: none !important;
-	}
-	.new_f-form-field.people {
-		width: 30% !important;
-	}
-	.new_f-form .new_f-form-submit {
-		width: 40% !important;
-		border-radius: 0 0 16px 0 !important;
-		font-size: 16px !important;
-		height: 48px !important;
-	}
-}
-
-/* Mobile: full-width stacked form */
-@media all and (max-width: 478px) {
-	.new_f-container {
-		border-radius: 20px !important;
-		margin: 0 8px 16px !important;
-		padding: 4px !important;
-		box-shadow: 0 8px 28px rgba(59,130,246,0.25) !important;
-	}
-	.new_f-form-field,
-	.new_f-form .new_f-form-submit {
-		float: none !important;
-		width: 100% !important;
-		height: 52px !important;
-	}
-	.new_f-form-field {
-		border-left: 1px solid transparent !important;
-		border-radius: 0 !important;
-	}
-	.new_f-form-field::before {
-		display: none !important;
-	}
-	.new_f-form-field.to {
-		border-radius: 16px 16px 0 0 !important;
-	}
-	.new_f-form .new_f-form-submit {
-		border-radius: 0 0 16px 16px !important;
-		height: 54px !important;
-		font-size: 17px !important;
-		letter-spacing: 0.3px !important;
-	}
-	.new_f-dropdown-btn {
-		height: 50px !important;
-		padding-top: 15px !important;
-		font-size: 15px !important;
-	}
-	.new_f-autocomplete-input {
-		height: 50px !important;
-		font-size: 16px !important;
-	}
-	.new_f-search-dates-wrap {
-		height: 50px !important;
-		padding-top: 10px !important;
-	}
-	.new_f-search-dates-wrap svg {
-		top: 16px !important;
-	}
-	.new_input-mask {
-		height: 50px !important;
-		padding-top: 15px !important;
-	}
-	.new_f-title {
-		font-size: 16px !important;
-		padding: 14px 16px !important;
-		height: auto !important;
-	}
-	.new_f-ext-btn-container {
-		margin: 4px 16px 16px !important;
-	}
 }
