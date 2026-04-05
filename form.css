@@ -2702,15 +2702,15 @@
    MODERN UI OVERRIDES — aesthetic only, no functional changes
    ============================================================ */
 
-/* ===== MAIN CONTAINER — soft glass gradient ===== */
+/* ===== MAIN CONTAINER — modern glass gradient ===== */
 .new_f-container {
-	background: linear-gradient(135deg, rgba(80,160,230,0.9) 0%, rgba(105,185,248,0.85) 50%, rgba(130,200,255,0.8) 100%) !important;
+	background: linear-gradient(135deg, #3a8fd9 0%, #50a8f0 40%, #6cbcf7 70%, #8ed0ff 100%) !important;
 	border-radius: 20px !important;
-	border: 1px solid rgba(255,255,255,0.35) !important;
+	border: 1px solid rgba(255,255,255,0.3) !important;
 	box-shadow:
-		0 12px 40px rgba(60,120,200,0.15),
-		0 2px 8px rgba(0,0,0,0.05),
-		inset 0 1px 0 rgba(255,255,255,0.4) !important;
+		0 14px 44px rgba(50,110,195,0.18),
+		0 2px 8px rgba(0,0,0,0.06),
+		inset 0 1px 0 rgba(255,255,255,0.35) !important;
 }
 .new_f-container.ext-opened {
 	border-radius: 20px !important;
@@ -2752,31 +2752,32 @@
 	color: #444 !important;
 }
 
-/* ===== SEARCH BUTTON — warm, soft ===== */
+/* ===== SEARCH BUTTON — vivid gradient ===== */
 .new_f-form .new_f-form-submit {
 	border-radius: 0 14px 14px 0 !important;
-	background: linear-gradient(160deg, #f9a840 0%, #f7941d 100%) !important;
-	box-shadow: 0 3px 12px rgba(247,148,29,0.25) !important;
+	background: linear-gradient(160deg, #ffad33 0%, #f7941d 50%, #f07818 100%) !important;
+	box-shadow: 0 4px 16px rgba(240,120,24,0.3) !important;
 	transition: all 0.3s ease !important;
 	font-size: 15px !important;
 	letter-spacing: 0.3px !important;
 }
 .new_f-form .new_f-form-submit:hover {
-	background: linear-gradient(160deg, #f7941d 0%, #f08010 100%) !important;
-	box-shadow: 0 5px 18px rgba(247,148,29,0.35) !important;
+	background: linear-gradient(160deg, #f7941d 0%, #f07818 50%, #e86a10 100%) !important;
+	box-shadow: 0 6px 22px rgba(240,120,24,0.4) !important;
 	transform: translateY(-1px);
 }
 
-/* ===== "CAUTARE AVANSATA" BUTTON — glass pill ===== */
+/* ===== "CAUTARE AVANSATA" BUTTON — centered glass pill ===== */
 .new_f-ext-btn-container {
-	margin-top: 10px !important;
-	margin-bottom: 22px !important;
+	margin-top: 6px !important;
+	margin-bottom: 20px !important;
+	text-align: center !important;
 }
 .new_f-form .new_f-ext-btn {
 	background: rgba(255,255,255,0.15) !important;
 	border: 1px solid rgba(255,255,255,0.25) !important;
 	border-radius: 20px !important;
-	padding: 5px 16px 5px 14px !important;
+	padding: 5px 18px 5px 16px !important;
 	transition: all 0.25s ease !important;
 }
 .new_f-form .new_f-ext-btn:hover {
@@ -2800,7 +2801,7 @@
 }
 .new_f-dropdown-btn .cnt::after,
 .new_f-dropdown-btn::after {
-	border-color: #8ab8e6 transparent transparent !important;
+	border-color: #5a9fd6 transparent transparent !important;
 }
 
 /* ===== DROPDOWNS — rounded + layered shadow ===== */
@@ -2814,7 +2815,7 @@
 .new_t-tab-content-top,
 .new_t-modal-body-top,
 .new_f-dropdown-body-top {
-	background: linear-gradient(135deg, rgba(80,160,230,0.95) 0%, rgba(110,188,250,0.95) 100%) !important;
+	background: linear-gradient(135deg, #3a8fd9 0%, #5aacf2 100%) !important;
 }
 
 /* ===== DROPDOWN CLOSE — fade ===== */
@@ -2837,8 +2838,8 @@
 	background-color: #fff !important;
 }
 [class*='new_f-'] input[type="checkbox"]:checked + *::before {
-	background-color: #6aafe6 !important;
-	border-color: #6aafe6 !important;
+	background-color: #4a9de0 !important;
+	border-color: #4a9de0 !important;
 }
 [class*='new_f-'] input[type="checkbox"]:checked + *::after {
 	background: none !important;
@@ -2856,8 +2857,8 @@
 }
 /* Recommend checkboxes */
 .new_f-ext-col-recommend input[type="checkbox"]:checked + ::before {
-	background-color: #6aafe6 !important;
-	border-color: #6aafe6 !important;
+	background-color: #4a9de0 !important;
+	border-color: #4a9de0 !important;
 }
 .new_f-ext-col-recommend input[type="checkbox"]:checked + ::after {
 	background: none !important;
@@ -2890,13 +2891,13 @@
 /* ===== EXTENDED FILTERS — APPLY BUTTON ===== */
 .new_f-ext-container .new_f-dropdown-btn-apply {
 	border-radius: 10px !important;
-	background: linear-gradient(160deg, #f9a840 0%, #f7941d 100%) !important;
-	box-shadow: 0 3px 10px rgba(247,148,29,0.2) !important;
+	background: linear-gradient(160deg, #ffad33 0%, #f7941d 50%, #f07818 100%) !important;
+	box-shadow: 0 3px 12px rgba(240,120,24,0.25) !important;
 	transition: all 0.3s ease !important;
 }
 .new_f-ext-container .new_f-dropdown-btn-apply:hover {
-	background: linear-gradient(160deg, #f7941d 0%, #f08010 100%) !important;
-	box-shadow: 0 4px 14px rgba(247,148,29,0.3) !important;
+	background: linear-gradient(160deg, #f7941d 0%, #f07818 50%, #e86a10 100%) !important;
+	box-shadow: 0 4px 16px rgba(240,120,24,0.35) !important;
 	transform: translateY(-1px);
 }
 
@@ -2904,7 +2905,7 @@
 .new_f-ext-container .ui-slider .ui-slider-handle {
 	border-radius: 50% !important;
 	box-shadow: 0 2px 6px rgba(0,0,0,0.18) !important;
-	border: 2px solid #8ab8e6 !important;
+	border: 2px solid #5a9fd6 !important;
 	background: #fff !important;
 	transition: box-shadow 0.2s ease !important;
 }
@@ -2920,7 +2921,7 @@
 /* ===== "NOT FOUND" BUTTON ===== */
 .new_not-found-message .os-order-form-submit_button {
 	border-radius: 10px !important;
-	background: linear-gradient(160deg, #f9a840 0%, #f7941d 100%) !important;
+	background: linear-gradient(160deg, #ffad33 0%, #f7941d 50%, #f07818 100%) !important;
 }
 
 /* ===== MOBILE — rounded fields + button ===== */
@@ -2930,8 +2931,8 @@
 }
 .new_m-mobile-form:not(.new_mobile-form) .new_f-form-submit {
 	border-radius: 12px !important;
-	background: linear-gradient(160deg, #f9a840 0%, #f7941d 100%) !important;
-	box-shadow: 0 3px 12px rgba(247,148,29,0.2) !important;
+	background: linear-gradient(160deg, #ffad33 0%, #f7941d 50%, #f07818 100%) !important;
+	box-shadow: 0 4px 14px rgba(240,120,24,0.25) !important;
 }
 
 /* ===== SCROLLBAR — thin, elegant ===== */
