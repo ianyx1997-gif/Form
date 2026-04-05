@@ -2837,21 +2837,41 @@
 	border-radius: 4px !important;
 	border: 1.5px solid #b0b8c4 !important;
 	background-color: #fff !important;
-	transition: border-color 0.2s ease, background-color 0.2s ease !important;
 }
 [class*='new_f-'] input[type="checkbox"]:checked + *::before {
-	background-color: #3b82d4 !important;
-	border-color: #3b82d4 !important;
+	background-color: #2563a8 !important;
+	border-color: #2563a8 !important;
 }
 [class*='new_f-'] input[type="checkbox"]:checked + *::after {
 	background: none !important;
+	background-image: none !important;
 	width: 5px !important;
 	height: 9px !important;
 	border: solid #fff !important;
-	border-width: 0 2px 2px 0 !important;
+	border-width: 0 2.5px 2.5px 0 !important;
 	transform: rotate(45deg) !important;
 	left: 5px !important;
 	top: 4px !important;
+	visibility: visible !important;
+	display: block !important;
+	opacity: 1 !important;
+}
+/* Fallback: if white tick invisible, also color the box distinctly */
+.new_f-ext-col-recommend input[type="checkbox"]:checked + ::before {
+	background-color: #2563a8 !important;
+	border-color: #2563a8 !important;
+}
+.new_f-ext-col-recommend input[type="checkbox"]:checked + ::after {
+	background: none !important;
+	background-image: none !important;
+	width: 5px !important;
+	height: 9px !important;
+	border: solid #fff !important;
+	border-width: 0 2.5px 2.5px 0 !important;
+	transform: rotate(45deg) !important;
+	visibility: visible !important;
+	display: block !important;
+	opacity: 1 !important;
 }
 
 /* ===== DATE PICKER — rounded + shadow ===== */
