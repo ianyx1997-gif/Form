@@ -439,10 +439,10 @@
         openWatchModal(tour);
       });
 
-      // Insert button ABOVE the price block
+      // Insert button below the price block
       var priceBlock = card.querySelector('.new_r-item-price');
       if (priceBlock) {
-        priceBlock.insertAdjacentElement('beforebegin', btn);
+        priceBlock.insertAdjacentElement('afterend', btn);
       } else {
         card.appendChild(btn);
       }
