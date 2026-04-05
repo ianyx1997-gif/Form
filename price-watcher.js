@@ -439,18 +439,12 @@
         openWatchModal(tour);
       });
 
-      // Insert button below the price — inside the price block so it sits right under the price number
+      // Insert button AFTER the price block (as a separate sibling below it)
       var priceBlock = card.querySelector('.new_r-item-price');
       if (priceBlock) {
-        priceBlock.appendChild(btn);
+        priceBlock.insertAdjacentElement('afterend', btn);
       } else {
-        // Fallback: try to find the price value directly
-        var priceValue = card.querySelector('.new_price-value, [class*="price"]');
-        if (priceValue && priceValue.parentNode) {
-          priceValue.parentNode.appendChild(btn);
-        } else {
-          card.appendChild(btn);
-        }
+        card.appendChild(btn);
       }
     });
   }
