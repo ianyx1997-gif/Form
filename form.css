@@ -2709,11 +2709,9 @@
 	border-radius: 16px !important;
 	border: 1px solid rgba(255,255,255,0.25) !important;
 	box-shadow: 0 8px 32px rgba(31,38,135,0.15), inset 0 1px 0 rgba(255,255,255,0.2) !important;
-	overflow: visible !important;
 }
 .new_f-container.ext-opened {
 	border-radius: 16px !important;
-	overflow: visible !important;
 }
 
 /* ===== FORM FIELDS — frosted glass style ===== */
@@ -2721,12 +2719,6 @@
 	background-color: rgba(255,255,255,0.88) !important;
 	border: 1px solid rgba(255,255,255,0.5) !important;
 	transition: all 0.3s ease !important;
-	overflow: visible !important;
-}
-.new_f-form,
-.new_f-wrapper,
-.new_f-dropdown-container {
-	overflow: visible !important;
 }
 .new_f-form-field:hover,
 .new_f-form-field:focus-within {
@@ -2753,30 +2745,10 @@
 	transform: translateY(-1px);
 }
 
-/* ===== DROPDOWNS — rounded glass ===== */
+/* ===== DROPDOWNS — rounded ===== */
 .new_f-dropdown-body {
-	background: #fff !important;
-	border: 1px solid rgba(200,200,200,0.4) !important;
 	border-radius: 12px !important;
 	box-shadow: 0 8px 32px rgba(0,0,0,0.18) !important;
-	overflow: visible !important;
-	z-index: 99999 !important;
-	position: absolute !important;
-}
-#new_os-to .new_f-dropdown-body {
-	border-radius: 12px !important;
-	z-index: 99999 !important;
-}
-.new_f-dropdown-container.people .new_f-dropdown-body {
-	border-radius: 12px !important;
-	z-index: 99999 !important;
-}
-/* Ensure open dropdown containers are on top */
-.new_f-dropdown-container.opened,
-.new_f-form-field.opened,
-.new_f-form-field.active {
-	z-index: 10000 !important;
-	position: relative !important;
 }
 
 /* ===== DROPDOWN ITEMS — hover effect ===== */
@@ -2803,10 +2775,8 @@
 /* ===== EXTENDED FILTERS CONTAINER ===== */
 .new_f-ext-container {
 	border-radius: 0 0 16px 16px !important;
-	background: rgba(255,255,255,0.95) !important;
 	border: 1px solid rgba(200,200,200,0.3) !important;
 	border-top: none !important;
-	overflow: visible !important;
 }
 
 /* ===== EXTENDED FILTERS — APPLY BUTTON ===== */
@@ -2853,31 +2823,10 @@
 	border: 1px solid rgba(200,200,200,0.3) !important;
 }
 
-/* ===== MOBILE FORM — rounded fields + overflow fix ===== */
+/* ===== MOBILE FORM — rounded fields ===== */
 .new_m-mobile-form:not(.new_mobile-form) .new_f-form-submit,
 .new_m-mobile-form:not(.new_mobile-form) .new_f-form-field {
 	border-radius: 12px !important;
-}
-.new_m-mobile-form:not(.new_mobile-form) .new_f-form-field {
-	overflow: visible !important;
-}
-.new_m-mobile-form:not(.new_mobile-form) {
-	overflow: visible !important;
-}
-/* Force all possible parent containers to allow dropdown overflow */
-.new_f-container,
-.new_f-container *,
-.new_f-form,
-.new_f-wrapper,
-.new_m-mobile-form,
-.new_f-dropdown-container,
-.new_f-form-field {
-	overflow: visible !important;
-}
-/* Dropdown body must sit above everything */
-.new_f-dropdown-body,
-.new_f-dropdown-body * {
-	z-index: 99999 !important;
 }
 
 /* ===== TITLE TEXT — subtle shadow ===== */
