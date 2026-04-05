@@ -535,12 +535,210 @@
     priceDescr.appendChild(btn);
   }
 
+  // ===== WATCH ALL WISHLIST — subscribe to all tours at once =====
+  function openWatchAllModal() {
+    closePwModal();
+
+    var wishlist = [];
+    try {
+      wishlist = JSON.parse(localStorage.getItem(PW_WISHLIST_KEY)) || [];
+    } catch(e) {}
+
+    var toursWithPrice = wishlist.filter(function(t) { return t && t.price; });
+    if (toursWithPrice.length === 0) {
+      pwToast('Nu ai tururi cu pret in favorite');
+      return;
+    }
+
+    var overlay = document.createElement('div');
+    overlay.id = 'pwModalOverlay';
+    overlay.className = 'pw-modal-overlay';
+    overlay.addEventListener('click', function(e) { if (e.target === overlay) closePwModal(); });
+
+    var modal = document.createElement('div');
+    modal.className = 'pw-modal';
+
+    // Header
+    var header = document.createElement('div');
+    header.className = 'pw-modal-header';
+    header.innerHTML = '<span class="pw-modal-title">\uD83D\uDD14 Urmareste toate preturile</span>';
+    var closeBtn = document.createElement('button');
+    closeBtn.className = 'pw-modal-close';
+    closeBtn.innerHTML = '&times;';
+    closeBtn.addEventListener('click', closePwModal);
+    header.appendChild(closeBtn);
+    modal.appendChild(header);
+
+    // Body
+    var body = document.createElement('div');
+    body.className = 'pw-modal-body';
+
+    // Tour list preview
+    var tourList = document.createElement('div');
+    tourList.className = 'pw-tour-info';
+    var listHtml = '<div class="pw-tour-name">' + toursWithPrice.length + ' tururi din favorite:</div>';
+    toursWithPrice.forEach(function(t, i) {
+      listHtml += '<div class="pw-tour-detail" style="margin-top:4px;">' + (i + 1) + '. ' + (t.name || 'Hotel') + ' — ' + t.price + ' ' + (t.currency || 'EUR') + '</div>';
+    });
+    tourList.innerHTML = listHtml;
+    body.appendChild(tourList);
+
+    // ===== TELEGRAM BUTTON =====
+    var searchParams = extractSearchParams();
+
+    var tgBtn = document.createElement('a');
+    tgBtn.href = '#';
+    tgBtn.className = 'pw-telegram-btn';
+    tgBtn.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg> Urmareste toate pe Telegram';
+    tgBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      // Pre-register first tour, then open Telegram
+      // For multiple tours, we register each one, but open Telegram once with the first token
+      var firstToken = null;
+      toursWithPrice.forEach(function(tour) {
+        var token = generateToken();
+        if (!firstToken) firstToken = token;
+        preRegisterTelegram(token, tour, searchParams);
+      });
+      // Open Telegram with first token — bot will subscribe to it
+      // For the rest, we also register via email if provided
+      window.open('https://t.me/' + PW_TELEGRAM_BOT + '?start=' + firstToken, '_blank');
+      pwToast('Deschide Telegram si apasa Start');
+      setTimeout(closePwModal, 500);
+    });
+    body.appendChild(tgBtn);
+
+    // ===== SEPARATOR =====
+    var separator = document.createElement('div');
+    separator.className = 'pw-separator';
+    separator.innerHTML = '<span>sau prin email (toate deodatai)</span>';
+    body.appendChild(separator);
+
+    // ===== EMAIL INPUT =====
+    var inputGroup = document.createElement('div');
+    inputGroup.className = 'pw-input-group';
+    var label = document.createElement('label');
+    label.className = 'pw-input-label';
+    label.textContent = 'Email-ul tau:';
+    label.setAttribute('for', 'pwEmailInputAll');
+    inputGroup.appendChild(label);
+    var emailInput = document.createElement('input');
+    emailInput.type = 'email';
+    emailInput.id = 'pwEmailInputAll';
+    emailInput.className = 'pw-email-input';
+    emailInput.placeholder = 'exemplu@email.com';
+    emailInput.value = getSavedEmail();
+    inputGroup.appendChild(emailInput);
+    body.appendChild(inputGroup);
+
+    // Submit button
+    var submitBtn = document.createElement('button');
+    submitBtn.className = 'pw-submit-btn';
+    submitBtn.textContent = '\uD83D\uDD14 Urmareste toate ' + toursWithPrice.length + ' tururi';
+    submitBtn.addEventListener('click', function() {
+      var email = emailInput.value.trim();
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        pwToast('Introdu un email valid');
+        emailInput.focus();
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = '\u23F3 Se trimite...';
+      saveEmail(email);
+
+      var searchParams = extractSearchParams();
+      var sent = 0;
+      var total = toursWithPrice.length;
+
+      toursWithPrice.forEach(function(tour) {
+        var payload = {
+          email: email,
+          tourId: tour.id || tour.name || 'unknown',
+          tourName: tour.name || null,
+          tourUrl: tour.link || null,
+          tourImg: tour.img || null,
+          price: tour.price,
+          currency: tour.currency || 'EUR',
+          geo: tour.geo || null,
+          dates: tour.dates || null,
+          stars: tour.stars || null,
+          food: tour.food || null,
+          searchParams: searchParams
+        };
+
+        fetch(PW_API_URL + '/api/watch', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        })
+        .then(function(resp) { return resp.json(); })
+        .then(function() {
+          sent++;
+          if (sent >= total) {
+            body.innerHTML = '';
+            var success = document.createElement('div');
+            success.className = 'pw-success-msg';
+            success.innerHTML = '<div class="pw-success-icon">\u2705</div>' +
+              '<div class="pw-success-text">Urmarirea activata pentru ' + total + ' tururi!</div>' +
+              '<div class="pw-success-sub">Vei primi notificari pe <strong>' + email + '</strong> cand preturile se schimba.</div>';
+            body.appendChild(success);
+            setTimeout(closePwModal, 3000);
+          }
+        })
+        .catch(function() {
+          sent++;
+        });
+      });
+    });
+    body.appendChild(submitBtn);
+
+    var hint = document.createElement('div');
+    hint.className = 'pw-hint';
+    hint.textContent = 'Verificam pretul zilnic la ora 10:00. Te poti dezabona oricand.';
+    body.appendChild(hint);
+
+    modal.appendChild(body);
+    overlay.appendChild(modal);
+    document.body.appendChild(overlay);
+    setTimeout(function() { overlay.classList.add('pw-modal-open'); }, 10);
+
+    if (!emailInput.value) {
+      setTimeout(function() { emailInput.focus(); }, 400);
+    }
+  }
+
+  // ===== ADD "WATCH ALL" BUTTON TO WISHLIST FOOTER =====
+  function addWatchAllButtonToWishlist() {
+    var footer = document.getElementById('zebraWishlistFooter');
+    if (!footer) return;
+    if (footer.querySelector('.pw-watch-all-btn')) return;
+
+    var wishlist = [];
+    try {
+      wishlist = JSON.parse(localStorage.getItem(PW_WISHLIST_KEY)) || [];
+    } catch(e) {}
+    if (wishlist.length === 0) return;
+
+    var btn = document.createElement('button');
+    btn.className = 'pw-watch-all-btn';
+    btn.innerHTML = bellSvg + ' Urmareste toate preturile (' + wishlist.length + ')';
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      openWatchAllModal();
+    });
+
+    // Insert at the top of footer, before the expert button
+    footer.insertBefore(btn, footer.firstChild);
+  }
+
   // ===== WATCH FOR DOM CHANGES =====
   function watchForChanges() {
     var observer = new MutationObserver(function() {
       var panel = document.getElementById('zebraWishlistPanel');
       if (panel && panel.classList.contains('open')) {
         setTimeout(addWatchButtonsToWishlist, 200);
+        setTimeout(addWatchAllButtonToWishlist, 300);
       }
       setTimeout(addWatchButtonsToResults, 200);
       setTimeout(addWatchButtonToTourPage, 200);
@@ -554,9 +752,11 @@
     setTimeout(addWatchButtonsToWishlist, 2000);
     setTimeout(addWatchButtonsToResults, 2000);
     setTimeout(addWatchButtonToTourPage, 2000);
+    setTimeout(addWatchAllButtonToWishlist, 2500);
     setTimeout(addWatchButtonsToWishlist, 5000);
     setTimeout(addWatchButtonsToResults, 5000);
     setTimeout(addWatchButtonToTourPage, 5000);
+    setTimeout(addWatchAllButtonToWishlist, 5500);
   }
 
   if (document.readyState === 'loading') {
