@@ -2822,7 +2822,7 @@
 
 /* ===== EXTENDED FILTERS — glass panel ===== */
 .new_f-ext-container {
-	background: linear-gradient(135deg, rgba(255,237,213,0.95) 0%, rgba(254,243,199,0.92) 50%, rgba(255,237,213,0.95) 100%) !important;
+	background: linear-gradient(135deg, rgba(255,237,213,1) 0%, rgba(254,243,199,1) 50%, rgba(255,237,213,1) 100%) !important;
 	border-radius: 0 0 20px 20px !important;
 }
 .new_f-ext-bl-title {
@@ -2872,15 +2872,15 @@
 	text-align: center !important;
 }
 .new_f-ext-btn {
-	background: rgba(255,255,255,0.15) !important;
-	border: 1px solid rgba(255,255,255,0.3) !important;
+	background: linear-gradient(135deg, rgba(249,115,22,0.25) 0%, rgba(245,158,11,0.2) 100%) !important;
+	border: 1px solid rgba(249,115,22,0.4) !important;
 	border-radius: 20px !important;
 	padding: 4px 20px 4px 18px !important;
 	transition: all 0.25s ease !important;
 }
 .new_f-ext-btn:hover {
-	background: rgba(255,255,255,0.25) !important;
-	border-color: rgba(255,255,255,0.5) !important;
+	background: linear-gradient(135deg, rgba(249,115,22,0.35) 0%, rgba(245,158,11,0.3) 100%) !important;
+	border-color: rgba(249,115,22,0.55) !important;
 }
 .new_f-ext-btn-text {
 	text-decoration: none !important;
