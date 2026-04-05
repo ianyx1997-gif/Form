@@ -2822,7 +2822,7 @@
 
 /* ===== EXTENDED FILTERS — glass panel ===== */
 .new_f-ext-container {
-	background: rgba(241,245,249,0.85) !important;
+	background: rgba(241,245,249,0.98) !important;
 	border-radius: 0 0 20px 20px !important;
 }
 .new_f-ext-bl-title {
