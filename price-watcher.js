@@ -439,12 +439,18 @@
         openWatchModal(tour);
       });
 
-      // Insert button below the price block
-      var priceBlock = card.querySelector('.new_r-item-price');
-      if (priceBlock) {
-        priceBlock.insertAdjacentElement('afterend', btn);
+      // Insert button after the heart/favorite button
+      var heartBtn = card.querySelector('.zebra-heart-btn, .new_r-item-fav, [class*="heart"], [class*="fav"]');
+      if (heartBtn) {
+        heartBtn.insertAdjacentElement('afterend', btn);
       } else {
-        card.appendChild(btn);
+        // Fallback: insert at the top-right area (after hotel name)
+        var nameEl = card.querySelector('.new_r-item-hotel');
+        if (nameEl) {
+          nameEl.insertAdjacentElement('afterend', btn);
+        } else {
+          card.appendChild(btn);
+        }
       }
     });
   }

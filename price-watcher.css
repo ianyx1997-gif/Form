@@ -38,26 +38,24 @@
   height: 14px !important;
 }
 
-/* ===== WATCH BUTTON ON TOUR PAGE (results — compact strip above price) ===== */
+/* ===== WATCH BUTTON ON TOUR PAGE (results — inline, next to favorite) ===== */
 .pw-result-watch-btn {
-  display: flex !important;
+  display: inline-flex !important;
   align-items: center !important;
-  justify-content: center !important;
   gap: 3px !important;
-  padding: 4px 8px !important;
+  padding: 3px 8px !important;
   border: none !important;
-  border-radius: 0 0 6px 6px !important;
+  border-radius: 6px !important;
   font-size: 10px !important;
   font-weight: 600 !important;
   cursor: pointer !important;
   transition: all 0.2s ease !important;
   background: #0088cc !important;
   color: #fff !important;
-  margin: 0 !important;
-  width: 100% !important;
-  box-sizing: border-box !important;
-  text-align: center !important;
+  margin: 2px 0 !important;
   line-height: 1.2 !important;
+  white-space: nowrap !important;
+  vertical-align: middle !important;
 }
 .pw-result-watch-btn:hover {
   background: #006da3 !important;
