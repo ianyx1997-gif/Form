@@ -2699,152 +2699,196 @@
 }
 
 /* ============================================================
-   GLASSMORPHISM & MODERN UI OVERRIDES
-   Aesthetic only — no functional changes
+   MODERN UI OVERRIDES — aesthetic only, no functional changes
    ============================================================ */
 
-/* ===== MAIN FORM CONTAINER — glass effect ===== */
+/* ===== MAIN CONTAINER — gradient + rounded + shadow ===== */
 .new_f-container {
-	background: linear-gradient(135deg, rgba(76,156,224,0.85) 0%, rgba(101,178,243,0.8) 100%) !important;
-	border-radius: 16px !important;
-	border: 1px solid rgba(255,255,255,0.25) !important;
-	box-shadow: 0 8px 32px rgba(31,38,135,0.15), inset 0 1px 0 rgba(255,255,255,0.2) !important;
+	background: linear-gradient(135deg, #3a7bd5 0%, #5ba3e6 50%, #6db8f2 100%) !important;
+	border-radius: 18px !important;
+	border: 1px solid rgba(255,255,255,0.2) !important;
+	box-shadow:
+		0 12px 40px rgba(31,56,135,0.2),
+		0 2px 8px rgba(0,0,0,0.08),
+		inset 0 1px 0 rgba(255,255,255,0.25) !important;
 }
 .new_f-container.ext-opened {
-	border-radius: 16px !important;
+	border-radius: 18px !important;
 }
 
-/* ===== FORM FIELDS — frosted glass style ===== */
+/* ===== TITLE — larger, lighter, letter-spaced ===== */
+.new_f-title {
+	font-size: 20px !important;
+	font-weight: 600 !important;
+	letter-spacing: 0.3px !important;
+	text-shadow: 0 1px 4px rgba(0,0,0,0.15) !important;
+}
+
+/* ===== FORM FIELDS — white, soft border, lift on hover ===== */
 .new_f-form-field {
-	background-color: rgba(255,255,255,0.88) !important;
-	border: 1px solid rgba(255,255,255,0.5) !important;
-	transition: all 0.3s ease !important;
+	background-color: #fff !important;
+	border: 1px solid rgba(0,0,0,0.06) !important;
+	transition: box-shadow 0.25s ease, background-color 0.25s ease !important;
 }
 .new_f-form-field:hover,
 .new_f-form-field:focus-within {
-	background-color: rgba(255,255,255,0.95) !important;
-	box-shadow: 0 2px 12px rgba(76,156,224,0.15) !important;
+	background-color: #fff !important;
+	box-shadow: 0 3px 12px rgba(58,123,213,0.12) !important;
 }
+/* first field — rounded left side */
 .new_f-form-field.to {
 	border-radius: 12px 0 0 12px !important;
 }
+/* field separator line — lighter */
 .new_f-form-field::before {
-	background-color: rgba(76,156,224,0.15) !important;
+	background-color: rgba(0,0,0,0.06) !important;
 }
 
-/* ===== SEARCH BUTTON — modern gradient ===== */
+/* ===== INPUT TEXT — slightly darker for readability ===== */
+.new_f-autocomplete-input {
+	color: #333 !important;
+}
+.new_f-dropdown-btn {
+	color: #444 !important;
+}
+
+/* ===== SEARCH BUTTON — gradient, rounded, glow on hover ===== */
 .new_f-form .new_f-form-submit {
 	border-radius: 0 12px 12px 0 !important;
-	background: linear-gradient(135deg, #f7941d 0%, #ff6b35 100%) !important;
-	box-shadow: 0 4px 15px rgba(247,148,29,0.35) !important;
+	background: linear-gradient(160deg, #f7941d 0%, #ff6b35 100%) !important;
+	box-shadow: 0 4px 14px rgba(247,107,53,0.3) !important;
 	transition: all 0.3s ease !important;
+	font-size: 15px !important;
+	letter-spacing: 0.5px !important;
 }
 .new_f-form .new_f-form-submit:hover {
-	background: linear-gradient(135deg, #ff6b35 0%, #f7941d 100%) !important;
-	box-shadow: 0 6px 20px rgba(247,148,29,0.45) !important;
+	background: linear-gradient(160deg, #ff8c00 0%, #ff5722 100%) !important;
+	box-shadow: 0 6px 22px rgba(247,107,53,0.45) !important;
 	transform: translateY(-1px);
 }
 
-/* ===== DROPDOWNS — rounded ===== */
-.new_f-dropdown-body {
-	border-radius: 12px !important;
-	box-shadow: 0 8px 32px rgba(0,0,0,0.18) !important;
-}
-
-/* ===== DROPDOWN ITEMS — hover effect ===== */
-.new_f-dropdown-item {
+/* ===== ARROW ICONS — softer look ===== */
+.new_f-dropdown-btn .cnt {
 	border-radius: 6px !important;
-	margin: 2px 4px !important;
+	background-color: rgba(58,123,213,0.07) !important;
 	transition: background-color 0.2s ease !important;
 }
-.new_f-dropdown-item:hover {
-	background-color: rgba(76,156,224,0.1) !important;
+.new_f-dropdown-btn .cnt:hover {
+	background-color: rgba(58,123,213,0.14) !important;
 }
-.new_f-dropdown-item.selected {
-	background-color: rgba(76,156,224,0.15) !important;
-	border-radius: 6px !important;
+/* arrow color — slightly softer blue */
+.new_f-dropdown-btn .cnt::after,
+.new_f-dropdown-btn::after {
+	border-color: #5ba3e6 transparent transparent !important;
 }
 
-/* ===== DROPDOWN HEADER — rounded top ===== */
+/* ===== DROPDOWNS — rounded corners + shadow ===== */
+.new_f-dropdown-body {
+	border-radius: 10px !important;
+	border-color: rgba(0,0,0,0.08) !important;
+	box-shadow: 0 10px 36px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.06) !important;
+}
+
+/* ===== DROPDOWN / MODAL HEADER — gradient ===== */
 .new_t-tab-content-top,
 .new_t-modal-body-top,
 .new_f-dropdown-body-top {
-	background: linear-gradient(135deg, rgba(76,156,224,0.95) 0%, rgba(101,178,243,0.95) 100%) !important;
+	background: linear-gradient(135deg, #3a7bd5 0%, #5ba3e6 100%) !important;
 }
 
-/* ===== EXTENDED FILTERS CONTAINER ===== */
+/* ===== DROPDOWN CLOSE BUTTON — nicer ===== */
+.new_t-tab-content-close,
+.new_t-modal-body-close,
+.new_f-dropdown-body-close {
+	opacity: 0.8 !important;
+	transition: opacity 0.2s ease !important;
+}
+.new_t-tab-content-close:hover,
+.new_t-modal-body-close:hover,
+.new_f-dropdown-body-close:hover {
+	opacity: 1 !important;
+}
+
+/* ===== DATE PICKER — rounded + shadow ===== */
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div {
+	border-radius: 12px !important;
+	box-shadow: 0 10px 36px rgba(0,0,0,0.12), 0 2px 6px rgba(0,0,0,0.06) !important;
+	border: 1px solid rgba(0,0,0,0.08) !important;
+}
+
+/* ===== EXTENDED FILTERS — rounded bottom ===== */
 .new_f-ext-container {
-	border-radius: 0 0 16px 16px !important;
-	border: 1px solid rgba(200,200,200,0.3) !important;
+	border-radius: 0 0 18px 18px !important;
+	border: 1px solid rgba(0,0,0,0.06) !important;
 	border-top: none !important;
+	background: #f9fafb !important;
 }
 
 /* ===== EXTENDED FILTERS — APPLY BUTTON ===== */
 .new_f-ext-container .new_f-dropdown-btn-apply {
 	border-radius: 10px !important;
-	background: linear-gradient(135deg, #f7941d 0%, #ff6b35 100%) !important;
-	box-shadow: 0 3px 12px rgba(247,148,29,0.3) !important;
+	background: linear-gradient(160deg, #f7941d 0%, #ff6b35 100%) !important;
+	box-shadow: 0 3px 12px rgba(247,107,53,0.25) !important;
 	transition: all 0.3s ease !important;
 }
 .new_f-ext-container .new_f-dropdown-btn-apply:hover {
-	box-shadow: 0 5px 18px rgba(247,148,29,0.4) !important;
+	background: linear-gradient(160deg, #ff8c00 0%, #ff5722 100%) !important;
+	box-shadow: 0 5px 18px rgba(247,107,53,0.4) !important;
 	transform: translateY(-1px);
 }
 
-/* ===== SLIDER HANDLES — more rounded ===== */
+/* ===== SLIDER HANDLES — circle + shadow ===== */
 .new_f-ext-container .ui-slider .ui-slider-handle {
 	border-radius: 50% !important;
-	box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+	box-shadow: 0 2px 6px rgba(0,0,0,0.15) !important;
 	transition: box-shadow 0.2s ease !important;
 }
 .new_f-ext-container .ui-slider .ui-slider-handle:hover {
-	box-shadow: 0 3px 12px rgba(0,0,0,0.25) !important;
+	box-shadow: 0 3px 10px rgba(0,0,0,0.25) !important;
 }
 
-/* ===== CHECKBOXES IN FILTERS — rounded ===== */
+/* ===== CHECKBOXES — slightly rounded wraps ===== */
 .new_f-ext-container .new_f-ext-checkbox-wrap {
-	border-radius: 8px !important;
-}
-
-/* ===== COUNTRY LIST in dropdown ===== */
-#new_os-to .ui-autocomplete .ui-menu-item .label {
-	border-radius: 4px !important;
-}
-#new_os-to #cntList .ui-menu-item.active a,
-#new_os-to #cntList .ui-menu-item.active a * {
-	background: rgba(76,156,224,0.12) !important;
 	border-radius: 6px !important;
 }
-
-/* ===== DATE PICKER — rounded ===== */
-.new_f-dates-container#new_f-dates-container #ui-datepicker-div {
-	border-radius: 14px !important;
-	box-shadow: 0 8px 32px rgba(0,0,0,0.12) !important;
-	border: 1px solid rgba(200,200,200,0.3) !important;
+/* checkbox box — rounded */
+[class*='new_f-'] input[type="checkbox"] + *::before {
+	border-radius: 3px !important;
+	border-color: #c0c7cf !important;
 }
 
-/* ===== MOBILE FORM — rounded fields ===== */
-.new_m-mobile-form:not(.new_mobile-form) .new_f-form-submit,
-.new_m-mobile-form:not(.new_mobile-form) .new_f-form-field {
-	border-radius: 12px !important;
-}
-
-/* ===== TITLE TEXT — subtle shadow ===== */
-.new_f-title {
-	text-shadow: 0 1px 3px rgba(0,0,0,0.1) !important;
-}
-
-/* ===== "NOT FOUND" BUTTON — rounded ===== */
+/* ===== "NOT FOUND" BUTTON ===== */
 .new_not-found-message .os-order-form-submit_button {
 	border-radius: 10px !important;
-	background: linear-gradient(135deg, #f7941d 0%, #ff6b35 100%) !important;
+	background: linear-gradient(160deg, #f7941d 0%, #ff6b35 100%) !important;
 }
 
-/* ===== ARROW ICONS — blue tint ===== */
-.new_f-dropdown-btn .cnt {
-	border-radius: 6px !important;
-	background-color: rgba(76,156,224,0.08) !important;
+/* ===== MOBILE FORM — rounded fields + button ===== */
+.new_m-mobile-form:not(.new_mobile-form) .new_f-form-field {
+	border-radius: 10px !important;
+	border: 1px solid rgba(0,0,0,0.06) !important;
 }
-.new_f-dropdown-btn .cnt:hover {
-	background-color: rgba(76,156,224,0.15) !important;
+.new_m-mobile-form:not(.new_mobile-form) .new_f-form-submit {
+	border-radius: 10px !important;
+}
+
+/* ===== SCROLLBAR inside dropdowns — thin, elegant ===== */
+.new_f-dropdown-body::-webkit-scrollbar,
+.new_f-dropdown-body *::-webkit-scrollbar {
+	width: 4px !important;
+}
+.new_f-dropdown-body::-webkit-scrollbar-track,
+.new_f-dropdown-body *::-webkit-scrollbar-track {
+	background: transparent !important;
+}
+.new_f-dropdown-body::-webkit-scrollbar-thumb,
+.new_f-dropdown-body *::-webkit-scrollbar-thumb {
+	background-color: rgba(0,0,0,0.15) !important;
+	border-radius: 4px !important;
+}
+
+/* ===== PEOPLE dropdown — rounded inputs ===== */
+.new_f-dropdown-container.people input[type="text"] {
+	border-radius: 6px !important;
+	border: 1px solid #d8dde3 !important;
 }
