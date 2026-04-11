@@ -61,7 +61,7 @@
       '.pw-success-text{font-size:16px;font-weight:700;color:#1e293b;margin-bottom:6px}' +
       '.pw-success-sub{font-size:13px;color:#64748b;line-height:1.5}' +
       /* Watch buttons on result cards */
-      '.pw-watch-btn,.pw-result-watch-btn{display:inline-flex;align-items:center;gap:4px;padding:6px 12px;background:#f0f9ff;color:#3b82f6;border:1px solid #bfdbfe;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;font-family:Arial,sans-serif;margin-top:6px}' +
+      '.pw-watch-btn,.pw-result-watch-btn{display:flex;align-items:center;justify-content:center;gap:4px;padding:6px 12px;background:#f0f9ff;color:#3b82f6;border:1px solid #bfdbfe;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;font-family:Arial,sans-serif;margin-bottom:6px;width:100%;box-sizing:border-box}' +
       '.pw-watch-btn:hover,.pw-result-watch-btn:hover{background:#3b82f6;color:#fff;border-color:#3b82f6}';
     document.head.appendChild(style);
   })();
@@ -151,49 +151,122 @@
   }
 
   // ===== EXTRACT SEARCH PARAMS FROM WIDGET =====
-  // Uses Performance API to find the last Otpusk search URL and extract its params
+  // Strategy 1: Performance API (Otpusk search URLs)
+  // Strategy 2: Otpusk widget global state (window.OtpuskWidget or similar)
+  // Strategy 3: Page URL parameters as last resort
   function extractSearchParams() {
+    var result = null;
+
+    // Strategy 1: Performance API
     try {
       var entries = performance.getEntriesByType('resource');
       var searchEntries = entries.filter(function(e) {
-        return e.name.indexOf('tours/search') > -1 && e.name.indexOf('api.otpusk.com') > -1;
+        return e.name.indexOf('otpusk.com') > -1 &&
+               (e.name.indexOf('tours/search') > -1 || e.name.indexOf('search?') > -1);
       });
 
-      if (searchEntries.length === 0) return null;
+      if (searchEntries.length > 0) {
+        var lastSearch = searchEntries[searchEntries.length - 1];
+        var url = new URL(lastSearch.name);
+        var params = {};
+        var keys = ['to', 'checkIn', 'checkTo', 'length', 'lengthTo', 'people', 'food', 'transport', 'stars', 'deptCity', 'currencyLocal', 'rating', 'price', 'priceTo', 'services'];
+        keys.forEach(function(k) {
+          var v = url.searchParams.get(k);
+          if (v !== null && v !== '') params[k] = v;
+        });
 
-      // Get the most recent search URL
-      var lastSearch = searchEntries[searchEntries.length - 1];
-      var url = new URL(lastSearch.name);
-      var params = {};
-
-      // Extract the important search parameters
-      var keys = ['to', 'checkIn', 'checkTo', 'length', 'lengthTo', 'people', 'food', 'transport', 'stars', 'deptCity', 'currencyLocal', 'rating', 'price', 'priceTo', 'services'];
-      keys.forEach(function(k) {
-        var v = url.searchParams.get(k);
-        if (v !== null && v !== '') params[k] = v;
-      });
-
-      // Map to server-expected format
-      return {
-        countryId: params.to || null,
-        checkIn: params.checkIn || null,
-        checkTo: params.checkTo || params.checkIn || null,
-        length: params.length || '7',
-        lengthTo: params.lengthTo || '',
-        people: params.people || '2',
-        food: params.food || '',
-        transport: params.transport || 'air',
-        stars: params.stars || '',
-        deptCity: params.deptCity || '1831',
-        currencyLocal: params.currencyLocal || 'eur',
-        price: params.price || '',
-        priceTo: params.priceTo || ''
-      };
+        if (params.to) {
+          result = {
+            countryId: params.to,
+            checkIn: params.checkIn || null,
+            checkTo: params.checkTo || params.checkIn || null,
+            length: params.length || '7',
+            lengthTo: params.lengthTo || '',
+            people: params.people || '2',
+            food: params.food || '',
+            transport: params.transport || 'air',
+            stars: params.stars || '',
+            deptCity: params.deptCity || '1831',
+            currencyLocal: params.currencyLocal || 'eur',
+            price: params.price || '',
+            priceTo: params.priceTo || ''
+          };
+          console.log('[PriceWatcher] Search params from Performance API:', JSON.stringify(result));
+          return result;
+        }
+      }
     } catch(e) {
-      console.log('[PriceWatcher] Could not extract search params:', e.message);
-      return null;
+      console.log('[PriceWatcher] Performance API failed:', e.message);
     }
+
+    // Strategy 2: Look for Otpusk widget state in the DOM
+    try {
+      // The widget often stores params in data attributes or global vars
+      var widgetEl = document.querySelector('[data-otpusk-to], [data-country], .otpusk-widget[data-to]');
+      if (widgetEl) {
+        var to = widgetEl.getAttribute('data-otpusk-to') || widgetEl.getAttribute('data-to') || widgetEl.getAttribute('data-country');
+        if (to) {
+          result = {
+            countryId: to,
+            checkIn: widgetEl.getAttribute('data-checkin') || null,
+            checkTo: widgetEl.getAttribute('data-checkto') || null,
+            length: widgetEl.getAttribute('data-length') || '7',
+            people: widgetEl.getAttribute('data-people') || '2',
+            food: widgetEl.getAttribute('data-food') || '',
+            transport: widgetEl.getAttribute('data-transport') || 'air',
+            stars: widgetEl.getAttribute('data-stars') || '',
+            deptCity: widgetEl.getAttribute('data-deptcity') || '1831',
+            currencyLocal: 'eur'
+          };
+          console.log('[PriceWatcher] Search params from widget DOM:', JSON.stringify(result));
+          return result;
+        }
+      }
+    } catch(e) {}
+
+    // Strategy 3: XHR intercept — check if we captured it earlier
+    if (window.__pw_last_search_params) {
+      console.log('[PriceWatcher] Search params from XHR intercept');
+      return window.__pw_last_search_params;
+    }
+
+    console.log('[PriceWatcher] WARNING: Could not extract search params from any source');
+    return null;
   }
+
+  // ===== INTERCEPT OTPUSK API CALLS =====
+  // Capture search params from XHR/fetch calls as they happen (more reliable than Performance API)
+  (function interceptOtpuskCalls() {
+    try {
+      var origOpen = XMLHttpRequest.prototype.open;
+      XMLHttpRequest.prototype.open = function(method, url) {
+        if (typeof url === 'string' && url.indexOf('otpusk.com') > -1 &&
+            (url.indexOf('tours/search') > -1 || url.indexOf('search?') > -1)) {
+          try {
+            var u = new URL(url, window.location.href);
+            var to = u.searchParams.get('to');
+            if (to) {
+              window.__pw_last_search_params = {
+                countryId: to,
+                checkIn: u.searchParams.get('checkIn') || null,
+                checkTo: u.searchParams.get('checkTo') || null,
+                length: u.searchParams.get('length') || '7',
+                lengthTo: u.searchParams.get('lengthTo') || '',
+                people: u.searchParams.get('people') || '2',
+                food: u.searchParams.get('food') || '',
+                transport: u.searchParams.get('transport') || 'air',
+                stars: u.searchParams.get('stars') || '',
+                deptCity: u.searchParams.get('deptCity') || '1831',
+                currencyLocal: u.searchParams.get('currencyLocal') || 'eur'
+              };
+              console.log('[PriceWatcher] Captured search params from XHR:', to);
+            }
+          } catch(e) {}
+        }
+        return origOpen.apply(this, arguments);
+      };
+    } catch(e) {}
+  })();
 
   // ===== EXTRACT TOUR DATA FROM RESULT CARD (Otpusk widget) =====
   function extractTourFromCard(card) {
@@ -338,6 +411,9 @@
     var searchParams = extractSearchParams();
     var tgPayload = encodeTelegramPayload(tour, searchParams);
     var tgLink = 'https://t.me/' + PW_TELEGRAM_BOT + '?start=' + tgPayload;
+    console.log('[PriceWatcher] Tour data:', JSON.stringify({name: tour.name, price: tour.price, offerDate: tour.offerDate, offerNights: tour.offerNights, link: tour.link ? tour.link.substring(0, 100) : null}));
+    console.log('[PriceWatcher] TG payload:', tgPayload);
+    console.log('[PriceWatcher] TG link:', tgLink);
 
     var tgBtn = document.createElement('a');
     tgBtn.href = tgLink;
@@ -497,10 +573,10 @@
         openWatchModal(tour);
       });
       var priceBlock = card.querySelector('.new_r-item-price');
-      if (priceBlock) priceBlock.parentNode.insertBefore(btn, priceBlock.nextSibling);
+      if (priceBlock) priceBlock.parentNode.insertBefore(btn, priceBlock);
       else {
         var heartBtn = card.querySelector('.zebra-heart-btn');
-        if (heartBtn) heartBtn.parentNode.insertBefore(btn, heartBtn.nextSibling);
+        if (heartBtn) heartBtn.parentNode.insertBefore(btn, heartBtn);
         else card.appendChild(btn);
       }
     });
