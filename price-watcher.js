@@ -1,7 +1,7 @@
 /* ============================================================
    ZEBRA TOUR – PRICE WATCHER (Frontend)
-   Adds "Urmareste pretul" button in wishlist & on tour results
-   Sends data to backend API for price tracking & email/telegram alerts
+   Adds "Urmareste pretul" button on tour results
+   Sends data + search params to backend for price tracking
    ============================================================ */
 (function() {
   'use strict';
@@ -9,8 +9,62 @@
   // ===== CONFIG — change this to your Railway backend URL =====
   var PW_API_URL = 'https://web-production-a7362.up.railway.app';
   var PW_WISHLIST_KEY = 'zebra_wishlist';
-  var PW_EMAIL_KEY = 'pw_user_email'; // remember email in localStorage
+  var PW_EMAIL_KEY = 'pw_user_email';
   var PW_TELEGRAM_BOT = 'zebrapricebot'; // Telegram bot username (without @)
+
+  // ===== INJECT CSS =====
+  (function injectStyles() {
+    var style = document.createElement('style');
+    style.textContent = '' +
+      /* Toast */
+      '.pw-toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(20px);background:#1e293b;color:#fff;padding:12px 24px;border-radius:10px;font-size:14px;font-family:Arial,sans-serif;z-index:999999;opacity:0;transition:opacity .3s,transform .3s;pointer-events:none;box-shadow:0 4px 12px rgba(0,0,0,.15)}' +
+      '.pw-toast-show{opacity:1;transform:translateX(-50%) translateY(0)}' +
+      /* Modal overlay */
+      '.pw-modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:99999;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s}' +
+      '.pw-modal-overlay.pw-modal-open{opacity:1}' +
+      /* Modal box */
+      '.pw-modal{background:#fff;border-radius:16px;width:90%;max-width:420px;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.2);font-family:Arial,sans-serif;transform:scale(.95);transition:transform .3s}' +
+      '.pw-modal-open .pw-modal{transform:scale(1)}' +
+      /* Header */
+      '.pw-modal-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid #e2e8f0}' +
+      '.pw-modal-title{font-size:16px;font-weight:700;color:#1e293b}' +
+      '.pw-modal-close{background:none;border:none;font-size:24px;color:#94a3b8;cursor:pointer;padding:0 4px;line-height:1}' +
+      '.pw-modal-close:hover{color:#475569}' +
+      /* Body */
+      '.pw-modal-body{padding:20px}' +
+      /* Tour info */
+      '.pw-tour-info{margin-bottom:16px}' +
+      '.pw-tour-name{font-size:15px;font-weight:700;color:#1e293b;margin-bottom:4px}' +
+      '.pw-tour-price{font-size:20px;font-weight:800;color:#3b82f6;margin-bottom:6px}' +
+      '.pw-tour-detail{font-size:13px;color:#64748b;margin-bottom:2px}' +
+      /* Telegram button */
+      '.pw-telegram-btn{display:flex;align-items:center;justify-content:center;width:100%;padding:12px 16px;background:#0088cc;color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:600;font-family:Arial,sans-serif;text-decoration:none;cursor:pointer;transition:background .2s;box-sizing:border-box}' +
+      '.pw-telegram-btn:hover{background:#006da3;color:#fff;text-decoration:none}' +
+      /* Separator */
+      '.pw-separator{display:flex;align-items:center;margin:14px 0;color:#94a3b8;font-size:13px}' +
+      '.pw-separator::before,.pw-separator::after{content:"";flex:1;border-bottom:1px solid #e2e8f0}' +
+      '.pw-separator span{padding:0 10px}' +
+      /* Input */
+      '.pw-input-group{margin-bottom:12px}' +
+      '.pw-input-label{display:block;font-size:13px;font-weight:600;color:#475569;margin-bottom:4px}' +
+      '.pw-email-input{width:100%;padding:10px 12px;border:1px solid #cbd5e1;border-radius:8px;font-size:14px;outline:none;box-sizing:border-box;transition:border-color .2s}' +
+      '.pw-email-input:focus{border-color:#3b82f6;box-shadow:0 0 0 3px rgba(59,130,246,.1)}' +
+      /* Submit */
+      '.pw-submit-btn{width:100%;padding:12px;background:#3b82f6;color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;transition:background .2s;font-family:Arial,sans-serif}' +
+      '.pw-submit-btn:hover{background:#2563eb}' +
+      '.pw-submit-btn:disabled{background:#94a3b8;cursor:not-allowed}' +
+      /* Hint */
+      '.pw-hint{text-align:center;font-size:11px;color:#94a3b8;margin-top:12px}' +
+      /* Success */
+      '.pw-success-msg{text-align:center;padding:20px 0}' +
+      '.pw-success-icon{font-size:40px;margin-bottom:10px}' +
+      '.pw-success-text{font-size:16px;font-weight:700;color:#1e293b;margin-bottom:6px}' +
+      '.pw-success-sub{font-size:13px;color:#64748b;line-height:1.5}' +
+      /* Watch buttons on result cards */
+      '.pw-watch-btn,.pw-result-watch-btn{display:inline-flex;align-items:center;gap:4px;padding:6px 12px;background:#f0f9ff;color:#3b82f6;border:1px solid #bfdbfe;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;font-family:Arial,sans-serif;margin-top:6px}' +
+      '.pw-watch-btn:hover,.pw-result-watch-btn:hover{background:#3b82f6;color:#fff;border-color:#3b82f6}';
+    document.head.appendChild(style);
+  })();
 
   // ===== TOAST =====
   function pwToast(msg) {
@@ -37,7 +91,7 @@
     }
   }
 
-  // ===== GET SAVED EMAIL =====
+  // ===== GET/SAVE EMAIL =====
   function getSavedEmail() {
     try { return localStorage.getItem(PW_EMAIL_KEY) || ''; } catch(e) { return ''; }
   }
@@ -45,9 +99,59 @@
     try { localStorage.setItem(PW_EMAIL_KEY, email); } catch(e) {}
   }
 
-  // ===== EXTRACT SEARCH PARAMS FROM OTPUSK WIDGET =====
-  // Catches the last API search URL to know: country, dates, people, food, stars etc.
-  // This data is sent both to our backend AND encoded in the Telegram deep link
+  // ===== BUILD TELEGRAM DEEP LINK PAYLOAD =====
+  // Encodes tour data into a compact string for Telegram /start deep link
+  // Format: countryId_deptCity_checkIn_nights_adults_childAges_stars_food_maxPrice
+  // Convert DD.MM.YYYY to YYYYMMDD for the Telegram payload
+  function dmyToYmd(dmy) {
+    if (!dmy) return null;
+    var m = dmy.match(/(\d{1,2})[.\/](\d{1,2})[.\/](\d{4})/);
+    if (!m) return null;
+    return m[3] + m[2].padStart(2, '0') + m[1].padStart(2, '0');
+  }
+
+  function encodeTelegramPayload(tour, searchParams) {
+    var parts = [];
+    if (searchParams && searchParams.countryId) {
+      parts.push(searchParams.countryId);                           // 0: country
+      parts.push(searchParams.deptCity || '1831');                  // 1: departure
+
+      // USE tour-specific date (od=) if available, otherwise fall back to search engine date
+      var checkInYmd = null;
+      if (tour.offerDate) {
+        checkInYmd = dmyToYmd(tour.offerDate);
+      }
+      if (!checkInYmd) {
+        checkInYmd = (searchParams.checkIn || '').replace(/-/g, '');
+      }
+      parts.push(checkInYmd || '0');                                // 2: checkIn YYYYMMDD
+
+      // USE tour-specific nights (ol=) if available, otherwise fall back to search engine nights
+      var nights = tour.offerNights || searchParams.length || '7';
+      parts.push(String(nights));                                   // 3: nights
+
+      parts.push(searchParams.people || '2');                       // 4: people (Otpusk format)
+      parts.push(searchParams.stars || '0');                        // 5: stars
+      parts.push(searchParams.food || 'any');                       // 6: food
+      parts.push(tour.price ? Math.round(tour.price) : '0');       // 7: price
+      parts.push(searchParams.transport || 'air');                  // 8: transport
+    } else {
+      // Fallback: minimal info
+      parts.push(tour.id || '0');
+      parts.push('1831');
+      parts.push('0');
+      parts.push(tour.offerNights ? String(tour.offerNights) : '7');
+      parts.push('2');
+      parts.push('0');
+      parts.push('any');
+      parts.push(tour.price ? Math.round(tour.price) : '0');
+      parts.push('air');
+    }
+    return parts.join('_');
+  }
+
+  // ===== EXTRACT SEARCH PARAMS FROM WIDGET =====
+  // Uses Performance API to find the last Otpusk search URL and extract its params
   function extractSearchParams() {
     try {
       var entries = performance.getEntriesByType('resource');
@@ -57,17 +161,19 @@
 
       if (searchEntries.length === 0) return null;
 
+      // Get the most recent search URL
       var lastSearch = searchEntries[searchEntries.length - 1];
       var url = new URL(lastSearch.name);
       var params = {};
 
-      var keys = ['to', 'checkIn', 'checkTo', 'length', 'lengthTo', 'people', 'food',
-                  'transport', 'stars', 'deptCity', 'currencyLocal', 'rating', 'price', 'priceTo', 'services'];
+      // Extract the important search parameters
+      var keys = ['to', 'checkIn', 'checkTo', 'length', 'lengthTo', 'people', 'food', 'transport', 'stars', 'deptCity', 'currencyLocal', 'rating', 'price', 'priceTo', 'services'];
       keys.forEach(function(k) {
         var v = url.searchParams.get(k);
         if (v !== null && v !== '') params[k] = v;
       });
 
+      // Map to server-expected format
       return {
         countryId: params.to || null,
         checkIn: params.checkIn || null,
@@ -89,86 +195,41 @@
     }
   }
 
-  // ===== GENERATE SHORT TOKEN FOR TELEGRAM PRE-REGISTRATION =====
-  // Instead of encoding everything in 64-char deep link, we pre-register
-  // the full tour data on our backend and use a short token in the deep link.
-  // This way the bot gets: tour name, URL, image, search params — just like email.
-  function generateToken() {
-    var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    var token = '';
-    for (var i = 0; i < 12; i++) {
-      token += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return 'tg' + token; // prefix so bot knows it's a token, not old-format payload
-  }
-
-  // ===== PRE-REGISTER TOUR DATA FOR TELEGRAM =====
-  // Sends ALL tour data to backend (like email does), gets stored with token
-  function preRegisterTelegram(token, tour, searchParams) {
-    var payload = {
-      token: token,
-      tourId: tour.id || null,
-      tourName: tour.name || null,
-      tourUrl: tour.link || null,
-      tourImg: tour.img || null,
-      price: tour.price || null,
-      currency: tour.currency || 'EUR',
-      geo: tour.geo || null,
-      dates: tour.dates || null,
-      offerDate: tour.offerDate || null,
-      offerNights: tour.offerNights || null,
-      stars: tour.stars || null,
-      food: tour.food || null,
-      searchParams: searchParams
-    };
-
-    // Fire-and-forget — don't block the user
-    fetch(PW_API_URL + '/api/telegram-preregister', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    }).catch(function(e) {
-      console.log('[PriceWatcher] Telegram pre-register failed:', e.message);
-    });
-  }
-
   // ===== EXTRACT TOUR DATA FROM RESULT CARD (Otpusk widget) =====
   function extractTourFromCard(card) {
     var tour = {};
 
-    // Hotel name — Otpusk uses .new_r-item-hotel
+    // Hotel name
     var nameEl = card.querySelector('.new_r-item-hotel');
     if (nameEl) tour.name = nameEl.textContent.trim();
 
-    // Price — Otpusk uses .new_price-value
+    // Price
     var priceEl = card.querySelector('.new_price-value');
     if (priceEl) {
       var priceText = priceEl.textContent.replace(/[^\d.,]/g, '').replace(',', '.');
       tour.price = parseFloat(priceText);
     }
 
-    // Currency from price description
+    // Currency
     var priceDesc = card.querySelector('.new_price-desc');
     if (priceDesc) {
       var descText = priceDesc.textContent.trim();
       if (descText.indexOf('€') > -1 || descText.indexOf('eur') > -1) tour.currency = 'EUR';
       else if (descText.indexOf('$') > -1 || descText.indexOf('usd') > -1) tour.currency = 'USD';
     }
-    // Also check the price value itself for currency symbol
     if (!tour.currency && priceEl) {
       var pvt = priceEl.textContent;
       if (pvt.indexOf('€') > -1) tour.currency = 'EUR';
       else if (pvt.indexOf('$') > -1) tour.currency = 'USD';
     }
 
-    // Geo — Otpusk uses .new_r-item-geo
+    // Geo
     var geoEl = card.querySelector('.new_r-item-geo');
     if (geoEl) {
-      var geoText = geoEl.textContent.trim().replace('Arată pe hartă', '').trim();
-      tour.geo = geoText;
+      tour.geo = geoEl.textContent.trim().replace('Arată pe hartă', '').trim();
     }
 
-    // Food — Otpusk uses .new_r-item-food
+    // Food
     var foodEl = card.querySelector('.new_r-item-food');
     if (foodEl) tour.food = foodEl.textContent.trim();
 
@@ -176,7 +237,7 @@
     var imgEl = card.querySelector('.new_r-item-img img, img');
     if (imgEl) tour.img = imgEl.src || imgEl.getAttribute('data-src') || '';
 
-    // Tour link — find the main link in the card
+    // Tour link
     var linkEl = card.querySelector('a[href]');
     if (linkEl) tour.link = linkEl.href;
 
@@ -186,7 +247,7 @@
       tour.id = wrapper.getAttribute('data-id');
     }
 
-    // Fallback: extract from link (hid parameter or path)
+    // Fallback: extract from link
     if (!tour.id && tour.link) {
       var hidMatch = tour.link.match(/hid=(\d+)/);
       if (hidMatch) tour.id = hidMatch[1];
@@ -209,15 +270,7 @@
       if (starsNum >= 1 && starsNum <= 5) tour.stars = starsNum;
     }
 
-    // Dates & nights — extract from the offer link (od=date, ol=nights)
-    if (tour.link) {
-      var odMatch = tour.link.match(/od=([^&]+)/);
-      var olMatch = tour.link.match(/ol=(\d+)/);
-      if (odMatch) tour.offerDate = decodeURIComponent(odMatch[1]);
-      if (olMatch) tour.offerNights = parseInt(olMatch[1]);
-    }
-
-    // Visible dates from card columns (as fallback display text)
+    // Dates
     var cols = card.querySelectorAll('.new_r-item-col');
     cols.forEach(function(col) {
       var text = col.textContent.trim();
@@ -226,9 +279,14 @@
       }
     });
 
-    // Build dates string from offer-specific data if available
-    if (tour.offerDate && tour.offerNights) {
-      tour.dates = tour.offerDate + ', ' + tour.offerNights + ' nopți';
+    // Extract tour-specific date (od=) and nights (ol=) from the tour link
+    // These are the ACTUAL departure date and duration, not the search engine dates
+    if (tour.link) {
+      var odMatch = tour.link.match(/od=([^&]+)/);
+      if (odMatch) tour.offerDate = decodeURIComponent(odMatch[1]); // e.g. "02.06.2026"
+
+      var olMatch = tour.link.match(/ol=(\d+)/);
+      if (olMatch) tour.offerNights = parseInt(olMatch[1]); // e.g. 6
     }
 
     return tour;
@@ -276,31 +334,28 @@
     tourInfo.innerHTML = html;
     body.appendChild(tourInfo);
 
-    // ===== TELEGRAM BUTTON (first — most visible) =====
-    // Pre-registers ALL tour data on backend (name, URL, searchParams — like email)
-    // Then opens Telegram with a short token; bot looks up the full data
+    // Telegram button (first option)
     var searchParams = extractSearchParams();
-    var tgToken = generateToken();
-    preRegisterTelegram(tgToken, tour, searchParams);
-    var tgLink = 'https://t.me/' + PW_TELEGRAM_BOT + '?start=' + tgToken;
+    var tgPayload = encodeTelegramPayload(tour, searchParams);
+    var tgLink = 'https://t.me/' + PW_TELEGRAM_BOT + '?start=' + tgPayload;
 
     var tgBtn = document.createElement('a');
     tgBtn.href = tgLink;
     tgBtn.target = '_blank';
     tgBtn.className = 'pw-telegram-btn';
-    tgBtn.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg> Urmareste pe Telegram';
+    tgBtn.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" style="vertical-align:middle;margin-right:6px;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg> Urmareste pe Telegram';
     tgBtn.addEventListener('click', function() {
       setTimeout(closePwModal, 500);
     });
     body.appendChild(tgBtn);
 
-    // ===== SEPARATOR =====
+    // Separator
     var separator = document.createElement('div');
     separator.className = 'pw-separator';
     separator.innerHTML = '<span>sau prin email</span>';
     body.appendChild(separator);
 
-    // ===== EMAIL INPUT =====
+    // Email input
     var inputGroup = document.createElement('div');
     inputGroup.className = 'pw-input-group';
     var label = document.createElement('label');
@@ -336,7 +391,6 @@
       // Capture search params from the widget's last search
       var searchParams = extractSearchParams();
 
-      // Send to API — includes searchParams so backend can replay the same search
       var payload = {
         email: email,
         tourId: tour.id || tour.name || 'unknown',
@@ -385,15 +439,13 @@
     // Hint
     var hint = document.createElement('div');
     hint.className = 'pw-hint';
-    hint.textContent = 'Verificam pretul la fiecare ora. Te poti dezabona oricand din email.';
+    hint.textContent = 'Verificam pretul periodic. Te poti dezabona oricand din email.';
     body.appendChild(hint);
 
     modal.appendChild(body);
     overlay.appendChild(modal);
     document.body.appendChild(overlay);
     setTimeout(function() { overlay.classList.add('pw-modal-open'); }, 10);
-
-    // Focus email input if empty
     if (!emailInput.value) {
       setTimeout(function() { emailInput.focus(); }, 400);
     }
@@ -409,16 +461,13 @@
     var items = panel.querySelectorAll('.zebra-wishlist-item');
     items.forEach(function(item) {
       if (item.querySelector('.pw-watch-btn')) return;
-
       var tour = {};
       try {
         var wishlist = JSON.parse(localStorage.getItem(PW_WISHLIST_KEY)) || [];
         var idx = Array.prototype.indexOf.call(item.parentElement.children, item);
         if (wishlist[idx]) tour = wishlist[idx];
       } catch(e) {}
-
       if (!tour.price) return;
-
       var btn = document.createElement('button');
       btn.className = 'pw-watch-btn';
       btn.innerHTML = bellSvg + ' Urmareste pretul';
@@ -426,13 +475,9 @@
         e.stopPropagation();
         openWatchModal(tour);
       });
-
       var priceEl = item.querySelector('.zebra-wishlist-price, [class*="price"]');
-      if (priceEl) {
-        priceEl.parentNode.insertBefore(btn, priceEl.nextSibling);
-      } else {
-        item.appendChild(btn);
-      }
+      if (priceEl) priceEl.parentNode.insertBefore(btn, priceEl.nextSibling);
+      else item.appendChild(btn);
     });
   }
 
@@ -441,10 +486,8 @@
     var cards = document.querySelectorAll('.new_r-item');
     cards.forEach(function(card) {
       if (card.querySelector('.pw-result-watch-btn')) return;
-
       var tour = extractTourFromCard(card);
       if (!tour.price) return;
-
       var btn = document.createElement('button');
       btn.className = 'pw-result-watch-btn';
       btn.innerHTML = bellSvg + ' Urmareste pretul';
@@ -453,311 +496,24 @@
         e.preventDefault();
         openWatchModal(tour);
       });
-
-      // Insert button on the same line as the food type (e.g. "All inclusive"), floated right
-      var foodEl = card.querySelector('.new_r-item-food');
-      if (foodEl) {
-        foodEl.style.display = 'flex';
-        foodEl.style.alignItems = 'center';
-        foodEl.style.justifyContent = 'space-between';
-        foodEl.appendChild(btn);
-      } else {
-        card.appendChild(btn);
+      var priceBlock = card.querySelector('.new_r-item-price');
+      if (priceBlock) priceBlock.parentNode.insertBefore(btn, priceBlock.nextSibling);
+      else {
+        var heartBtn = card.querySelector('.zebra-heart-btn');
+        if (heartBtn) heartBtn.parentNode.insertBefore(btn, heartBtn.nextSibling);
+        else card.appendChild(btn);
       }
     });
-  }
-
-  // ===== ADD WATCH BUTTON TO TOUR DETAIL PAGE =====
-  function addWatchButtonToTourPage() {
-    // Only run on tour detail pages (URL has page=tour&hid=)
-    var hash = window.location.hash || '';
-    if (hash.indexOf('page=tour') === -1 || hash.indexOf('hid=') === -1) return;
-
-    // Don't add twice
-    if (document.querySelector('.pw-tour-page-btn')) return;
-
-    // Find the price description area (empty div below price)
-    var priceDescr = document.querySelector('.new_t-order-price-descr');
-    if (!priceDescr) return;
-
-    // Extract tour data from the page and URL hash
-    var tour = {};
-
-    // Hotel name from page header
-    var hotelName = document.querySelector('.new_t-header-title');
-    if (hotelName) {
-      // May contain duplicated text or stars — clean up
-      var nameText = hotelName.textContent.trim();
-      // Remove duplicate (Otpusk sometimes repeats name)
-      var half = Math.floor(nameText.length / 2);
-      if (half > 5 && nameText.substring(0, half) === nameText.substring(half)) {
-        nameText = nameText.substring(0, half);
-      }
-      tour.name = nameText;
-    }
-
-    // Fallback: from URL hash hnm parameter
-    if (!tour.name) {
-      var hnmMatch = hash.match(/hnm=([^&]+)/);
-      if (hnmMatch) tour.name = decodeURIComponent(hnmMatch[1]).replace(/_/g, ' ');
-    }
-
-    // Hotel ID from hash hid parameter
-    var hidMatch = hash.match(/hid=(\d+)/);
-    if (hidMatch) tour.id = hidMatch[1];
-
-    // Price from the order section
-    var priceEl = document.querySelector('.new_t-order-price .new_price');
-    if (priceEl) {
-      var priceText = priceEl.textContent.replace(/[^\d.,]/g, '').replace(',', '.').trim();
-      tour.price = parseFloat(priceText);
-    }
-
-    // Currency
-    var currencyEl = document.querySelector('.new_t-order-price .currency');
-    if (currencyEl) {
-      var cur = currencyEl.textContent.trim();
-      if (cur === '€') tour.currency = 'EUR';
-      else if (cur === '$') tour.currency = 'USD';
-    }
-    if (!tour.currency) tour.currency = 'EUR';
-
-    // Tour link — current page URL
-    tour.link = window.location.href;
-
-    // Stars from hash
-    var stMatch = hash.match(/st=(\d)/);
-    if (stMatch) tour.stars = parseInt(stMatch[1]);
-
-    // Geo from header
-    var geoEl = document.querySelector('.new_t-header-geo');
-    if (geoEl) tour.geo = geoEl.textContent.trim();
-
-    if (!tour.price) return;
-
-    // Create the button
-    var btn = document.createElement('button');
-    btn.className = 'pw-result-watch-btn pw-tour-page-btn';
-    btn.innerHTML = bellSvg + ' Urmareste pretul';
-    btn.addEventListener('click', function(e) {
-      e.stopPropagation();
-      e.preventDefault();
-      openWatchModal(tour);
-    });
-
-    // Style the priceDescr container to show the button nicely
-    priceDescr.style.marginTop = '8px';
-    priceDescr.appendChild(btn);
-  }
-
-  // ===== WATCH ALL WISHLIST — subscribe to all tours at once =====
-  function openWatchAllModal() {
-    closePwModal();
-
-    var wishlist = [];
-    try {
-      wishlist = JSON.parse(localStorage.getItem(PW_WISHLIST_KEY)) || [];
-    } catch(e) {}
-
-    var toursWithPrice = wishlist.filter(function(t) { return t && t.price; });
-    if (toursWithPrice.length === 0) {
-      pwToast('Nu ai tururi cu pret in favorite');
-      return;
-    }
-
-    var overlay = document.createElement('div');
-    overlay.id = 'pwModalOverlay';
-    overlay.className = 'pw-modal-overlay';
-    overlay.addEventListener('click', function(e) { if (e.target === overlay) closePwModal(); });
-
-    var modal = document.createElement('div');
-    modal.className = 'pw-modal';
-
-    // Header
-    var header = document.createElement('div');
-    header.className = 'pw-modal-header';
-    header.innerHTML = '<span class="pw-modal-title">\uD83D\uDD14 Urmareste toate preturile</span>';
-    var closeBtn = document.createElement('button');
-    closeBtn.className = 'pw-modal-close';
-    closeBtn.innerHTML = '&times;';
-    closeBtn.addEventListener('click', closePwModal);
-    header.appendChild(closeBtn);
-    modal.appendChild(header);
-
-    // Body
-    var body = document.createElement('div');
-    body.className = 'pw-modal-body';
-
-    // Tour list preview
-    var tourList = document.createElement('div');
-    tourList.className = 'pw-tour-info';
-    var listHtml = '<div class="pw-tour-name">' + toursWithPrice.length + ' tururi din favorite:</div>';
-    toursWithPrice.forEach(function(t, i) {
-      listHtml += '<div class="pw-tour-detail" style="margin-top:4px;">' + (i + 1) + '. ' + (t.name || 'Hotel') + ' — ' + t.price + ' ' + (t.currency || 'EUR') + '</div>';
-    });
-    tourList.innerHTML = listHtml;
-    body.appendChild(tourList);
-
-    // ===== TELEGRAM BUTTON =====
-    var searchParams = extractSearchParams();
-
-    var tgBtn = document.createElement('a');
-    tgBtn.href = '#';
-    tgBtn.className = 'pw-telegram-btn';
-    tgBtn.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg> Urmareste toate pe Telegram';
-    tgBtn.addEventListener('click', function(e) {
-      e.preventDefault();
-      // Pre-register first tour, then open Telegram
-      // For multiple tours, we register each one, but open Telegram once with the first token
-      var firstToken = null;
-      toursWithPrice.forEach(function(tour) {
-        var token = generateToken();
-        if (!firstToken) firstToken = token;
-        preRegisterTelegram(token, tour, searchParams);
-      });
-      // Open Telegram with first token — bot will subscribe to it
-      // For the rest, we also register via email if provided
-      window.open('https://t.me/' + PW_TELEGRAM_BOT + '?start=' + firstToken, '_blank');
-      pwToast('Deschide Telegram si apasa Start');
-      setTimeout(closePwModal, 500);
-    });
-    body.appendChild(tgBtn);
-
-    // ===== SEPARATOR =====
-    var separator = document.createElement('div');
-    separator.className = 'pw-separator';
-    separator.innerHTML = '<span>sau prin email (toate deodatai)</span>';
-    body.appendChild(separator);
-
-    // ===== EMAIL INPUT =====
-    var inputGroup = document.createElement('div');
-    inputGroup.className = 'pw-input-group';
-    var label = document.createElement('label');
-    label.className = 'pw-input-label';
-    label.textContent = 'Email-ul tau:';
-    label.setAttribute('for', 'pwEmailInputAll');
-    inputGroup.appendChild(label);
-    var emailInput = document.createElement('input');
-    emailInput.type = 'email';
-    emailInput.id = 'pwEmailInputAll';
-    emailInput.className = 'pw-email-input';
-    emailInput.placeholder = 'exemplu@email.com';
-    emailInput.value = getSavedEmail();
-    inputGroup.appendChild(emailInput);
-    body.appendChild(inputGroup);
-
-    // Submit button
-    var submitBtn = document.createElement('button');
-    submitBtn.className = 'pw-submit-btn';
-    submitBtn.textContent = '\uD83D\uDD14 Urmareste toate ' + toursWithPrice.length + ' tururi';
-    submitBtn.addEventListener('click', function() {
-      var email = emailInput.value.trim();
-      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        pwToast('Introdu un email valid');
-        emailInput.focus();
-        return;
-      }
-
-      submitBtn.disabled = true;
-      submitBtn.textContent = '\u23F3 Se trimite...';
-      saveEmail(email);
-
-      var searchParams = extractSearchParams();
-      var sent = 0;
-      var total = toursWithPrice.length;
-
-      toursWithPrice.forEach(function(tour) {
-        var payload = {
-          email: email,
-          tourId: tour.id || tour.name || 'unknown',
-          tourName: tour.name || null,
-          tourUrl: tour.link || null,
-          tourImg: tour.img || null,
-          price: tour.price,
-          currency: tour.currency || 'EUR',
-          geo: tour.geo || null,
-          dates: tour.dates || null,
-          stars: tour.stars || null,
-          food: tour.food || null,
-          searchParams: searchParams
-        };
-
-        fetch(PW_API_URL + '/api/watch', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        })
-        .then(function(resp) { return resp.json(); })
-        .then(function() {
-          sent++;
-          if (sent >= total) {
-            body.innerHTML = '';
-            var success = document.createElement('div');
-            success.className = 'pw-success-msg';
-            success.innerHTML = '<div class="pw-success-icon">\u2705</div>' +
-              '<div class="pw-success-text">Urmarirea activata pentru ' + total + ' tururi!</div>' +
-              '<div class="pw-success-sub">Vei primi notificari pe <strong>' + email + '</strong> cand preturile se schimba.</div>';
-            body.appendChild(success);
-            setTimeout(closePwModal, 3000);
-          }
-        })
-        .catch(function() {
-          sent++;
-        });
-      });
-    });
-    body.appendChild(submitBtn);
-
-    var hint = document.createElement('div');
-    hint.className = 'pw-hint';
-    hint.textContent = 'Verificam pretul zilnic la ora 10:00. Te poti dezabona oricand.';
-    body.appendChild(hint);
-
-    modal.appendChild(body);
-    overlay.appendChild(modal);
-    document.body.appendChild(overlay);
-    setTimeout(function() { overlay.classList.add('pw-modal-open'); }, 10);
-
-    if (!emailInput.value) {
-      setTimeout(function() { emailInput.focus(); }, 400);
-    }
-  }
-
-  // ===== ADD "WATCH ALL" BUTTON TO WISHLIST FOOTER =====
-  function addWatchAllButtonToWishlist() {
-    var footer = document.getElementById('zebraWishlistFooter');
-    if (!footer) return;
-    if (footer.querySelector('.pw-watch-all-btn')) return;
-
-    var wishlist = [];
-    try {
-      wishlist = JSON.parse(localStorage.getItem(PW_WISHLIST_KEY)) || [];
-    } catch(e) {}
-    if (wishlist.length === 0) return;
-
-    var btn = document.createElement('button');
-    btn.className = 'pw-watch-all-btn';
-    btn.innerHTML = bellSvg + ' Urmareste toate preturile (' + wishlist.length + ')';
-    btn.addEventListener('click', function(e) {
-      e.stopPropagation();
-      openWatchAllModal();
-    });
-
-    // Insert at the top of footer, before the expert button
-    footer.insertBefore(btn, footer.firstChild);
   }
 
   // ===== WATCH FOR DOM CHANGES =====
   function watchForChanges() {
     var observer = new MutationObserver(function() {
-      // Wishlist price watcher disabled
-      // var panel = document.getElementById('zebraWishlistPanel');
-      // if (panel && panel.classList.contains('open')) {
-      //   setTimeout(addWatchButtonsToWishlist, 200);
-      //   setTimeout(addWatchAllButtonToWishlist, 300);
-      // }
+      var panel = document.getElementById('zebraWishlistPanel');
+      if (panel && panel.classList.contains('open')) {
+        setTimeout(addWatchButtonsToWishlist, 200);
+      }
       setTimeout(addWatchButtonsToResults, 200);
-      setTimeout(addWatchButtonToTourPage, 200);
     });
     observer.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['class'] });
   }
@@ -765,15 +521,10 @@
   // ===== INIT =====
   function initPriceWatcher() {
     watchForChanges();
-    // Wishlist price watcher disabled
-    // setTimeout(addWatchButtonsToWishlist, 2000);
-    // setTimeout(addWatchAllButtonToWishlist, 2500);
-    // setTimeout(addWatchButtonsToWishlist, 5000);
-    // setTimeout(addWatchAllButtonToWishlist, 5500);
+    setTimeout(addWatchButtonsToWishlist, 2000);
     setTimeout(addWatchButtonsToResults, 2000);
-    setTimeout(addWatchButtonToTourPage, 2000);
+    setTimeout(addWatchButtonsToWishlist, 5000);
     setTimeout(addWatchButtonsToResults, 5000);
-    setTimeout(addWatchButtonToTourPage, 5000);
   }
 
   if (document.readyState === 'loading') {
