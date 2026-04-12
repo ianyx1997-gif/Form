@@ -1,11 +1,11 @@
 /* ==========================================================
-   ZEBRATUR — GLASSMORPHISM DARK THEME OVERRIDE
+   ZEBRATUR — GLASSMORPHISM DARK THEME OVERRIDE v2
    Adaugă DUPĂ form.css original:
    <link rel="stylesheet" href="form.css">
    <link rel="stylesheet" href="form-dark.css">
    ========================================================== */
 
-/* ===== FONT IMPORT ===== */
+/* ===== FONT ===== */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 /* ===== GLOBALS ===== */
@@ -17,9 +17,9 @@
 	-webkit-tap-highlight-color: transparent;
 }
 
-/* ===== BACKGROUND — dark gradient like zebra-search ===== */
+/* ===== PAGE BACKGROUND ===== */
 .new_os {
-	background: #06091a;
+	background: #06091a !important;
 	min-height: 100vh;
 	position: relative;
 	overflow: hidden;
@@ -49,32 +49,45 @@
 /* ===== FORM CONTAINER — glassmorphism card ===== */
 .new_f-container {
 	background: rgba(255,255,255,.05) !important;
-	backdrop-filter: blur(24px);
-	-webkit-backdrop-filter: blur(24px);
+	backdrop-filter: blur(24px) !important;
+	-webkit-backdrop-filter: blur(24px) !important;
 	border: 1px solid rgba(255,255,255,.1) !important;
 	border-radius: 22px !important;
 	box-shadow: 0 20px 60px rgba(0,0,0,.4), 0 0 0 1px rgba(255,255,255,.05) inset !important;
 	padding: 24px 20px !important;
 	position: relative;
 	z-index: 2;
-	max-width: 460px;
+	overflow: hidden !important;
 	filter: none !important;
 }
+/* Kill the blue gradient that .new_f-container inherits from the slider/form combined rule */
+.new_f-container {
+	background-image: none !important;
+}
 
-/* Remove old background images */
+/* Remove old background images (compass, plane) */
 .new_f-wrapper-bg-imgs {
 	display: none !important;
+}
+
+/* Inner wrapper: no fixed widths */
+.new_f-wrapper > .new_f-title,
+.new_f-form > .clearfix,
+.new_f-ext-btn-container,
+.new_f-ext-body,
+.new_f-ext-container .new_f-dropdown-body-bottom {
+	width: auto !important;
 }
 
 /* ===== TITLE ===== */
 .new_f-wrapper > .new_f-title,
 .new_f-title {
 	color: #fff !important;
-	font-size: 22px !important;
+	font-size: 20px !important;
 	font-weight: 800 !important;
 	letter-spacing: -.3px;
 	text-align: center;
-	padding: 16px 0 20px !important;
+	padding: 12px 0 18px !important;
 	height: auto !important;
 }
 
@@ -86,6 +99,8 @@
 	height: 48px !important;
 	margin-bottom: 10px !important;
 	transition: all .2s ease !important;
+	float: none !important;
+	width: auto !important;
 }
 .new_f-form-field:hover,
 .new_f-form-field:focus-within {
@@ -93,24 +108,44 @@
 	background-color: rgba(255,255,255,.1) !important;
 	box-shadow: 0 0 16px rgba(14,165,233,.08) !important;
 }
-
-/* Remove old separators */
+/* Remove old separators between fields */
 .new_f-form-field::before {
 	display: none !important;
 }
-
-/* Field widths for vertical (mobile) layout */
-.new_mobile-form .new_f-form-field,
-.new_f-form-field {
-	float: none !important;
-	width: 100% !important;
-	border-left-color: rgba(255,255,255,.12) !important;
-}
+/* "to" field same radius */
 .new_f-form-field.to {
 	border-radius: 13px !important;
+	width: auto !important;
+	border-left-color: rgba(255,255,255,.12) !important;
+}
+.new_f-form-field.from,
+.new_f-form-field.date,
+.new_f-form-field.duration,
+.new_f-form-field.people {
+	width: auto !important;
 }
 
-/* Field text */
+/* Fix for mobile-form field widths */
+.new_mobile-form .new_f-form-field,
+.new_m-mobile-form:not(.new_mobile-form) .new_f-form-field {
+	width: auto !important;
+	float: none !important;
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+	border: 1.5px solid rgba(255,255,255,.12) !important;
+	border-radius: 13px !important;
+}
+.new_m-mobile-form:not(.new_mobile-form) .new_f-form-submit {
+	width: 100% !important;
+	float: none !important;
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+}
+.new_m-mobile-form:not(.new_mobile-form) .new_f-form {
+	padding: 0 !important;
+}
+
+/* Field text colors */
 .new_f-dropdown-btn {
 	height: 46px !important;
 	padding: 12px 12px 0 !important;
@@ -122,23 +157,18 @@
 	font-size: 14px !important;
 	font-weight: 600 !important;
 }
+.new_f-dropdown-btn span {
+	color: rgba(255,255,255,.75) !important;
+}
 .new_f-autocomplete-input {
 	color: #fff !important;
 	font-size: 15px !important;
 	height: 46px !important;
 	background: transparent !important;
 }
-.new_f-autocomplete-input::-webkit-input-placeholder {
-	color: rgba(255,255,255,.35) !important;
-	font-size: 14px !important;
-}
-.new_f-autocomplete-input::-moz-placeholder {
-	color: rgba(255,255,255,.35) !important;
-	font-size: 14px !important;
-}
-.new_f-autocomplete-input:-ms-input-placeholder {
-	color: rgba(255,255,255,.35) !important;
-}
+.new_f-autocomplete-input::-webkit-input-placeholder { color: rgba(255,255,255,.35) !important; font-size: 14px !important; }
+.new_f-autocomplete-input::-moz-placeholder { color: rgba(255,255,255,.35) !important; font-size: 14px !important; }
+.new_f-autocomplete-input:-ms-input-placeholder { color: rgba(255,255,255,.35) !important; }
 .new_input-mask {
 	color: rgba(255,255,255,.75) !important;
 	height: 46px !important;
@@ -149,7 +179,7 @@
 	font-weight: 600 !important;
 }
 
-/* Arrow icons in fields */
+/* Arrow icons */
 .new_f-dropdown-btn .cnt::after,
 .new_f-dropdown-btn::after {
 	border-color: rgba(56,189,248,.6) transparent transparent !important;
@@ -162,10 +192,66 @@
 	background-color: rgba(14,165,233,.2) !important;
 }
 
+/* ===== DATE FIELD — dark picker buttons ===== */
+.new_f-search-dates-wrap {
+	color: rgba(255,255,255,.8) !important;
+}
+.new_f-search-dates-wrap svg {
+	fill: rgba(56,189,248,.7) !important;
+}
+/* Date input buttons — CRITICAL: kill the light #E1E7EF background */
+.new_f-datepicker-wrap button {
+	background: rgba(255,255,255,.08) !important;
+	color: rgba(255,255,255,.8) !important;
+	border: none !important;
+	border-radius: 8px !important;
+	font-weight: 500 !important;
+}
+.new_f-datepicker-wrap:hover button {
+	background: rgba(255,255,255,.14) !important;
+	color: #fff !important;
+}
+/* Dash between dates */
+.new_f-datepicker-wrap-2:before {
+	background-color: rgba(255,255,255,.3) !important;
+}
+
+/* Date tooltip "Începutul turului" */
+.new_f-search-dates-popup {
+	background-color: rgba(14,165,233,.8) !important;
+	color: #fff !important;
+	border-radius: 6px !important;
+	font-weight: 500 !important;
+}
+.new_f-search-dates-popup:before,
+.new_f-search-dates-popup:after {
+	border-color: rgba(14,165,233,.8) transparent transparent !important;
+}
+
+/* Date check dropdown */
+#new_os-date-check .new_f-dropdown-body {
+	background: rgba(15,23,42,.95) !important;
+	border: 1px solid rgba(255,255,255,.1) !important;
+	color: rgba(255,255,255,.7) !important;
+}
+
+/* Calendar container background */
+.new_f-dropdown-body-date {
+	background-color: rgba(15,23,42,.97) !important;
+}
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div {
+	background: rgba(15,23,42,.97) !important;
+}
+/* Calendar separator between months */
+#new_f-dates-container.new_f-dates-container #ui-datepicker-div::after {
+	background-color: rgba(255,255,255,.08) !important;
+}
+
 /* ===== SEARCH BUTTON — gradient CTA ===== */
 .new_f-form .new_f-form-submit,
 .new_not-found-message .os-order-form-submit_button {
 	background: linear-gradient(135deg, #0ea5e9, #0284c7) !important;
+	background-image: linear-gradient(135deg, #0ea5e9, #0284c7) !important;
 	border-radius: 14px !important;
 	height: 52px !important;
 	font-size: 16px !important;
@@ -186,7 +272,7 @@
 .new_f-form .new_f-form-submit:active {
 	transform: scale(.98);
 }
-/* Shimmer animation on CTA */
+/* Shimmer */
 .new_f-form .new_f-form-submit::before {
 	content: '' !important;
 	position: absolute !important;
@@ -194,13 +280,19 @@
 	background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,.15) 50%, transparent 60%) !important;
 	animation: zt-shimmer 3s ease-in-out infinite !important;
 	border: none !important;
+	width: auto !important; height: auto !important;
+	top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
 }
 @keyframes zt-shimmer {
 	0%,100% { transform: translateX(-100%) }
 	50% { transform: translateX(100%) }
 }
+/* Ripple override */
+.hvr-ripple-out:before {
+	border-color: rgba(14,165,233,.4) !important;
+}
 
-/* ===== DROPDOWN BODIES — dark glass panels ===== */
+/* ===== DROPDOWN PANELS ===== */
 .new_f-dropdown-body {
 	background: rgba(15,23,42,.95) !important;
 	backdrop-filter: blur(20px);
@@ -210,8 +302,6 @@
 	box-shadow: 0 16px 48px rgba(0,0,0,.5) !important;
 	overflow: hidden;
 }
-
-/* Dropdown items */
 .new_f-dropdown-item {
 	color: rgba(255,255,255,.75) !important;
 	font-weight: 500 !important;
@@ -220,21 +310,33 @@
 	border-radius: 8px;
 	margin: 2px 4px !important;
 }
-.new_f-dropdown-item:hover {
-	background-color: rgba(14,165,233,.12) !important;
-	color: #fff !important;
-}
 .new_f-dropdown-item.selected {
 	background-color: rgba(14,165,233,.2) !important;
 	color: #fff !important;
 	font-weight: 700 !important;
 }
 
-/* Autocomplete / country list */
-#cntList .ui-menu-item a *,
-#new_os-to .ui-autocomplete {
+/* ===== MODAL HEADERS ===== */
+.new_t-tab-content-top,
+.new_t-modal-body-top,
+.new_f-dropdown-body-top {
+	background: linear-gradient(135deg, rgba(14,165,233,.9), rgba(2,132,199,.9)) !important;
+	color: #fff !important;
+}
+
+/* Close (×) */
+.new_t-tab-content-close,
+.new_t-modal-body-close,
+.new_f-dropdown-body-close {
+	color: rgba(255,255,255,.7) !important;
+}
+
+/* ===== AUTOCOMPLETE — country list ===== */
+.new_f-container #new_os-to .ui-autocomplete {
 	background: transparent !important;
 }
+#cntList li::before { display: none !important; }
+#cntList .ui-menu-item a * { background: transparent !important; }
 #new_os-to .ui-menu .ui-menu-item .label,
 #new_os-to .ui-menu .ui-menu-item .noplace {
 	color: rgba(255,255,255,.75) !important;
@@ -264,319 +366,7 @@ body:not(.iOS) .new_f-container #new_os-to .ui-menu .ui-menu-item.active .ui-cor
 	background: rgba(14,165,233,.18) !important;
 }
 
-/* ===== MODAL/POPUP HEADERS ===== */
-.new_t-tab-content-top,
-.new_t-modal-body-top,
-.new_f-dropdown-body-top {
-	background: linear-gradient(135deg, rgba(14,165,233,.9), rgba(2,132,199,.9)) !important;
-	color: #fff !important;
-	border-radius: 14px 14px 0 0;
-}
-
-/* ===== DATES — calendar ===== */
-.new_f-search-dates-wrap {
-	color: rgba(255,255,255,.8) !important;
-}
-.new_f-datepicker-wrap input,
-.new_f-datepicker-wrap button {
-	color: #fff !important;
-	background: transparent !important;
-	border: none !important;
-}
-
-/* Date dropdown */
-#new_os-date-check .new_f-dropdown-body {
-	background: rgba(15,23,42,.97) !important;
-	border: 1px solid rgba(255,255,255,.1) !important;
-}
-
-/* ===== PEOPLE — tourists selector ===== */
-.new_f-dropdown-container.people .new_f-dropdown-body {
-	background: rgba(15,23,42,.97) !important;
-	border: 1px solid rgba(255,255,255,.1) !important;
-	border-radius: 14px !important;
-}
-.new_f-people-title {
-	color: rgba(255,255,255,.6) !important;
-	font-weight: 600 !important;
-}
-.new_f-people-item {
-	background: rgba(255,255,255,.06) !important;
-	color: rgba(255,255,255,.6) !important;
-	border-radius: 10px !important;
-	margin-right: 6px !important;
-	width: 44px !important;
-	height: 44px !important;
-	line-height: 44px !important;
-	font-weight: 600 !important;
-	transition: all .15s !important;
-}
-.new_f-people-item:hover {
-	background: rgba(255,255,255,.1) !important;
-	color: #fff !important;
-}
-.new_f-people-item.active {
-	background: linear-gradient(135deg, #0ea5e9, #0284c7) !important;
-	color: #fff !important;
-	box-shadow: 0 4px 12px rgba(14,165,233,.25) !important;
-}
-
-/* Add child button */
-.new_f-children-accordion-btn {
-	background: rgba(255,255,255,.04) !important;
-	border: 1.5px solid rgba(255,255,255,.12) !important;
-	border-radius: 10px !important;
-	color: rgba(255,255,255,.6) !important;
-	padding: 10px 12px !important;
-}
-.new_f-children-accordion-btn.active {
-	border-color: rgba(14,165,233,.3) !important;
-}
-.new_f-children-accordion-btn.disabled {
-	color: rgba(255,255,255,.2) !important;
-	border-color: rgba(255,255,255,.06) !important;
-}
-.new_f-children-accordion-btn::after {
-	border-color: rgba(56,189,248,.5) transparent transparent !important;
-}
-.new_f-children-accordion-btn.active::after {
-	border-color: transparent transparent rgba(56,189,248,.5) !important;
-}
-.new_f-children-accordion-btn.disabled::after {
-	border-color: rgba(255,255,255,.15) transparent transparent !important;
-}
-
-/* Child ages dropdown */
-.new_f-children-accordion-body {
-	background: rgba(14,165,233,.06) !important;
-	border: 1px solid rgba(14,165,233,.1) !important;
-	border-top: none !important;
-	border-radius: 0 0 10px 10px !important;
-}
-.new_f-children-age-item {
-	background: rgba(255,255,255,.06) !important;
-	color: rgba(255,255,255,.55) !important;
-	border-radius: 8px !important;
-	width: 40px !important;
-	height: 38px !important;
-	font-weight: 600 !important;
-	transition: all .15s !important;
-}
-.new_f-children-age-item:hover {
-	background: rgba(14,165,233,.15) !important;
-	color: #fff !important;
-}
-.new_f-children-list-item {
-	background: linear-gradient(135deg, #0ea5e9, #0284c7) !important;
-	border-radius: 10px !important;
-	color: #fff !important;
-}
-.new_f-children-list-item::after {
-	color: rgba(255,255,255,.8) !important;
-}
-.new_f-children-age-item div,
-.new_f-children-list-item div {
-	color: inherit !important;
-}
-
-/* ===== EXTENDED SEARCH — advanced filters ===== */
-.new_f-ext-container {
-	background: rgba(15,23,42,.8) !important;
-	border-radius: 0 0 22px 22px !important;
-	box-shadow: inset 0 1px 0 rgba(255,255,255,.05) !important;
-	backdrop-filter: blur(16px);
-	-webkit-backdrop-filter: blur(16px);
-}
-.new_f-ext-container::before {
-	display: none !important;
-}
-.ext-opened .new_f-container {
-	border-radius: 22px 22px 0 0 !important;
-}
-
-/* Filter titles */
-.new_f-ext-bl-title {
-	color: #38bdf8 !important;
-	font-weight: 700 !important;
-}
-.new_f-ext-bl-title span {
-	color: rgba(255,255,255,.35) !important;
-}
-
-/* Filter labels */
-.new_f-ext-bl label {
-	color: rgba(255,255,255,.65) !important;
-}
-
-/* Filter tick lines */
-.new_f-ext-scale-item::before,
-.new_f-ext-bl-cat label::before,
-.new_f-ext-bl-food label::before {
-	background: rgba(255,255,255,.15) !important;
-}
-
-/* Extended search button */
-.new_f-form .new_f-ext-btn {
-	color: rgba(255,255,255,.5) !important;
-}
-.new_f-ext-btn-text {
-	color: rgba(56,189,248,.6) !important;
-}
-.new_f-ext-btn-text::before {
-	border-color: rgba(56,189,248,.5) transparent transparent !important;
-}
-.ext-opened .new_f-ext-btn-text::before {
-	border-color: transparent transparent rgba(56,189,248,.5) !important;
-}
-
-/* Checkboxes */
-.new_f-container input[type="checkbox"] + *::before {
-	border-color: rgba(255,255,255,.2) !important;
-	background: rgba(255,255,255,.04) !important;
-	border-radius: 4px !important;
-}
-.new_f-container input[type="checkbox"]:checked + *::before {
-	border-color: rgba(14,165,233,.5) !important;
-	background: rgba(14,165,233,.1) !important;
-}
-.new_f-container input[type="checkbox"]:checked + *::after {
-	border-color: #38bdf8 !important;
-}
-
-/* Sliders (rating, price) */
-.new_f-ext-container .ui-slider-range,
-.new_f-ext-container .slider-container .ui-widget-content {
-	background: linear-gradient(to right, #0ea5e9, #38bdf8) !important;
-}
-.new_f-ext-container .ui-slider {
-	background: rgba(255,255,255,.1) !important;
-	border-radius: 4px !important;
-}
-.new_f-ext-container .ui-slider-handle {
-	background: #fff !important;
-	border: 2px solid #0ea5e9 !important;
-	border-radius: 50% !important;
-	box-shadow: 0 2px 8px rgba(14,165,233,.3) !important;
-}
-.new_f-ext-bl-price .slider-container input {
-	color: #fff !important;
-	background: none !important;
-}
-.new_f-ext-bl-price .slider-container::before,
-.new_f-ext-bl-price .slider-container::after {
-	background: rgba(255,255,255,.15) !important;
-}
-
-/* Apply / Cancel buttons in ext */
-.new_f-ext-container .new_f-dropdown-btn-apply,
-.new_f-container .new_f-dropdown-btn-apply {
-	background: linear-gradient(135deg, #0ea5e9, #0284c7) !important;
-	border-radius: 10px !important;
-	font-weight: 700 !important;
-	color: #fff !important;
-	transition: all .2s !important;
-}
-.new_f-ext-container .new_f-dropdown-btn-apply:hover,
-.new_f-container .new_f-dropdown-btn-apply:hover {
-	background: linear-gradient(135deg, #38bdf8, #0ea5e9) !important;
-}
-.new_f-ext-clear-btn {
-	color: rgba(255,255,255,.4) !important;
-	border-color: rgba(255,255,255,.15) !important;
-}
-
-/* Services / transport labels */
-.new_f-services-label {
-	color: rgba(255,255,255,.6) !important;
-}
-
-/* ===== SCROLLBARS ===== */
-.new_f-container ::-webkit-scrollbar {
-	width: 4px;
-}
-.new_f-container ::-webkit-scrollbar-track {
-	background: rgba(255,255,255,.03);
-	border-radius: 4px;
-}
-.new_f-container ::-webkit-scrollbar-thumb {
-	background: rgba(56,189,248,.2);
-	border-radius: 4px;
-}
-
-/* ===== MOBILE FULL-SCREEN OVERLAYS (max-width: 478px) ===== */
-@media all and (max-width: 478px) {
-	.new_os {
-		padding: 8px;
-	}
-	.new_f-container {
-		padding: 20px 16px !important;
-		border-radius: 20px !important;
-		max-width: 100% !important;
-	}
-	/* Full-screen dropdowns keep dark theme */
-	.new_f-dropdown-container:not(#new_os-date-check) .new_f-dropdown-body,
-	.new_f-ext-container,
-	.new_layer-open .new_t-change-people .new_f-dropdown-body {
-		background: #0a1628 !important;
-	}
-	.new_f-dropdown-item {
-		padding: 12px 16px !important;
-		font-size: 15px !important;
-	}
-	/* Bottom action bar */
-	.new_f-dropdown-body-bottom {
-		background: rgba(10,22,40,.95) !important;
-		border-top: 1px solid rgba(255,255,255,.08) !important;
-	}
-	.new_f-dropdown-btn-cancel {
-		background-color: rgba(255,255,255,.06) !important;
-		color: rgba(255,255,255,.6) !important;
-		border-top-color: rgba(255,255,255,.08) !important;
-	}
-	.new_f-dropdown-btn-apply {
-		background: linear-gradient(135deg, #0ea5e9, #0284c7) !important;
-		color: #fff !important;
-		font-weight: 700 !important;
-	}
-
-	/* Bigger tap targets */
-	.new_f-form-field {
-		height: 52px !important;
-	}
-	.new_f-dropdown-btn {
-		height: 50px !important;
-		padding: 14px 12px 0 !important;
-	}
-	.new_f-form .new_f-form-submit {
-		height: 54px !important;
-		font-size: 17px !important;
-	}
-	.new_f-people-item {
-		width: 48px !important;
-		height: 48px !important;
-		line-height: 48px !important;
-		font-size: 16px !important;
-	}
-	.new_f-children-age-item {
-		width: 44px !important;
-		height: 42px !important;
-		font-size: 15px !important;
-	}
-
-	/* Close button (×) */
-	.new_t-tab-content-close,
-	.new_t-modal-body-close,
-	.new_f-dropdown-body-close {
-		color: rgba(255,255,255,.7) !important;
-	}
-}
-
-/* ===== RIPPLE ANIMATION (replaces old hvr-ripple-out) ===== */
-.hvr-ripple-out:before {
-	border-color: rgba(14,165,233,.4) !important;
-}
-
-/* ===== DATEPICKER CALENDAR OVERRIDES ===== */
+/* ===== DATEPICKER CALENDAR ===== */
 .ui-datepicker {
 	background: rgba(15,23,42,.97) !important;
 	color: rgba(255,255,255,.8) !important;
@@ -623,11 +413,11 @@ body:not(.iOS) .new_f-container #new_os-to .ui-menu .ui-menu-item.active .ui-cor
 .ui-datepicker-next span {
 	color: #38bdf8 !important;
 }
-/* Tours exist = green hint */
+/* Tours exist — green hint */
 .new_ceil-tours-exists a {
 	border-color: rgba(74,222,128,.3) !important;
 }
-/* No tours = dim */
+/* No tours — dim */
 .new_ceil-no-tours a {
 	opacity: .35;
 }
@@ -639,20 +429,211 @@ body:not(.iOS) .new_f-container #new_os-to .ui-menu .ui-menu-item.active .ui-cor
 .new_ceil-no-tours:hover a::after {
 	border-color: rgba(30,41,59,.95) transparent transparent transparent !important;
 }
-
 /* Calendar tip bar */
 .calendar-tip {
 	background-color: rgba(14,165,233,.85) !important;
 	color: #fff !important;
-	border-radius: 0 !important;
 }
-
-/* Mobile calendar days row */
+/* Mobile calendar day labels */
 .mobile-calendar-days {
 	background-color: rgba(10,22,40,.9) !important;
 }
 .mobile-calendar-day {
 	color: rgba(255,255,255,.4) !important;
+}
+
+/* ===== PEOPLE SELECTOR ===== */
+.new_f-dropdown-container.people .new_f-dropdown-body {
+	background: rgba(15,23,42,.97) !important;
+	border: 1px solid rgba(255,255,255,.1) !important;
+	border-radius: 14px !important;
+}
+.new_f-people-title {
+	color: rgba(255,255,255,.6) !important;
+	font-weight: 600 !important;
+}
+.new_f-people-item {
+	background: rgba(255,255,255,.06) !important;
+	color: rgba(255,255,255,.6) !important;
+	border-radius: 10px !important;
+	margin-right: 6px !important;
+	width: 44px !important;
+	height: 44px !important;
+	line-height: 44px !important;
+	font-weight: 600 !important;
+	transition: all .15s !important;
+}
+.new_f-people-item.active {
+	background: linear-gradient(135deg, #0ea5e9, #0284c7) !important;
+	color: #fff !important;
+	box-shadow: 0 4px 12px rgba(14,165,233,.25) !important;
+}
+/* Children accordion */
+.new_f-children-accordion-btn {
+	background: rgba(255,255,255,.04) !important;
+	border: 1.5px solid rgba(255,255,255,.12) !important;
+	border-radius: 10px !important;
+	color: rgba(255,255,255,.6) !important;
+	padding: 10px 12px !important;
+}
+.new_f-children-accordion-btn.active {
+	border-color: rgba(14,165,233,.3) !important;
+}
+.new_f-children-accordion-btn.disabled {
+	color: rgba(255,255,255,.2) !important;
+	border-color: rgba(255,255,255,.06) !important;
+}
+.new_f-children-accordion-btn::after {
+	border-color: rgba(56,189,248,.5) transparent transparent !important;
+}
+.new_f-children-accordion-btn.active::after {
+	border-color: transparent transparent rgba(56,189,248,.5) !important;
+}
+.new_f-children-accordion-btn.disabled::after {
+	border-color: rgba(255,255,255,.15) transparent transparent !important;
+}
+/* Child ages */
+.new_f-children-accordion-body {
+	background: rgba(14,165,233,.06) !important;
+	border: 1px solid rgba(14,165,233,.1) !important;
+	border-top: none !important;
+	border-radius: 0 0 10px 10px !important;
+}
+.new_f-children-age-item {
+	background: rgba(255,255,255,.06) !important;
+	color: rgba(255,255,255,.55) !important;
+	border-radius: 8px !important;
+	width: 40px !important;
+	height: 38px !important;
+	font-weight: 600 !important;
+	transition: all .15s !important;
+}
+.new_f-children-list-item {
+	background: linear-gradient(135deg, #0ea5e9, #0284c7) !important;
+	border-radius: 10px !important;
+	color: #fff !important;
+}
+.new_f-children-list-item::after {
+	color: rgba(255,255,255,.8) !important;
+}
+.new_f-children-age-item div,
+.new_f-children-list-item div {
+	color: inherit !important;
+}
+
+/* ===== EXTENDED SEARCH ===== */
+.new_f-ext-container {
+	background: rgba(15,23,42,.8) !important;
+	background-image: none !important;
+	border-radius: 0 0 22px 22px !important;
+	box-shadow: inset 0 1px 0 rgba(255,255,255,.05) !important;
+	backdrop-filter: blur(16px);
+	-webkit-backdrop-filter: blur(16px);
+}
+.new_f-ext-container::before {
+	display: none !important;
+}
+.ext-opened .new_f-container {
+	border-radius: 22px 22px 0 0 !important;
+}
+/* Filter titles */
+.new_f-ext-bl-title {
+	color: #38bdf8 !important;
+	font-weight: 700 !important;
+}
+.new_f-ext-bl-title span {
+	color: rgba(255,255,255,.35) !important;
+}
+/* Filter labels */
+.new_f-ext-bl label {
+	color: rgba(255,255,255,.65) !important;
+}
+/* Tick marks */
+.new_f-ext-scale-item::before,
+.new_f-ext-bl-cat label::before,
+.new_f-ext-bl-food label::before {
+	background: rgba(255,255,255,.15) !important;
+}
+.new_f-ext-scale-item {
+	color: rgba(255,255,255,.45) !important;
+}
+
+/* Ext search button */
+.new_f-form .new_f-ext-btn {
+	color: rgba(255,255,255,.5) !important;
+}
+.new_f-ext-btn-text {
+	color: rgba(56,189,248,.6) !important;
+}
+.new_f-ext-btn-text::before {
+	border-color: rgba(56,189,248,.5) transparent transparent !important;
+}
+.ext-opened .new_f-ext-btn-text::before {
+	border-color: transparent transparent rgba(56,189,248,.5) !important;
+}
+
+/* Checkboxes */
+[class*='new_f-'] input[type="checkbox"] + *::before {
+	border-color: rgba(255,255,255,.2) !important;
+	background: rgba(255,255,255,.04) !important;
+	border-radius: 4px !important;
+}
+[class*='new_f-'] input[type="checkbox"]:checked + *::before {
+	border-color: rgba(14,165,233,.5) !important;
+	background: rgba(14,165,233,.1) !important;
+}
+[class*='new_f-'] input[type="checkbox"]:checked + *::after {
+	/* keep the check icon visible — use brightness filter to lighten */
+	filter: brightness(3);
+}
+
+/* Sliders (rating, price) */
+.new_f-ext-container .ui-slider-range,
+.new_f-ext-container .slider-container .ui-widget-content {
+	background: linear-gradient(to right, #0ea5e9, #38bdf8) !important;
+	background-image: linear-gradient(to right, #0ea5e9, #38bdf8) !important;
+}
+.new_f-ext-container .ui-slider,
+.new_f-ext-container .new_f-ext-bl-price .ui-widget-content,
+.new_f-ext-container .new_f-ext-bl-rat .ui-slider-range {
+	background: rgba(255,255,255,.1) !important;
+	background-image: none !important;
+	border-radius: 4px !important;
+}
+/* Re-apply gradient for active range specifically */
+.new_f-ext-container .ui-slider .ui-slider-range {
+	background: linear-gradient(to right, #0ea5e9, #38bdf8) !important;
+}
+.new_f-ext-container .ui-slider-handle {
+	background: #fff !important;
+	border: 2px solid #0ea5e9 !important;
+	border-radius: 50% !important;
+	box-shadow: 0 2px 8px rgba(14,165,233,.3) !important;
+}
+.new_f-ext-bl-price .slider-container input {
+	color: #fff !important;
+	background: none !important;
+}
+.new_f-ext-bl-price .slider-container::before,
+.new_f-ext-bl-price .slider-container::after {
+	background: rgba(255,255,255,.15) !important;
+}
+
+/* Apply / Cancel buttons */
+.new_f-ext-container .new_f-dropdown-btn-apply,
+.new_f-container .new_f-dropdown-btn-apply {
+	background: linear-gradient(135deg, #0ea5e9, #0284c7) !important;
+	border-radius: 10px !important;
+	font-weight: 700 !important;
+	color: #fff !important;
+}
+.new_f-ext-clear-btn {
+	color: rgba(255,255,255,.4) !important;
+	border-color: rgba(255,255,255,.15) !important;
+}
+/* Services / transport */
+.new_f-services-label {
+	color: rgba(255,255,255,.6) !important;
 }
 
 /* ===== RESORT LIST (ctyList) ===== */
@@ -663,6 +644,10 @@ body:not(.iOS) .new_f-container #new_os-to .ui-menu .ui-menu-item.active .ui-cor
 #ctyList li,
 #ctyList li label {
 	color: rgba(255,255,255,.7) !important;
+}
+#ctyList .labelName,
+#ctyList .itemPrice {
+	background: transparent !important;
 }
 #ctyList .new_f-dropdown-body-bottom {
 	background: rgba(10,22,40,.95) !important;
@@ -678,7 +663,31 @@ body:not(.iOS) .new_f-container #new_os-to .ui-menu .ui-menu-item.active .ui-cor
 	color: rgba(56,189,248,.5) !important;
 }
 
-/* ===== DARK OVERRIDES FOR DESKTOP (min-width: 479px) ===== */
+/* ===== SCROLLBARS ===== */
+.new_f-container ::-webkit-scrollbar,
+.new_f-ext-container ::-webkit-scrollbar {
+	width: 4px;
+}
+.new_f-container ::-webkit-scrollbar-track,
+.new_f-ext-container ::-webkit-scrollbar-track {
+	background: rgba(255,255,255,.03);
+	border-radius: 4px;
+}
+.new_f-container ::-webkit-scrollbar-thumb,
+.new_f-ext-container ::-webkit-scrollbar-thumb {
+	background: rgba(56,189,248,.2);
+	border-radius: 4px;
+}
+#new_os-to .new_f-dropdown-body.popup #cntList::-webkit-scrollbar-track,
+#ctyList .ctyLists-wrapper::-webkit-scrollbar-track {
+	background: rgba(255,255,255,.03) !important;
+}
+#new_os-to .new_f-dropdown-body.popup #cntList::-webkit-scrollbar-thumb,
+#ctyList .ctyLists-wrapper::-webkit-scrollbar-thumb {
+	background: rgba(56,189,248,.2) !important;
+}
+
+/* ===== DESKTOP (min-width: 479px) ===== */
 @media all and (min-width: 479px) {
 	.new_f-dropdown-item:hover {
 		background-color: rgba(14,165,233,.1) !important;
@@ -694,5 +703,98 @@ body:not(.iOS) .new_f-container #new_os-to .ui-menu .ui-menu-item.active .ui-cor
 	}
 	.new_f-container label:hover input[type="checkbox"] + *::before {
 		border-color: rgba(56,189,248,.4) !important;
+	}
+	body:not(.iOS) .new_f-container #new_os-to .ui-menu-item a:hover *,
+	body:not(.iOS) .new_f-container #new_os-to .ui-menu .ui-menu-item .ui-corner-all:hover,
+	body:not(.iOS) .new_f-container #new_os-to .ui-menu .ui-menu-item .ui-state-focus,
+	body:not(.iOS) .new_f-container #new_os-to .ui-menu .ui-menu-item .ui-corner-all:hover *,
+	body:not(.iOS) .new_f-container #new_os-to .ui-menu .ui-menu-item .ui-state-focus * {
+		background: rgba(14,165,233,.1) !important;
+	}
+	/* ctyList label bg override */
+	#ctyList .labelName,
+	#ctyList .itemPrice {
+		background: transparent !important;
+	}
+}
+
+/* ===== MOBILE (max-width: 478px) ===== */
+@media all and (max-width: 478px) {
+	.new_os {
+		padding: 8px;
+	}
+	.new_f-container {
+		padding: 20px 16px !important;
+		border-radius: 20px !important;
+	}
+
+	/* Full-screen dropdowns: dark bg */
+	.new_f-dropdown-container:not(#new_os-date-check) .new_f-dropdown-body,
+	.new_f-ext-container,
+	.new_layer-open .new_t-change-people .new_f-dropdown-body {
+		background: #0a1628 !important;
+	}
+	.new_f-dropdown-item {
+		padding: 12px 16px !important;
+		font-size: 15px !important;
+	}
+	/* Bottom bar */
+	.new_f-dropdown-body-bottom {
+		background: rgba(10,22,40,.95) !important;
+		border-top: 1px solid rgba(255,255,255,.08) !important;
+	}
+	.new_f-dropdown-btn-cancel {
+		background-color: rgba(255,255,255,.06) !important;
+		color: rgba(255,255,255,.6) !important;
+		border-top-color: rgba(255,255,255,.08) !important;
+	}
+	.new_f-dropdown-btn-apply {
+		background: linear-gradient(135deg, #0ea5e9, #0284c7) !important;
+		color: #fff !important;
+		font-weight: 700 !important;
+	}
+	/* Dropdown list dark bg */
+	.new_f-dropdown-list {
+		background: #0a1628 !important;
+	}
+
+	/* Bigger tap targets */
+	.new_f-form-field {
+		height: 52px !important;
+	}
+	.new_f-dropdown-btn {
+		height: 50px !important;
+		padding: 14px 12px 0 !important;
+	}
+	.new_f-form .new_f-form-submit {
+		height: 54px !important;
+		font-size: 17px !important;
+	}
+	.new_f-people-item {
+		width: 48px !important;
+		height: 48px !important;
+		line-height: 48px !important;
+		font-size: 16px !important;
+	}
+	.new_f-children-age-item {
+		width: 44px !important;
+		height: 42px !important;
+		font-size: 15px !important;
+	}
+
+	/* Search input in "where" overlay */
+	.new_layer-open-to #new_os-to .new_f-dropdown-btn {
+		background: rgba(15,23,42,.95) !important;
+		border: 1.5px solid rgba(255,255,255,.15) !important;
+		border-radius: 10px !important;
+	}
+	/* "Where" dropdown body */
+	#new_os-to .new_f-dropdown-body {
+		background: #0a1628 !important;
+		border: none !important;
+	}
+	/* Mobile people selector */
+	.new_f-dropdown-container.people .new_f-dropdown-list {
+		background: #0a1628 !important;
 	}
 }
