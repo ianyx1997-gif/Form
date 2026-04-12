@@ -1,0 +1,672 @@
+/* ==========================================================
+   ZEBRATUR — GLASSMORPHISM DARK THEME — TOUR PAGE OVERRIDE
+   Adaugă DUPĂ tour.css original:
+   <link rel="stylesheet" href="tour.css">
+   <link rel="stylesheet" href="tour-dark.css">
+   ========================================================== */
+
+/* ===== CONTAINER ===== */
+.new_t-container {
+	color: rgba(255,255,255,.8);
+}
+
+/* ===== MENU — TAB NAVIGATION ===== */
+.new_t-menu-wrap::after {
+	background: rgba(56,189,248,.3) !important;
+}
+.new_t-menu-back-link {
+	color: #38bdf8 !important;
+}
+.new_t-menu-item {
+	color: rgba(255,255,255,.6) !important;
+	border-bottom-color: rgba(56,189,248,.25) !important;
+}
+.new_t-menu-item.selected {
+	background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%) !important;
+	color: #fff !important;
+	border-radius: 6px 6px 0 0 !important;
+	border-bottom-color: transparent !important;
+}
+.new_t-menu-item.selected::after {
+	border-color: #0284c7 transparent transparent transparent !important;
+}
+
+/* ===== HEADER ===== */
+.new_t-header-title {
+	color: #fff !important;
+	text-shadow: 0 1px 2px rgba(0,0,0,.2);
+}
+.new_t-header-geo {
+	color: rgba(255,255,255,.5) !important;
+}
+.new_t-header-geo.new_t-geo-with-map {
+	color: #38bdf8 !important;
+}
+.new_t-header-geo.new_t-geo-with-map::after {
+	background: rgba(56,189,248,.3) !important;
+}
+.new_t-header-geo svg {
+	fill: #38bdf8 !important;
+}
+.new_t-header-desc {
+	color: rgba(255,255,255,.6) !important;
+}
+
+/* Rating in header */
+.new_t-rating-tab-container .new_r-item-rating-container .new_r-item-rating-value,
+.new_t-header-top .new_r-item-rating-container .new_r-item-rating-value {
+	color: #fff !important;
+	text-shadow: 0 1px 2px rgba(0,0,0,.3);
+}
+.new_t-header-top .new_r-item-rating-container::after {
+	background-color: rgba(10,22,40,.85) !important;
+}
+
+/* ===== CONTENT AREA ===== */
+.new_t-content {
+	background: rgba(255,255,255,.05) !important;
+	border: 1px solid rgba(255,255,255,.1) !important;
+	border-radius: 12px !important;
+	backdrop-filter: blur(16px);
+	-webkit-backdrop-filter: blur(16px);
+}
+
+/* Notice message */
+.new_t-notice-msg {
+	background: rgba(251,191,36,.1) !important;
+	border: 1px solid rgba(251,191,36,.2) !important;
+	color: rgba(255,255,255,.8) !important;
+	border-radius: 8px !important;
+}
+
+/* ===== ORDER PANEL (right side — price + book button) ===== */
+.new_t-order-table {
+	color: rgba(255,255,255,.5) !important;
+}
+.new_t-order-price {
+	color: #38bdf8 !important;
+}
+.new_t-order-price span {
+	color: #38bdf8 !important;
+}
+.new_t-order-price__getCredit {
+	color: rgba(56,189,248,.7) !important;
+}
+.new_t-order-price .new_price .secondary,
+.new_t-order-price .new_price .secondary .currency {
+	color: rgba(255,255,255,.5) !important;
+}
+.new_t-order-price-descr {
+	color: rgba(255,255,255,.45) !important;
+}
+.new_request-flight {
+	color: #f87171 !important;
+}
+.new_extra-fee {
+	color: rgba(255,255,255,.5) !important;
+}
+
+/* Order button — blue gradient CTA */
+.new_t-order-btn,
+.new_t-order-btn-book {
+	background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%) !important;
+	color: #fff !important;
+	border-radius: 10px !important;
+	box-shadow: 0 4px 16px rgba(14,165,233,.3), inset 0 1px 0 rgba(255,255,255,.15) !important;
+	text-shadow: 0 1px 2px rgba(0,0,0,.2);
+	transition: all .3s ease !important;
+}
+.new_t-order-btn-book:hover {
+	background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%) !important;
+	box-shadow: 0 6px 20px rgba(14,165,233,.4), inset 0 1px 0 rgba(255,255,255,.2) !important;
+}
+.new_t-order-btn-gray {
+	background: rgba(255,255,255,.08) !important;
+	color: rgba(255,255,255,.6) !important;
+	border: 1px solid rgba(255,255,255,.12) !important;
+	box-shadow: none !important;
+}
+.new_t-order-btn-gray:hover {
+	background: rgba(255,255,255,.12) !important;
+	color: rgba(255,255,255,.8) !important;
+}
+
+/* Return to search button */
+.new_t-order-return {
+	border-color: rgba(56,189,248,.35) !important;
+	color: #38bdf8 !important;
+	border-radius: 10px !important;
+}
+.new_t-order-return svg {
+	fill: #38bdf8 !important;
+}
+
+/* Tour code */
+.new_t-order-table .new_t-order-code {
+	color: rgba(255,255,255,.45) !important;
+}
+.new_t-order-table .new_t-operator-name {
+	color: rgba(255,255,255,.5) !important;
+}
+
+/* ===== BOOK MODAL ===== */
+.new_t-order-book-modal-body {
+	background: rgba(15,23,42,.95) !important;
+	border: 1px solid rgba(255,255,255,.12) !important;
+	border-radius: 12px !important;
+	backdrop-filter: blur(20px);
+	-webkit-backdrop-filter: blur(20px);
+}
+.new_t-order-book-modal-header {
+	background: linear-gradient(135deg, #0ea5e9, #0284c7) !important;
+	border-radius: 12px 12px 0 0 !important;
+}
+
+/* ===== TOUR TAB — INFO ROWS (tourists, dates, food, services) ===== */
+/* Left column (gray label area) */
+.new_t-tour-tab-col-1 {
+	background: rgba(255,255,255,.06) !important;
+	border-color: rgba(255,255,255,.1) !important;
+	border-radius: 8px 0 0 8px !important;
+}
+.new_t-tour-tab-col-1-title {
+	color: rgba(255,255,255,.8) !important;
+}
+.new_t-tour-tab-col-1 svg {
+	fill: rgba(56,189,248,.45) !important;
+}
+
+/* Right column (white info area) */
+.new_t-tour-tab-col-2 {
+	background: rgba(255,255,255,.04) !important;
+	border-color: rgba(255,255,255,.1) !important;
+	border-radius: 0 8px 8px 0 !important;
+	color: rgba(255,255,255,.7) !important;
+}
+.new_t-tour-tab-col-2 .new_t-important {
+	color: #38bdf8 !important;
+}
+.tourist-table .new_t-tour-tab-col-2 span {
+	color: rgba(255,255,255,.8) !important;
+}
+
+/* "Change" button on tour tab rows */
+.new_t-tour-tab-col .new_t-change-btn {
+	border-left-color: rgba(255,255,255,.08) !important;
+	color: #38bdf8 !important;
+	background: transparent !important;
+}
+.new_t-change-btn svg {
+	fill: #38bdf8 !important;
+}
+
+/* Duration timeline */
+.new_t-duration-icons {
+	background-color: rgba(255,255,255,.15) !important;
+}
+.new_t-duration-icon {
+	border-color: rgba(255,255,255,.25) !important;
+	background-color: rgba(15,23,42,.9) !important;
+}
+.new_t-duration-icon svg {
+	fill: rgba(255,255,255,.35) !important;
+}
+.new_t-duration-text span {
+	color: rgba(255,255,255,.45) !important;
+}
+
+/* Services (transfer, insurance, visa) */
+.new_t-service-item {
+	color: rgba(255,255,255,.7) !important;
+}
+.new_t-service-item-yes svg {
+	fill: #4ade80 !important;
+}
+.new_t-service-item-no svg {
+	fill: #f87171 !important;
+}
+
+/* One-column layout overrides */
+.new_tour-one-col .new_t-tour-tab-col-1 {
+	border-radius: 8px 8px 0 0 !important;
+	border-color: rgba(255,255,255,.1) !important;
+	border-bottom: none !important;
+}
+.new_tour-one-col .new_t-tour-tab-col-2 {
+	border-radius: 0 0 8px 8px !important;
+	border-color: rgba(255,255,255,.1) !important;
+	border-top: none !important;
+}
+
+/* ===== DESCRIPTION TAB — SERVICE COLUMNS ===== */
+.new_serv-cols .new_h6 {
+	color: rgba(255,255,255,.85) !important;
+}
+.new_serv-cols .new_serv-list > li {
+	color: rgba(255,255,255,.6) !important;
+}
+.new_serv-cols .new_serv-list > li::before {
+	background-color: rgba(255,255,255,.35) !important;
+}
+.new_serv-cols a {
+	color: #38bdf8 !important;
+}
+/* FREE badge */
+.new_serv-cols .new_serv-list > li.new_free::after {
+	background-color: rgba(250,234,54,.15) !important;
+	color: #fbbf24 !important;
+	border: 1px solid rgba(251,191,36,.2) !important;
+}
+/* $ paid indicator */
+.new_serv-cols .new_serv-list > li.new_pay::after {
+	color: #f87171 !important;
+}
+
+/* ===== MAP TAB ===== */
+.new_t-map-wrapper {
+	background-color: rgba(15,23,42,.5) !important;
+}
+/* Map infowindow */
+.new_map-infowindow-title {
+	color: #fff !important;
+}
+.new_map-infowindow-price {
+	color: rgba(255,255,255,.6) !important;
+}
+.new_map-infowindow-price .new_order-button {
+	background: linear-gradient(135deg, #0ea5e9, #0284c7) !important;
+	border-bottom-color: #0369a1 !important;
+	border-radius: 6px !important;
+}
+
+/* ===== REVIEWS TAB ===== */
+.new_t-rating-tab-container {
+	background-color: rgba(255,255,255,.04) !important;
+}
+.new_t-rating-tab-container .new_r-item-rating-container::after {
+	background-color: rgba(10,22,40,.85) !important;
+}
+.new_t-rating-tab-container .new_r-item-rating-container .new_r-item-rating-value {
+	color: #fff !important;
+	font-weight: 700 !important;
+}
+.new_t-rating-tab-container .big-rating .new_r-item-rating-rev {
+	color: #38bdf8 !important;
+}
+.new_t-rating-tab-container .big-rating .new_r-item-rating-rev span {
+	color: #38bdf8 !important;
+}
+.new_t-rating-tab-container .new_r-item-rating-rev {
+	color: rgba(255,255,255,.5) !important;
+}
+.new_t-rating-overall-container {
+	background: transparent !important;
+}
+.new_t-tab-content.reviews .new_t-rating-overall-text,
+.new_t-tab-content.reviews .new_r-item-rating-text {
+	color: rgba(255,255,255,.7) !important;
+}
+
+/* ===== MODALS — SHARED STYLES ===== */
+.new_modal-open .new_t-modal-body {
+	background: rgba(15,23,42,.96) !important;
+	border: 1px solid rgba(255,255,255,.12) !important;
+	border-radius: 12px !important;
+	backdrop-filter: blur(24px);
+	-webkit-backdrop-filter: blur(24px);
+	box-shadow: 0 16px 48px rgba(0,0,0,.5) !important;
+	color: rgba(255,255,255,.8) !important;
+}
+
+/* Modal header bar (shared across modals) */
+.new_t-modal-body-item .new_t-tab-content-top,
+.new_t-modal-body-close {
+	color: #fff !important;
+}
+
+/* ===== DATE MODAL ===== */
+.new_t-modal-body-item.date .new_t-modal-body-middle {
+	background-color: rgba(255,255,255,.03) !important;
+}
+.new_t-date-modal-table {
+	color: rgba(255,255,255,.7) !important;
+}
+.new_t-date-modal-table .new_t-date-modal-table-head {
+	border-top-color: rgba(255,255,255,.1) !important;
+	color: rgba(255,255,255,.6) !important;
+}
+.new_t-date-modal-table td {
+	border-color: rgba(255,255,255,.08) !important;
+	color: rgba(255,255,255,.6) !important;
+}
+.new_t-date-modal-table td.selected {
+	background-color: rgba(255,255,255,.06) !important;
+}
+.new_t-date-modal-table td:first-child span {
+	color: rgba(255,255,255,.8) !important;
+}
+.new_t-date_link {
+	background-color: transparent !important;
+	color: #38bdf8 !important;
+}
+.new_t-date_link,
+.new_t-date_link * {
+	color: #38bdf8 !important;
+}
+.new_t-date_link.new_t-selected {
+	background-color: rgba(14,165,233,.15) !important;
+}
+.new_t-date_link.selected {
+	background-color: #0ea5e9 !important;
+	color: #fff !important;
+}
+.new_t-date_link.selected * {
+	color: #fff !important;
+}
+
+/* Date change arrows */
+.new_t-date-change {
+	border-color: rgba(255,255,255,.1) !important;
+}
+.new_t-date-change-top,
+.new_t-date-change-bottom {
+	background-color: rgba(251,191,36,.08) !important;
+}
+.new_t-date-change-left,
+.new_t-date-change-right {
+	background-color: rgba(56,189,248,.08) !important;
+}
+.new_t-date-change svg {
+	fill: rgba(255,255,255,.4) !important;
+}
+
+/* ===== FOOD / ROOM MODAL ===== */
+.food .new_t-modal-table {
+	background-color: rgba(255,255,255,.03) !important;
+}
+.food .new_t-modal-table td {
+	border-color: rgba(255,255,255,.08) !important;
+	color: rgba(255,255,255,.7) !important;
+}
+.food .new_t-modal-table tr td:first-child {
+	color: rgba(255,255,255,.7) !important;
+}
+.new_t-modal-room-title {
+	color: #38bdf8 !important;
+}
+.new_t-food-abbr {
+	color: rgba(255,255,255,.85) !important;
+}
+.new_t-food-abbr ~ span,
+.new_t-modal-room-desc,
+.new_t-modal-room-title span {
+	color: rgba(255,255,255,.4) !important;
+}
+.new_t-modal-room-list-title {
+	color: rgba(255,255,255,.8) !important;
+}
+.new_t-modal-room-list-item {
+	color: rgba(255,255,255,.6) !important;
+}
+.new_t-modal-room-list-item::before {
+	background-color: rgba(255,255,255,.35) !important;
+}
+.food .new_t-modal-table .new_t-room-price,
+.food .new_t-modal-table tr:first-child td:first-child {
+	background-color: rgba(255,255,255,.04) !important;
+}
+.food .new_t-modal-table .new_t-room-price a {
+	color: rgba(255,255,255,.7) !important;
+	box-shadow: 0 0 1px rgba(255,255,255,.15) !important;
+}
+.food .new_t-modal-table .new_t-room-price.selected {
+	background-color: #0ea5e9 !important;
+}
+.food .new_t-modal-table .new_t-room-price.selected * {
+	color: #fff !important;
+}
+
+/* ===== ORDER FORM (modal) ===== */
+body .os-order-header-title,
+.os-order-form-wrap *:after {
+	color: #38bdf8 !important;
+}
+.new_t-order-form-open .os-order-form-wrap {
+	background: rgba(15,23,42,.96) !important;
+	border: 1px solid rgba(255,255,255,.12) !important;
+	border-radius: 12px !important;
+	backdrop-filter: blur(20px);
+	-webkit-backdrop-filter: blur(20px);
+}
+.new_t-order-form-open .os-order-first-title,
+.new_t-order-form-open .os-order-and-title,
+.new_t-order-form-open .os-order-second-title,
+.new_t-order-form-open .os-order-input-dates label {
+	color: rgba(255,255,255,.7) !important;
+}
+.new_t-order-form-open .os-order-form-wrap select {
+	color: rgba(255,255,255,.7) !important;
+	background: rgba(255,255,255,.06) !important;
+}
+.new_t-order-form-open .os-order-select-wrapper,
+.new_t-order-form-open .os-order-select-wrapper:after {
+	background: rgba(255,255,255,.06) !important;
+}
+.new_t-order-form-open .os-order-select-wrapper {
+	border-color: rgba(255,255,255,.12) !important;
+	border-radius: 8px !important;
+}
+.new_t-order-form-open .os-order-form-wrap .os-order-select-wrapper:after {
+	color: #38bdf8 !important;
+}
+.new_t-order-form-open .os-order-user-contacts input,
+.new_t-order-form-open .os-order-form-wrap textarea {
+	color: #fff !important;
+	background: rgba(255,255,255,.06) !important;
+	border-color: rgba(255,255,255,.12) !important;
+	border-radius: 8px !important;
+}
+.new_t-order-form-open .os-order-user-contacts input::placeholder,
+.new_t-order-form-open .os-order-form-wrap textarea::placeholder {
+	color: rgba(255,255,255,.3) !important;
+}
+.new_t-order-form-open .os-order-input-dates .os-order-input-wrapper {
+	color: rgba(255,255,255,.7) !important;
+	background: rgba(255,255,255,.06) !important;
+	border-color: rgba(255,255,255,.12) !important;
+	border-radius: 8px !important;
+}
+.new_t-order-form-open .os-order-input-dates .os-order-input-wrapper:after {
+	color: #38bdf8 !important;
+}
+/* Submit button in order form */
+.new_t-order-form-open .os-order-form-submit .os-order-form-submit_button {
+	background: linear-gradient(135deg, #0ea5e9, #0284c7) !important;
+	border: none !important;
+	border-radius: 10px !important;
+	box-shadow: 0 4px 16px rgba(14,165,233,.3) !important;
+	color: #fff !important;
+}
+.new_t-order-form-open .os-order-form-submit .os-order-form-submit_button:hover {
+	background: linear-gradient(135deg, #38bdf8, #0ea5e9) !important;
+	box-shadow: 0 6px 20px rgba(14,165,233,.4) !important;
+}
+/* Calendar in order form */
+.new_t-order-form-open .table-condensed .prev,
+.new_t-order-form-open .table-condensed .next,
+.new_t-order-form-open .table-condensed .switch {
+	background-color: #0ea5e9 !important;
+}
+.new_t-order-form-open .datepicker {
+	border-color: rgba(14,165,233,.5) !important;
+	background: rgba(15,23,42,.96) !important;
+	color: rgba(255,255,255,.8) !important;
+}
+
+/* ===== PEOPLE CHANGE DROPDOWN (in tour tab) ===== */
+.new_t-change-people .new_f-dropdown-body-wrap {
+	background: rgba(15,23,42,.96) !important;
+	border: 1px solid rgba(255,255,255,.12) !important;
+	border-radius: 12px !important;
+	color: rgba(255,255,255,.8) !important;
+	backdrop-filter: blur(20px);
+	-webkit-backdrop-filter: blur(20px);
+}
+.new_t-change-people .new_f-dropdown-btn-cancel {
+	background-color: rgba(255,255,255,.08) !important;
+	border-top-color: rgba(255,255,255,.1) !important;
+	color: rgba(255,255,255,.6) !important;
+}
+.new_t-change-people .new_f-dropdown-btn-apply {
+	background: linear-gradient(135deg, #0ea5e9, #0284c7) !important;
+	color: #fff !important;
+}
+
+/* ===== SIMILAR / VIEWED TOURS ===== */
+.new_t-similar-viewed-wrapper {
+	color: rgba(255,255,255,.8) !important;
+}
+.new_t-container .owl-dots {
+	background-color: rgba(255,255,255,.08) !important;
+}
+.new_t-container .owl-dot.active {
+	background-color: rgba(56,189,248,.5) !important;
+}
+
+/* ===== CREDIT MODAL ===== */
+.new_credit-modal-body {
+	background-color: rgba(15,23,42,.96) !important;
+	border: 1px solid rgba(255,255,255,.12) !important;
+	border-radius: 12px !important;
+	backdrop-filter: blur(20px);
+	-webkit-backdrop-filter: blur(20px);
+	box-shadow: 0 16px 48px rgba(0,0,0,.5) !important;
+}
+.new_credit-modal,
+.new_credit-modal * {
+	color: rgba(255,255,255,.75) !important;
+}
+.new_credit-modal-header__title {
+	color: #fff !important;
+}
+.new_credit-modal__closeBtn {
+	color: rgba(255,255,255,.5) !important;
+}
+.new_credit-modal__closeBtn:hover {
+	color: #fff !important;
+}
+.new_credit-modal__text[data-block="price"] span {
+	color: #f87171 !important;
+}
+.new_credit-modal-bigNumber {
+	color: #fff !important;
+}
+.new_credit-modal__input--price,
+.new_credit-modal-secondScreen .new_credit-modal-secondWrapper-form-field > :last-child input {
+	background: rgba(255,255,255,.06) !important;
+	border-color: rgba(255,255,255,.15) !important;
+	color: #fff !important;
+	border-radius: 6px !important;
+}
+.new_credit-modal-select {
+	border-color: rgba(255,255,255,.15) !important;
+}
+.new_credit-modal-select::before {
+	background: rgba(255,255,255,.06) !important;
+}
+.new_credit-modal-select::after {
+	border-color: rgba(255,255,255,.3) transparent transparent transparent !important;
+}
+.new_credit-modal-select select {
+	color: rgba(255,255,255,.75) !important;
+	background: transparent !important;
+}
+.new_credit-modal-row-count-item {
+	background: rgba(255,255,255,.05) !important;
+	border: 1px solid rgba(255,255,255,.1) !important;
+	box-shadow: 0 2px 8px rgba(0,0,0,.2) !important;
+}
+.new_credit-modal-row-count-item__btn {
+	border-color: rgba(14,165,233,.5) !important;
+	color: #38bdf8 !important;
+	background: transparent !important;
+}
+.new_credit-modal-secondWrapper-form__btn:first-child {
+	background: rgba(255,255,255,.06) !important;
+	border-color: rgba(255,255,255,.15) !important;
+	color: rgba(255,255,255,.7) !important;
+}
+.new_credit-modal-secondWrapper-form__btn:last-child {
+	background: linear-gradient(135deg, #0ea5e9, #0284c7) !important;
+	border-color: transparent !important;
+	color: #fff !important;
+}
+.new_credit-modal-secondScreen .new_credit-modal__subTitle span {
+	color: #f87171 !important;
+}
+.new_credit-input-error {
+	background: rgba(15,23,42,.9) !important;
+	color: #f87171 !important;
+}
+
+/* ===== DESKTOP HOVER STATES ===== */
+@media all and (min-width: 479px) {
+	.new_t-tour-tab-col .new_t-change-btn:hover {
+		background-color: rgba(255,255,255,.06) !important;
+	}
+	.food .new_t-modal-table .new_t-room-price:hover,
+	.new_t-date_link.new_t-selected,
+	.new_t-date_link:hover {
+		background-color: rgba(14,165,233,.12) !important;
+	}
+	.new_t-date-change-top:hover,
+	.new_t-date-change-bottom:hover {
+		background-color: rgba(251,191,36,.15) !important;
+	}
+	.new_t-date-change-left:hover,
+	.new_t-date-change-right:hover {
+		background-color: rgba(56,189,248,.15) !important;
+	}
+	.new_t-date-change:hover svg {
+		fill: rgba(255,255,255,.7) !important;
+	}
+	/* Map modal, tab content — dark overlay */
+	.new_layer-open-map .new_t-tabs-content .new_t-tab-content {
+		background: rgba(15,23,42,.96) !important;
+		border: 1px solid rgba(255,255,255,.1) !important;
+		border-radius: 12px !important;
+	}
+}
+
+/* ===== MOBILE ===== */
+@media all and (max-width: 478px) {
+	.new_t-content {
+		border-radius: 0 !important;
+		border-left: none !important;
+		border-right: none !important;
+	}
+	.new_tour-one-col .new_t-tour-tab-col-1,
+	.new_tour-one-col .new_t-tour-tab-col-2 {
+		border-radius: 0 !important;
+		border-color: rgba(255,255,255,.08) !important;
+	}
+	.new_t-tour-tab-col .new_t-change-btn {
+		background: rgba(255,255,255,.04) !important;
+	}
+	.new_t-tab-content.reviews .new_t-tab-content-body {
+		background-color: transparent !important;
+	}
+	.new_t-header-title-container {
+		color: #fff !important;
+	}
+	.new_t-menu-item {
+		border-bottom-color: rgba(56,189,248,.2) !important;
+	}
+	/* Mobile order form inputs */
+	.os-order-small-form .os-order-input-phone input,
+	.os-order-small-form .os-order-input-email input {
+		border-color: rgba(255,255,255,.12) !important;
+		background: rgba(255,255,255,.06) !important;
+		color: #fff !important;
+	}
+}
