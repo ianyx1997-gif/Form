@@ -1,5 +1,5 @@
 /* ==========================================================
-   ZEBRATUR — GLASSMORPHISM DARK THEME — RESULTS OVERRIDE
+   ZEBRATUR — GLASSMORPHISM DARK THEME — RESULTS OVERRIDE v2
    Adaugă DUPĂ result.css original:
    <link rel="stylesheet" href="result.css">
    <link rel="stylesheet" href="result-dark.css">
@@ -7,7 +7,7 @@
 
 /* ===== RESULTS CONTAINER ===== */
 .new_r-container {
-	color: rgba(255,255,255,.75);
+	color: rgba(255,255,255,.8);
 }
 
 /* ===== LOADER / PROGRESS BAR ===== */
@@ -16,26 +16,29 @@
 	color: rgba(255,255,255,.6) !important;
 }
 .new_progress-container {
-	background-color: rgba(255,255,255,.08) !important;
+	background-color: rgba(255,255,255,.06) !important;
+	border: 1px solid rgba(255,255,255,.08) !important;
 }
 .new_progress-item {
 	background-color: #0ea5e9 !important;
 	background-image: linear-gradient(to bottom, #38bdf8, #0284c7) !important;
 }
-/* Tour operator logos — slightly brighter in dark mode */
 .new_loading-logo .new_logo-image-wrap {
-	opacity: .2 !important;
+	opacity: .15 !important;
 }
 
 /* ===== CURRENCY SWITCH ===== */
 .new_r-currency-switch label input + span {
-	background-color: rgba(255,255,255,.08) !important;
+	background-color: rgba(255,255,255,.06) !important;
 	color: rgba(255,255,255,.4) !important;
 	box-shadow: none !important;
+	border: 1px solid rgba(255,255,255,.1) !important;
 }
 .new_r-currency-switch label input:checked + span {
 	background-color: #0ea5e9 !important;
 	color: #fff !important;
+	border-color: #0ea5e9 !important;
+	box-shadow: 0 2px 8px rgba(14,165,233,.3) !important;
 }
 
 /* ===== FILTER PANEL ===== */
@@ -44,18 +47,20 @@
 	font-weight: 600 !important;
 }
 .new_r-filter {
-	background-color: rgba(255,255,255,.08) !important;
+	background-color: rgba(255,255,255,.06) !important;
 	box-shadow: none !important;
-	border: 1px solid rgba(255,255,255,.1) !important;
+	border: 1px solid rgba(255,255,255,.12) !important;
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
 }
 .new_r-filter-label {
-	color: rgba(255,255,255,.6) !important;
+	color: rgba(255,255,255,.55) !important;
 }
 .new_r-filter-value {
 	color: #38bdf8 !important;
 }
 .new_r-filter-reset {
-	color: rgba(255,255,255,.4) !important;
+	color: rgba(255,255,255,.35) !important;
 }
 .new_r-filter-reset:hover {
 	color: rgba(255,255,255,.7) !important;
@@ -64,52 +69,71 @@
 	color: rgba(56,189,248,.7) !important;
 }
 
-/* ===== RESULT CARDS — glassmorphism dark ===== */
+/* ===== RESULT CARDS — enhanced glassmorphism ===== */
 .new_r-item {
-	background-color: rgba(255,255,255,.05) !important;
-	border-radius: 14px !important;
-	box-shadow: 0 4px 24px rgba(0,0,0,.3), 0 0 0 1px rgba(255,255,255,.06) inset !important;
-	backdrop-filter: blur(16px);
-	-webkit-backdrop-filter: blur(16px);
+	background: rgba(255,255,255,.07) !important;
+	border-radius: 16px !important;
+	border: 1px solid rgba(255,255,255,.12) !important;
+	box-shadow:
+		0 8px 32px rgba(0,0,0,.35),
+		0 0 0 1px rgba(255,255,255,.08) inset,
+		0 1px 0 rgba(255,255,255,.1) inset !important;
+	backdrop-filter: blur(20px);
+	-webkit-backdrop-filter: blur(20px);
 	overflow: hidden;
+	transition: all .3s ease !important;
 }
 .new_r-item-img {
-	border-radius: 14px 0 0 14px !important;
+	border-radius: 15px 0 0 15px !important;
+	/* subtle image overlay for depth */
+	position: relative;
 }
 .new_r-item-body {
 	border-color: transparent !important;
-	border-radius: 0 14px 14px 0 !important;
+	border-radius: 0 15px 15px 0 !important;
+	position: relative;
+}
+/* Top highlight line on card body for glass depth */
+.new_r-item-body::before {
+	content: '' !important;
+	position: absolute !important;
+	top: 0; left: 0; right: 0;
+	height: 1px !important;
+	background: linear-gradient(to right, rgba(255,255,255,.15), rgba(255,255,255,.03)) !important;
+	display: block !important;
+	z-index: 1;
 }
 
-/* Hotel name */
+/* Hotel name — brighter, larger weight */
 .new_r-item-hotel {
 	color: #fff !important;
 	font-weight: 700 !important;
+	text-shadow: 0 1px 2px rgba(0,0,0,.2);
 }
 
-/* Stars */
+/* Stars — warm gold */
 .new_r-item .new_r-item-star {
 	fill: #fbbf24 !important;
 }
 
-/* Geo (location link) */
+/* Geo (location) */
 .new_r-item .new_r-item-geo {
-	color: rgba(56,189,248,.8) !important;
+	color: #38bdf8 !important;
 }
 .new_r-item .new_r-item-geo span {
-	color: rgba(56,189,248,.8) !important;
+	color: #38bdf8 !important;
 }
 .new_r-item .new_r-item-geo span::after {
-	background: rgba(56,189,248,.3) !important;
+	background: rgba(56,189,248,.25) !important;
 }
 .new_r-item .new_r-item-geo span:only-child {
-	color: rgba(255,255,255,.6) !important;
+	color: rgba(255,255,255,.55) !important;
 }
 .new_r-item-geo svg {
-	fill: rgba(56,189,248,.7) !important;
+	fill: #38bdf8 !important;
 }
 
-/* Food type, info */
+/* Food / info — softer contrast */
 .new_r-item-info {
 	color: rgba(255,255,255,.5) !important;
 }
@@ -117,71 +141,75 @@
 	color: rgba(255,255,255,.5) !important;
 }
 
-/* From city, date */
+/* From city, date — medium contrast */
 .new_r-item-from,
 .new_r-item-date {
 	color: rgba(255,255,255,.6) !important;
 }
 .new_r-item-icon {
-	fill: rgba(56,189,248,.5) !important;
+	fill: rgba(56,189,248,.45) !important;
 }
 
-/* Price badge — gradient accent */
+/* ===== PRICE BADGE — prominent gradient with glow ===== */
 .new_r-item .new_r-item-price {
-	background: linear-gradient(135deg, #0ea5e9, #0284c7) !important;
+	background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%) !important;
 	border-color: transparent !important;
 	color: #fff !important;
 	border-radius: 16px 0 0 16px !important;
-	box-shadow: 0 2px 12px rgba(14,165,233,.3) !important;
+	box-shadow: 0 4px 16px rgba(14,165,233,.35), inset 0 1px 0 rgba(255,255,255,.15) !important;
+	text-shadow: 0 1px 2px rgba(0,0,0,.2);
 }
 .new_price-desc {
-	color: rgba(255,255,255,.7) !important;
+	color: rgba(255,255,255,.75) !important;
 }
-/* Discount / old price */
 .new_r-item-price-discount {
-	color: rgba(56,189,248,.5) !important;
+	color: rgba(255,255,255,.4) !important;
 }
 .new_r-item-price-discount::after {
-	background: rgba(56,189,248,.4) !important;
+	background: rgba(255,255,255,.35) !important;
 }
 
-/* ===== RATING CIRCLE ===== */
+/* ===== RATING CIRCLE — glass with depth ===== */
 .new_r-item-rating-container {
-	background-color: rgba(255,255,255,.08) !important;
+	background-color: rgba(255,255,255,.1) !important;
+	box-shadow: 0 2px 8px rgba(0,0,0,.2) !important;
 }
 .new_r-item-rating-container::after {
-	background-color: rgba(15,23,42,.9) !important;
+	background-color: rgba(10,22,40,.85) !important;
 }
 .new_r-item-rating-value {
 	color: #fff !important;
+	font-weight: 700 !important;
+	text-shadow: 0 1px 2px rgba(0,0,0,.3);
 }
 .new_r-item-rating-rev {
-	color: rgba(56,189,248,.7) !important;
+	color: rgba(56,189,248,.65) !important;
 }
 .new_r-item-rating-rev span {
 	color: rgba(56,189,248,.8) !important;
 }
 
-/* ===== "SHOW MORE" BUTTON ===== */
+/* ===== "SHOW MORE" BUTTON — glass pill ===== */
 .new_r-show-more-results {
-	color: rgba(56,189,248,.8) !important;
-	background-color: rgba(255,255,255,.04) !important;
-	border: 1px solid rgba(56,189,248,.3) !important;
+	color: #38bdf8 !important;
+	background: rgba(255,255,255,.04) !important;
+	border: 1px solid rgba(56,189,248,.25) !important;
 	border-radius: 14px !important;
 	backdrop-filter: blur(12px);
 	-webkit-backdrop-filter: blur(12px);
-	transition: all .2s ease !important;
+	transition: all .25s ease !important;
+	font-weight: 600 !important;
 }
 
 /* ===== "NOT FOUND" MESSAGE ===== */
 .new_not-found-message .new_not-found-text {
-	background: rgba(248,113,113,.15) !important;
+	background: rgba(248,113,113,.12) !important;
 	color: rgba(255,255,255,.8) !important;
-	border: 1px solid rgba(248,113,113,.2) !important;
-	border-radius: 10px !important;
+	border: 1px solid rgba(248,113,113,.15) !important;
+	border-radius: 12px !important;
 }
 .new_not-found-message a {
-	color: rgba(56,189,248,.8) !important;
+	color: #38bdf8 !important;
 }
 .new_not-found-message .os-order-input-name input,
 .new_not-found-message .os-order-input-phone input,
@@ -195,28 +223,37 @@
 .new_not-found-message .os-order-input-name input::-webkit-input-placeholder,
 .new_not-found-message .os-order-input-phone input::-webkit-input-placeholder,
 .new_not-found-message .os-order-input-email input::-webkit-input-placeholder {
-	color: rgba(255,255,255,.35) !important;
+	color: rgba(255,255,255,.3) !important;
 }
 .new_result-info {
 	color: rgba(255,255,255,.6) !important;
 }
 .new_result-info > .new_result-span {
-	background: rgba(248,113,113,.12) !important;
+	background: rgba(248,113,113,.1) !important;
 	color: rgba(255,255,255,.7) !important;
 }
 .new_result-info > .new_result-span > a {
-	color: rgba(56,189,248,.8) !important;
+	color: #38bdf8 !important;
+}
+.new_result-info-text {
+	color: rgba(255,255,255,.6) !important;
 }
 
 /* ===== COMPACT LAYOUT (.new_res-price-down) ===== */
 .new_res-price-down .new_r-item .new_r-item-price {
-	border-radius: 10px 0 0 0 !important;
+	border-radius: 12px 0 0 0 !important;
 }
 
-/* ===== DESKTOP HOVER ===== */
+/* ===== DESKTOP HOVER — glow + lift ===== */
 @media all and (min-width: 479px) {
 	.new_r-item:hover {
-		box-shadow: 0 8px 32px rgba(14,165,233,.15), 0 0 0 1px rgba(56,189,248,.2) inset !important;
+		border-color: rgba(56,189,248,.2) !important;
+		box-shadow:
+			0 12px 40px rgba(14,165,233,.12),
+			0 0 0 1px rgba(56,189,248,.15) inset,
+			0 1px 0 rgba(255,255,255,.12) inset !important;
+		transform: translateY(-2px);
+		background: rgba(255,255,255,.09) !important;
 	}
 	.new_r-item:hover .new_r-item-body {
 		border-color: transparent !important;
@@ -224,25 +261,33 @@
 	.new_r-item:hover .new_r-item-price {
 		background: linear-gradient(135deg, #38bdf8, #0ea5e9) !important;
 		color: #fff !important;
+		box-shadow: 0 6px 20px rgba(14,165,233,.4), inset 0 1px 0 rgba(255,255,255,.2) !important;
 	}
 	.new_r-item:hover .new_r-item-price::after {
 		display: none !important;
 	}
+	.new_r-item:hover .new_r-item-hotel {
+		color: #fff !important;
+	}
 	.new_r-show-more-results:hover {
-		background-color: rgba(14,165,233,.12) !important;
-		border-color: rgba(56,189,248,.5) !important;
+		background: rgba(14,165,233,.1) !important;
+		border-color: rgba(56,189,248,.4) !important;
 		color: #38bdf8 !important;
+		box-shadow: 0 4px 16px rgba(14,165,233,.15) !important;
 	}
 }
 
 /* ===== MOBILE ===== */
 @media all and (max-width: 478px) {
-	.new_r-item,
-	.new_r-item-img {
-		border-radius: 0 !important;
-	}
 	.new_r-item {
-		box-shadow: 0 2px 12px rgba(0,0,0,.3) !important;
+		border-radius: 12px !important;
+		border: 1px solid rgba(255,255,255,.1) !important;
+	}
+	.new_r-item-img {
+		border-radius: 12px 0 0 12px !important;
+	}
+	.new_r-item-body {
+		border-radius: 0 12px 12px 0 !important;
 	}
 	.new_r-filters-title {
 		background-color: rgba(14,165,233,.8) !important;
