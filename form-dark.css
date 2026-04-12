@@ -16,34 +16,7 @@
 	-webkit-tap-highlight-color: transparent;
 }
 
-/* ===== PAGE BACKGROUND ===== */
-.new_os {
-	background: #06091a !important;
-	min-height: 100vh;
-	position: relative;
-	overflow: hidden;
-}
-.new_os::before {
-	content: '';
-	position: fixed;
-	top: -50%; left: -50%;
-	width: 200%; height: 200%;
-	background: conic-gradient(from 180deg at 50% 50%, #0a1628 0deg, #0c2d5a 90deg, #0a1628 180deg, #0e2148 270deg, #0a1628 360deg);
-	animation: zt-bgSpin 30s linear infinite;
-	z-index: 0;
-}
-.new_os::after {
-	content: '';
-	position: fixed;
-	width: 220px; height: 220px;
-	background: radial-gradient(circle, rgba(14,165,233,.1), transparent 70%);
-	top: 20%; left: 55%;
-	border-radius: 50%;
-	z-index: 0;
-	animation: zt-float 8s ease-in-out infinite;
-}
-@keyframes zt-bgSpin { to { transform: rotate(360deg) } }
-@keyframes zt-float { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-25px) } }
+/* ===== PAGE BACKGROUND — removed, user sets it from other settings ===== */
 
 /* ===== FORM CONTAINER — glassmorphism card ===== */
 .new_f-container {
@@ -327,9 +300,11 @@
 }
 #ctyList li {
 	color: rgba(255,255,255,.75) !important;
+	background-color: transparent !important;
 }
 #ctyList li label {
 	color: rgba(255,255,255,.75) !important;
+	background-color: transparent !important;
 }
 #ctyList .labelName {
 	background: transparent !important;
@@ -680,6 +655,7 @@
 	#ctyList li,
 	#ctyList li label {
 		color: rgba(255,255,255,.75) !important;
+		background-color: transparent !important;
 	}
 	/* People overlay */
 	.new_f-dropdown-container.people .new_f-dropdown-list {
