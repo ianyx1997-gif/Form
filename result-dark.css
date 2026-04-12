@@ -1,0 +1,275 @@
+/* ==========================================================
+   ZEBRATUR — GLASSMORPHISM DARK THEME — RESULTS OVERRIDE
+   Adaugă DUPĂ result.css original:
+   <link rel="stylesheet" href="result.css">
+   <link rel="stylesheet" href="result-dark.css">
+   ========================================================== */
+
+/* ===== RESULTS CONTAINER ===== */
+.new_r-container {
+	color: rgba(255,255,255,.75);
+}
+
+/* ===== LOADER / PROGRESS BAR ===== */
+.new_progressbar-text,
+.new_progressbar-text span {
+	color: rgba(255,255,255,.6) !important;
+}
+.new_progress-container {
+	background-color: rgba(255,255,255,.08) !important;
+}
+.new_progress-item {
+	background-color: #0ea5e9 !important;
+	background-image: linear-gradient(to bottom, #38bdf8, #0284c7) !important;
+}
+/* Tour operator logos — slightly brighter in dark mode */
+.new_loading-logo .new_logo-image-wrap {
+	opacity: .2 !important;
+}
+
+/* ===== CURRENCY SWITCH ===== */
+.new_r-currency-switch label input + span {
+	background-color: rgba(255,255,255,.08) !important;
+	color: rgba(255,255,255,.4) !important;
+	box-shadow: none !important;
+}
+.new_r-currency-switch label input:checked + span {
+	background-color: #0ea5e9 !important;
+	color: #fff !important;
+}
+
+/* ===== FILTER PANEL ===== */
+.new_r-filters-title {
+	color: rgba(255,255,255,.7) !important;
+	font-weight: 600 !important;
+}
+.new_r-filter {
+	background-color: rgba(255,255,255,.08) !important;
+	box-shadow: none !important;
+	border: 1px solid rgba(255,255,255,.1) !important;
+}
+.new_r-filter-label {
+	color: rgba(255,255,255,.6) !important;
+}
+.new_r-filter-value {
+	color: #38bdf8 !important;
+}
+.new_r-filter-reset {
+	color: rgba(255,255,255,.4) !important;
+}
+.new_r-filter-reset:hover {
+	color: rgba(255,255,255,.7) !important;
+}
+.new_r-filters-reset {
+	color: rgba(56,189,248,.7) !important;
+}
+
+/* ===== RESULT CARDS — glassmorphism dark ===== */
+.new_r-item {
+	background-color: rgba(255,255,255,.05) !important;
+	border-radius: 14px !important;
+	box-shadow: 0 4px 24px rgba(0,0,0,.3), 0 0 0 1px rgba(255,255,255,.06) inset !important;
+	backdrop-filter: blur(16px);
+	-webkit-backdrop-filter: blur(16px);
+	overflow: hidden;
+}
+.new_r-item-img {
+	border-radius: 14px 0 0 14px !important;
+}
+.new_r-item-body {
+	border-color: transparent !important;
+	border-radius: 0 14px 14px 0 !important;
+}
+
+/* Hotel name */
+.new_r-item-hotel {
+	color: #fff !important;
+	font-weight: 700 !important;
+}
+
+/* Stars */
+.new_r-item .new_r-item-star {
+	fill: #fbbf24 !important;
+}
+
+/* Geo (location link) */
+.new_r-item .new_r-item-geo {
+	color: rgba(56,189,248,.8) !important;
+}
+.new_r-item .new_r-item-geo span {
+	color: rgba(56,189,248,.8) !important;
+}
+.new_r-item .new_r-item-geo span::after {
+	background: rgba(56,189,248,.3) !important;
+}
+.new_r-item .new_r-item-geo span:only-child {
+	color: rgba(255,255,255,.6) !important;
+}
+.new_r-item-geo svg {
+	fill: rgba(56,189,248,.7) !important;
+}
+
+/* Food type, info */
+.new_r-item-info {
+	color: rgba(255,255,255,.5) !important;
+}
+.new_r-item .new_r-item-food {
+	color: rgba(255,255,255,.5) !important;
+}
+
+/* From city, date */
+.new_r-item-from,
+.new_r-item-date {
+	color: rgba(255,255,255,.6) !important;
+}
+.new_r-item-icon {
+	fill: rgba(56,189,248,.5) !important;
+}
+
+/* Price badge — gradient accent */
+.new_r-item .new_r-item-price {
+	background: linear-gradient(135deg, #0ea5e9, #0284c7) !important;
+	border-color: transparent !important;
+	color: #fff !important;
+	border-radius: 16px 0 0 16px !important;
+	box-shadow: 0 2px 12px rgba(14,165,233,.3) !important;
+}
+.new_price-desc {
+	color: rgba(255,255,255,.7) !important;
+}
+/* Discount / old price */
+.new_r-item-price-discount {
+	color: rgba(56,189,248,.5) !important;
+}
+.new_r-item-price-discount::after {
+	background: rgba(56,189,248,.4) !important;
+}
+
+/* ===== RATING CIRCLE ===== */
+.new_r-item-rating-container {
+	background-color: rgba(255,255,255,.08) !important;
+}
+.new_r-item-rating-container::after {
+	background-color: rgba(15,23,42,.9) !important;
+}
+.new_r-item-rating-value {
+	color: #fff !important;
+}
+.new_r-item-rating-rev {
+	color: rgba(56,189,248,.7) !important;
+}
+.new_r-item-rating-rev span {
+	color: rgba(56,189,248,.8) !important;
+}
+
+/* ===== "SHOW MORE" BUTTON ===== */
+.new_r-show-more-results {
+	color: rgba(56,189,248,.8) !important;
+	background-color: rgba(255,255,255,.04) !important;
+	border: 1px solid rgba(56,189,248,.3) !important;
+	border-radius: 14px !important;
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	transition: all .2s ease !important;
+}
+
+/* ===== "NOT FOUND" MESSAGE ===== */
+.new_not-found-message .new_not-found-text {
+	background: rgba(248,113,113,.15) !important;
+	color: rgba(255,255,255,.8) !important;
+	border: 1px solid rgba(248,113,113,.2) !important;
+	border-radius: 10px !important;
+}
+.new_not-found-message a {
+	color: rgba(56,189,248,.8) !important;
+}
+.new_not-found-message .os-order-input-name input,
+.new_not-found-message .os-order-input-phone input,
+.new_not-found-message .os-order-input-email input,
+.new_not-found-message .os-order-input-comment textarea {
+	background: rgba(255,255,255,.06) !important;
+	border: 1.5px solid rgba(255,255,255,.12) !important;
+	border-radius: 10px !important;
+	color: #fff !important;
+}
+.new_not-found-message .os-order-input-name input::-webkit-input-placeholder,
+.new_not-found-message .os-order-input-phone input::-webkit-input-placeholder,
+.new_not-found-message .os-order-input-email input::-webkit-input-placeholder {
+	color: rgba(255,255,255,.35) !important;
+}
+.new_result-info {
+	color: rgba(255,255,255,.6) !important;
+}
+.new_result-info > .new_result-span {
+	background: rgba(248,113,113,.12) !important;
+	color: rgba(255,255,255,.7) !important;
+}
+.new_result-info > .new_result-span > a {
+	color: rgba(56,189,248,.8) !important;
+}
+
+/* ===== COMPACT LAYOUT (.new_res-price-down) ===== */
+.new_res-price-down .new_r-item .new_r-item-price {
+	border-radius: 10px 0 0 0 !important;
+}
+
+/* ===== DESKTOP HOVER ===== */
+@media all and (min-width: 479px) {
+	.new_r-item:hover {
+		box-shadow: 0 8px 32px rgba(14,165,233,.15), 0 0 0 1px rgba(56,189,248,.2) inset !important;
+	}
+	.new_r-item:hover .new_r-item-body {
+		border-color: transparent !important;
+	}
+	.new_r-item:hover .new_r-item-price {
+		background: linear-gradient(135deg, #38bdf8, #0ea5e9) !important;
+		color: #fff !important;
+	}
+	.new_r-item:hover .new_r-item-price::after {
+		display: none !important;
+	}
+	.new_r-show-more-results:hover {
+		background-color: rgba(14,165,233,.12) !important;
+		border-color: rgba(56,189,248,.5) !important;
+		color: #38bdf8 !important;
+	}
+}
+
+/* ===== MOBILE ===== */
+@media all and (max-width: 478px) {
+	.new_r-item,
+	.new_r-item-img {
+		border-radius: 0 !important;
+	}
+	.new_r-item {
+		box-shadow: 0 2px 12px rgba(0,0,0,.3) !important;
+	}
+	.new_r-filters-title {
+		background-color: rgba(14,165,233,.8) !important;
+		color: #fff !important;
+		border-radius: 13px !important;
+	}
+	.new_r-show-more-results {
+		border-radius: 12px !important;
+	}
+}
+
+/* ===== ANIMATION OVERRIDES ===== */
+@keyframes bgcolorchange {
+	0%   { background: rgba(14,165,233,.15); }
+	100% { background: transparent; }
+}
+@-webkit-keyframes bgcolorchange {
+	0%   { background: rgba(14,165,233,.15); }
+	100% { background: transparent; }
+}
+@keyframes temp-anim {
+	0%   { background: rgba(14,165,233,.2); }
+	50%  { background: rgba(14,165,233,.1); }
+	100% { background: rgba(14,165,233,0); }
+}
+@-webkit-keyframes temp-anim {
+	0%   { background: rgba(14,165,233,.2); }
+	50%  { background: rgba(14,165,233,.1); }
+	100% { background: rgba(14,165,233,0); }
+}
