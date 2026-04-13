@@ -1,5 +1,5 @@
 /* ==========================================================
-   ZEBRATUR — GLASSMORPHISM DARK THEME OVERRIDE v3
+   ZEBRATUR — GLASSMORPHISM DARK THEME OVERRIDE v4
    Adaugă DUPĂ form.css original:
    <link rel="stylesheet" href="form.css">
    <link rel="stylesheet" href="form-dark.css">
@@ -7,13 +7,55 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-/* ===== GLOBALS ===== */
+/* ===== GLOBALS — font-size fix: Inter renders ~8% larger than Open Sans ===== */
 .new_os,
 .new_f-container *,
 .new_f-container *::before,
 .new_f-container *::after {
 	font-family: 'Inter', 'Open Sans', system-ui, sans-serif !important;
 	-webkit-tap-highlight-color: transparent;
+}
+/* Explicit font-size reset — prevents text from appearing too large */
+.new_f-container {
+	font-size: 13px !important;
+	line-height: 1.4 !important;
+}
+.new_f-container .new_f-dropdown-btn {
+	font-size: 13px !important;
+}
+.new_f-container .new_f-dropdown-btn-text {
+	font-size: 13px !important;
+}
+.new_f-container .new_f-dropdown-item {
+	font-size: 13px !important;
+}
+.new_f-container .new_f-autocomplete-input {
+	font-size: 14px !important;
+}
+.new_f-container .new_input-mask,
+.new_f-container .new_input-mask-country {
+	font-size: 13px !important;
+}
+.new_f-container .new_f-people-title {
+	font-size: 11px !important;
+}
+.new_f-container .new_f-people-item {
+	font-size: 13px !important;
+}
+.new_f-container .new_f-ext-bl-title {
+	font-size: 13px !important;
+}
+.new_f-container .new_f-ext-bl label {
+	font-size: 12px !important;
+}
+.new_f-ext-container .new_f-ext-scale-item {
+	font-size: 12px !important;
+}
+.new_f-container .new_f-search-dates-wrap {
+	font-size: 13px !important;
+}
+.new_f-datepicker-wrap button {
+	font-size: 13px !important;
 }
 
 /* ===== PAGE BACKGROUND — removed, user sets it from other settings ===== */
@@ -238,16 +280,43 @@
 	border: 1px solid rgba(255,255,255,.1) !important;
 	border-radius: 12px !important;
 	box-shadow: 0 16px 48px rgba(0,0,0,.5) !important;
+	/* Dropdown positioning fix from form.css */
+	position: absolute;
+	z-index: 20;
+	min-width: 201px;
+}
+/* Country dropdown positioning */
+#new_os-to .new_f-dropdown-body {
+	left: -1px;
+	z-index: 5;
+	text-align: left;
+}
+/* Dropdown list overflow — ensures long lists scroll correctly */
+.new_f-dropdown-body .new_f-dropdown-list {
+	max-height: 280px;
+	overflow-y: auto;
+	overflow-x: hidden;
 }
 .new_f-dropdown-item {
 	color: rgba(255,255,255,.75) !important;
 	font-weight: 500 !important;
 	transition: all .15s !important;
+	white-space: nowrap;
+	cursor: pointer;
+	padding: 3px 7px;
 }
 .new_f-dropdown-item.selected {
 	background-color: rgba(14,165,233,.2) !important;
 	color: #fff !important;
 	font-weight: 700 !important;
+}
+/* Duration dropdown text fix */
+.duration .new_f-dropdown-item {
+	font-weight: 600 !important;
+}
+.duration .new_f-dropdown-item .new_f-duration-days {
+	font-weight: normal !important;
+	color: rgba(255,255,255,.4) !important;
 }
 
 /* ===== MODAL HEADERS ===== */
@@ -339,45 +408,140 @@
 	color: #fff !important;
 }
 
-/* ===== DATEPICKER CALENDAR ===== */
-.ui-datepicker {
+/* ===== DATEPICKER CALENDAR — high-specificity selectors to override form.css ===== */
+
+/* Calendar main container */
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div {
 	background: rgba(15,23,42,.97) !important;
-	color: rgba(255,255,255,.8) !important;
 	border: 1px solid rgba(255,255,255,.08) !important;
 	border-radius: 12px !important;
 }
-.ui-datepicker-header {
+#new_f-dates-container.new_f-dates-container #ui-datepicker-div::after {
+	background-color: rgba(15,23,42,.97) !important;
+}
+
+/* Calendar group containers */
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div .ui-datepicker-group {
+	background: transparent !important;
+}
+
+/* Calendar header — month/year title */
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div .ui-datepicker-header {
 	background: transparent !important;
 	border: none !important;
 	color: #fff !important;
 }
-.ui-datepicker-title { color: #fff !important; font-weight: 700 !important; }
-.ui-datepicker th { color: rgba(255,255,255,.35) !important; }
-.ui-datepicker td a,
-.ui-datepicker td span {
-	color: rgba(255,255,255,.7) !important;
-	background: transparent !important;
-	border-radius: 8px !important;
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div.ui-datepicker .ui-datepicker-title {
+	color: #38bdf8 !important;
+	font-weight: 700 !important;
 }
-.ui-datepicker td a:hover {
-	background: rgba(14,165,233,.12) !important;
-	color: #fff !important;
+
+/* Navigation arrows */
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div .ui-datepicker-prev,
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div .ui-datepicker-next {
+	border-color: rgba(56,189,248,.5) transparent transparent !important;
+	cursor: pointer !important;
 }
-.ui-datepicker .ui-state-active {
-	background: linear-gradient(135deg, #0ea5e9, #0284c7) !important;
-	color: #fff !important;
-	box-shadow: 0 2px 8px rgba(14,165,233,.25) !important;
-}
-.ui-datepicker .ui-state-highlight {
-	background: rgba(14,165,233,.15) !important;
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div .ui-datepicker-prev span,
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div .ui-datepicker-next span {
 	color: #38bdf8 !important;
 }
-.ui-datepicker-prev,
-.ui-datepicker-next { color: #38bdf8 !important; cursor: pointer !important; }
-.ui-datepicker-prev span,
-.ui-datepicker-next span { color: #38bdf8 !important; }
+
+/* Day-of-week headers (Mon, Tue, ...) */
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div .ui-datepicker-calendar thead,
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div .ui-datepicker-calendar thead * {
+	background-color: transparent !important;
+}
+#new_f-dates-container.new_f-dates-container #ui-datepicker-div th {
+	color: rgba(255,255,255,.35) !important;
+	background: none !important;
+}
+
+/* Calendar cells — dark background instead of #e6e6e6 */
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div .ui-datepicker-calendar td {
+	background: rgba(255,255,255,.04) !important;
+}
+/* Cell text — all dates */
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div .ui-datepicker-calendar td * {
+	font-size: 13px !important;
+}
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div .ui-datepicker-calendar td a {
+	color: rgba(255,255,255,.75) !important;
+	background: none !important;
+	text-decoration: none;
+}
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div .ui-datepicker-calendar td span {
+	color: rgba(255,255,255,.75) !important;
+}
+
+/* Disabled dates */
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div .ui-datepicker-calendar td.ui-state-disabled .ui-state-default {
+	color: rgba(255,255,255,.2) !important;
+	cursor: default;
+}
+/* Dates past the interval */
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div .ui-datepicker-calendar td.ui-state-disabled.ceil-max-date .ui-state-default {
+	color: rgba(255,255,255,.75) !important;
+}
+/* No tours */
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div .ui-datepicker-calendar td.ui-state-disabled.new_ceil-no-tours *,
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div .ui-datepicker-calendar td.new_ceil-no-tours * {
+	cursor: default;
+	color: rgba(255,255,255,.2) !important;
+}
+
+/* Today */
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div .ui-datepicker-calendar td.ui-datepicker-today .ui-state-default {
+	color: #38bdf8 !important;
+	background-color: rgba(14,165,233,.1) !important;
+}
+
+/* Selected range (highlight) — blue tint instead of #DDE6A7 */
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div .ui-datepicker-calendar td.ui-state-highlight {
+	background-color: rgba(14,165,233,.15) !important;
+}
+
+/* Active selected dates — bright blue instead of #B4CB5B */
+.new_f-dates-container#new_f-dates-container .new_first_calendar_open #ui-datepicker-div .ui-datepicker-calendar td.ui-state-active.ui-state-highlight,
+.new_f-dates-container#new_f-dates-container .new_second_calendar_open #ui-datepicker-div .ui-datepicker-calendar td.ui-state-active:not(.ui-datepicker-current-day),
+.new_f-dates-container#new_f-dates-container .new_second_calendar_open #ui-datepicker-div .ui-datepicker-calendar td.ui-state-active.ui-state-highlight.ui-datepicker-current-day {
+	background-color: #0ea5e9 !important;
+	position: relative;
+}
+.new_f-dates-container#new_f-dates-container .new_first_calendar_open #ui-datepicker-div .ui-datepicker-calendar td.ui-state-active.ui-state-highlight a,
+.new_f-dates-container#new_f-dates-container .new_second_calendar_open #ui-datepicker-div .ui-datepicker-calendar td.ui-state-active:not(.ui-datepicker-current-day) a,
+.new_f-dates-container#new_f-dates-container .new_second_calendar_open #ui-datepicker-div .ui-datepicker-calendar td.ui-state-active.ui-state-highlight.ui-datepicker-current-day a {
+	color: #fff !important;
+}
+
+/* Arrow decorations on active cells — use blue theme color instead of #DDE6A7 */
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div td.ceil.ui-state-active::before,
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div td.ceil.ui-state-highlight-right::before {
+	border-color: rgba(14,165,233,.15) transparent transparent !important;
+}
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div td.ceil.ui-state-active::after,
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div td.ceil.ui-state-highlight-right::after {
+	border-color: transparent transparent transparent rgba(14,165,233,.15) !important;
+}
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div td.ceil.ui-state-highlight-left::before {
+	border-color: rgba(14,165,233,.15) transparent transparent !important;
+}
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div td.ceil.ui-state-highlight-left::after {
+	border-color: transparent transparent transparent rgba(14,165,233,.15) !important;
+}
+
+/* Hover on dates with tours */
+body:not(.new_tour-one-col-sm) .new_f-dates-container#new_f-dates-container .new_first_calendar_open #ui-datepicker-div td.new_ceil-tours-exists:hover,
+.new_f-dates-container#new_f-dates-container .new_second_calendar_open #ui-datepicker-div td.new_ceil-tours-exists:hover {
+	background-color: #0ea5e9 !important;
+}
+body:not(.new_tour-one-col-sm) .new_f-dates-container#new_f-dates-container #ui-datepicker-div td.new_ceil-tours-exists:hover a {
+	color: #fff !important;
+}
+
+/* Tour-exists indicator */
 .new_ceil-tours-exists a { border-color: rgba(74,222,128,.3) !important; }
-.new_ceil-no-tours a { opacity: .35; }
+/* No tours tooltip */
 .new_ceil-no-tours:hover a::before {
 	background-color: rgba(30,41,59,.95) !important;
 	color: rgba(255,255,255,.7) !important;
@@ -386,6 +550,19 @@
 .new_ceil-no-tours:hover a::after {
 	border-color: rgba(30,41,59,.95) transparent transparent transparent !important;
 }
+
+/* Divider between month name and days */
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div .dp-title-divider {
+	font-size: 10px;
+	background: rgba(255,255,255,.06) !important;
+}
+
+/* Close button in calendar */
+#new_f-dates-container.new_f-dates-container .new_f-dropdown-body-close {
+	color: rgba(255,255,255,.8) !important;
+}
+
+/* Calendar tips / tooltips */
 .calendar-tip {
 	background-color: rgba(14,165,233,.85) !important;
 	color: #fff !important;
@@ -512,6 +689,52 @@
 }
 .new_f-ext-clear-btn { color: rgba(255,255,255,.4) !important; }
 .new_f-services-label { color: rgba(255,255,255,.6) !important; }
+
+/* ===== LOADING BAR — modern animated gradient ===== */
+#ctyList::before {
+	background: rgba(15,23,42,.97) !important;
+	background-image: none !important;
+}
+/* Override the SVG loader with a CSS shimmer bar */
+#ctyList:not(.no-loader)::before {
+	background: linear-gradient(
+		90deg,
+		rgba(15,23,42,.97) 0%,
+		rgba(14,165,233,.08) 25%,
+		rgba(56,189,248,.15) 50%,
+		rgba(14,165,233,.08) 75%,
+		rgba(15,23,42,.97) 100%
+	) !important;
+	background-size: 200% 100% !important;
+	animation: zt-loader-shimmer 1.8s ease-in-out infinite !important;
+}
+@keyframes zt-loader-shimmer {
+	0% { background-position: 200% 0; }
+	100% { background-position: -200% 0; }
+}
+/* Also style the general search/tour loading indicator */
+.new_f-form .new_f-form-submit.loading,
+.new_f-form .new_f-form-submit.search-in-progress {
+	position: relative;
+	overflow: hidden;
+}
+.new_f-form .new_f-form-submit.loading::after,
+.new_f-form .new_f-form-submit.search-in-progress::after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 3px;
+	background: linear-gradient(90deg, transparent, rgba(255,255,255,.6), transparent);
+	background-size: 200% 100%;
+	animation: zt-btn-loading 1.2s ease-in-out infinite;
+	border-radius: 0 0 10px 10px;
+}
+@keyframes zt-btn-loading {
+	0% { background-position: 200% 0; }
+	100% { background-position: -200% 0; }
+}
 
 /* ===== SCROLLBARS ===== */
 .new_f-container ::-webkit-scrollbar,
