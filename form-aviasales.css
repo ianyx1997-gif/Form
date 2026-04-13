@@ -1,0 +1,674 @@
+/* ==========================================================
+   ZEBRATUR — AVIASALES BRIGHT THEME — FORM OVERRIDE
+   Stil modern, curat, albastru vibrant + portocaliu CTA
+   Adaugă DUPĂ form.css original:
+   <link rel="stylesheet" href="form.css">
+   <link rel="stylesheet" href="form-aviasales.css">
+   ========================================================== */
+
+/* ===== PAGE BACKGROUND (opțional — poți scoate dacă setezi separat) ===== */
+.new_os {
+	background: #2563eb !important;
+	background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 40%, #3b82f6 100%) !important;
+}
+
+/* ===== FORM CONTAINER — floating white card ===== */
+.new_f-container {
+	background: #fff !important;
+	border-radius: 16px !important;
+	box-shadow: 0 8px 32px rgba(0,0,0,.12), 0 2px 8px rgba(0,0,0,.06) !important;
+	filter: none !important;
+	overflow: visible !important;
+	max-width: 960px !important;
+	padding: 0 !important;
+}
+.new_f-container.ext-opened {
+	border-radius: 16px !important;
+}
+
+/* Remove background images (compass, plane) */
+.new_f-wrapper-bg-imgs {
+	display: none !important;
+}
+
+/* ===== TITLE ===== */
+.new_f-title {
+	color: #1e3a5f !important;
+	font-size: 16px !important;
+	padding: 18px 20px 10px !important;
+	height: auto !important;
+	text-align: center;
+}
+
+/* ===== FORM FIELDS — clean modern inputs ===== */
+.new_f-form {
+	padding: 0 12px 12px !important;
+}
+.new_f-form-field {
+	background-color: #f8fafc !important;
+	border: 1.5px solid #e2e8f0 !important;
+	border-radius: 10px !important;
+	height: 44px !important;
+	transition: border-color .2s ease, box-shadow .2s ease !important;
+}
+.new_f-form-field:hover,
+.new_f-form-field:focus-within {
+	border-color: #3b82f6 !important;
+	box-shadow: 0 0 0 3px rgba(59,130,246,.12) !important;
+	background-color: #fff !important;
+}
+
+/* Remove old separators between fields */
+.new_f-form-field::before {
+	display: none !important;
+}
+
+/* Field widths — add small gaps (override float margins) */
+.new_f-form-field.to {
+	border-radius: 10px !important;
+	border-left: 1.5px solid #e2e8f0 !important;
+	margin-right: 6px !important;
+}
+.new_f-form-field.from {
+	margin-right: 6px !important;
+}
+.new_f-form-field.date {
+	margin-right: 6px !important;
+}
+.new_f-form-field.duration {
+	margin-right: 6px !important;
+}
+.new_f-form-field.people {
+	margin-right: 6px !important;
+}
+
+/* ===== INPUT TEXT STYLES ===== */
+.new_f-autocomplete-input {
+	color: #1e293b !important;
+}
+.new_f-autocomplete-input::-webkit-input-placeholder {
+	color: #94a3b8 !important;
+}
+.new_f-autocomplete-input::-moz-placeholder {
+	color: #94a3b8 !important;
+}
+.new_f-autocomplete-input:-ms-input-placeholder {
+	color: #94a3b8 !important;
+}
+.new_input-mask {
+	color: #1e293b !important;
+}
+
+/* Dropdown button text */
+.new_f-dropdown-btn {
+	color: #1e293b !important;
+	height: 42px !important;
+	padding: 10px 8px 0 !important;
+}
+
+/* Arrow icons inside fields */
+.new_f-dropdown-btn .cnt::after,
+.new_f-dropdown-btn::after {
+	border-color: #3b82f6 transparent transparent !important;
+}
+
+/* Count button (resort count) */
+.new_f-dropdown-btn .cnt {
+	background-color: #eff6ff !important;
+	border-radius: 4px !important;
+}
+.new_f-dropdown-btn .cnt:hover {
+	background-color: #dbeafe !important;
+}
+
+/* ===== SUBMIT BUTTON — vibrant orange CTA ===== */
+.new_f-form .new_f-form-submit {
+	background: linear-gradient(135deg, #f97316 0%, #ea580c 100%) !important;
+	border-radius: 10px !important;
+	height: 44px !important;
+	font-size: 15px !important;
+	font-weight: 700 !important;
+	letter-spacing: 0.3px !important;
+	box-shadow: 0 4px 12px rgba(249,115,22,.3) !important;
+	transition: all .2s ease !important;
+	text-shadow: 0 1px 1px rgba(0,0,0,.1) !important;
+}
+.new_f-form .new_f-form-submit:hover {
+	background: linear-gradient(135deg, #fb923c 0%, #f97316 100%) !important;
+	box-shadow: 0 6px 16px rgba(249,115,22,.4) !important;
+	transform: translateY(-1px);
+}
+/* Ripple override */
+.hvr-ripple-out:before {
+	border-color: #ea580c !important;
+	border-radius: 10px !important;
+}
+
+/* ===== DATE PICKER BUTTONS ===== */
+.new_f-datepicker-wrap button {
+	background: #f1f5f9 !important;
+	color: #334155 !important;
+	border-radius: 6px !important;
+	height: 32px !important;
+	font-size: 14px !important;
+	transition: background .2s ease !important;
+}
+.new_f-datepicker-wrap:hover button {
+	background-color: #e2e8f0 !important;
+}
+/* Calendar icon */
+.new_f-search-dates-wrap svg {
+	fill: #3b82f6 !important;
+}
+/* Date separator line */
+.new_f-datepicker-wrap-2:before {
+	background-color: #94a3b8 !important;
+}
+
+/* Date tooltip */
+.new_f-search-dates-popup {
+	background-color: #eff6ff !important;
+	color: #1e40af !important;
+	border-radius: 8px !important;
+	font-weight: 600 !important;
+}
+.new_f-search-dates-popup:before,
+.new_f-search-dates-popup:after {
+	border-color: #eff6ff transparent transparent !important;
+}
+
+/* ===== DROPDOWNS ===== */
+.new_f-dropdown-body {
+	background: #fff !important;
+	border: 1px solid #e2e8f0 !important;
+	border-radius: 12px !important;
+	box-shadow: 0 12px 36px rgba(0,0,0,.12), 0 4px 12px rgba(0,0,0,.06) !important;
+	overflow: hidden !important;
+}
+.new_f-dropdown-item {
+	color: #334155 !important;
+	transition: background .15s ease !important;
+}
+.new_f-dropdown-item.selected {
+	background-color: #eff6ff !important;
+	color: #1e40af !important;
+}
+.new_f-dropdown-item:hover {
+	background-color: #f8fafc !important;
+}
+
+/* ===== COUNTRY LIST ===== */
+#new_os-to .new_f-dropdown-body {
+	border-radius: 12px !important;
+	border: 1px solid #e2e8f0 !important;
+	box-shadow: 0 12px 36px rgba(0,0,0,.12) !important;
+}
+#new_os-to #cntList .ui-menu-item.active a,
+#new_os-to #cntList .ui-menu-item.active a * {
+	background: #eff6ff !important;
+}
+#cntList .ui-menu-item a * {
+	background: #fff !important;
+}
+#new_os-to .ui-menu .ui-menu-item .label {
+	color: #334155 !important;
+}
+#new_os-to .ui-autocomplete .ui-menu-item .price-from {
+	color: #94a3b8 !important;
+}
+#new_os-to .type-item {
+	background-color: #f8fafc !important;
+	color: #64748b !important;
+}
+
+/* ===== RESORT LIST (ctyList) ===== */
+#ctyList {
+	background: #fff !important;
+	border: 1px solid #e2e8f0 !important;
+	border-radius: 0 12px 12px 0 !important;
+	box-shadow: 4px 0 16px rgba(0,0,0,.08) !important;
+}
+#ctyList::before {
+	background-color: #fff !important;
+}
+#ctyList li {
+	background-color: transparent !important;
+	font-size: 14px !important;
+}
+#ctyList .labelName,
+#ctyList .itemPrice {
+	background: transparent !important;
+}
+#ctyList .itemPrice {
+	color: #94a3b8 !important;
+}
+.ctyLists-wrapper {
+	padding: 10px !important;
+}
+
+/* Checkboxes */
+[class*='new_f-'] input[type="checkbox"] + *::before {
+	border-color: #cbd5e1 !important;
+	background-color: #fff !important;
+	border-radius: 4px !important;
+}
+[class*='new_f-'] input[type="checkbox"]:checked + *::before {
+	background: #3b82f6 !important;
+	border-color: #2563eb !important;
+}
+/* Radio buttons */
+[class*='new_f-'] input[type="radio"]:checked + ::before,
+.new_f-ext-col-recommend input[type="checkbox"]:checked + ::before {
+	border-color: #2563eb !important;
+	background: #3b82f6 !important;
+}
+
+/* ===== CALENDAR ===== */
+.new_f-dropdown-body-date {
+	background-color: #fff !important;
+	border-radius: 12px !important;
+	box-shadow: 0 12px 36px rgba(0,0,0,.12) !important;
+}
+/* Calendar header */
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div {
+	background: #fff !important;
+}
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div.ui-datepicker .ui-datepicker-title,
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div .ui-datepicker-header {
+	color: #1e40af !important;
+}
+/* Calendar cells */
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div .ui-datepicker-calendar td {
+	background: #f8fafc !important;
+	border-color: #fff !important;
+	border-radius: 4px;
+}
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div .ui-datepicker-calendar td a {
+	color: #3b82f6 !important;
+}
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div .ui-datepicker-calendar td span {
+	color: #3b82f6 !important;
+}
+/* Disabled dates */
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div .ui-datepicker-calendar td.ui-state-disabled {
+	background-color: #f8fafc !important;
+}
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div .ui-datepicker-calendar td.ui-state-disabled .ui-state-default {
+	color: #cbd5e1 !important;
+}
+/* Empty cells */
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div .ui-datepicker-calendar td.ui-datepicker-other-month {
+	background-color: #fff !important;
+}
+/* Selected date range */
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div .ui-datepicker-calendar td.ui-state-highlight {
+	background-color: #dbeafe !important;
+}
+/* Active date */
+.new_f-dates-container#new_f-dates-container .new_first_calendar_open #ui-datepicker-div .ui-datepicker-calendar td.ui-state-active.ui-state-highlight,
+.new_f-dates-container#new_f-dates-container .new_second_calendar_open #ui-datepicker-div .ui-datepicker-calendar td.ui-state-active:not(.ui-datepicker-current-day),
+.new_f-dates-container#new_f-dates-container .new_second_calendar_open #ui-datepicker-div .ui-datepicker-calendar td.ui-state-active.ui-state-highlight.ui-datepicker-current-day {
+	background-color: #2563eb !important;
+	border-radius: 6px !important;
+}
+.new_f-dates-container#new_f-dates-container .new_first_calendar_open #ui-datepicker-div .ui-datepicker-calendar td.ui-state-active.ui-state-highlight a,
+.new_f-dates-container#new_f-dates-container .new_second_calendar_open #ui-datepicker-div .ui-datepicker-calendar td.ui-state-active:not(.ui-datepicker-current-day) a,
+.new_f-dates-container#new_f-dates-container .new_second_calendar_open #ui-datepicker-div .ui-datepicker-calendar td.ui-state-active.ui-state-highlight.ui-datepicker-current-day a {
+	color: #fff !important;
+}
+/* Today */
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div .ui-datepicker-calendar td.ui-datepicker-today .ui-state-default {
+	color: #f97316 !important;
+	background-color: #fff7ed !important;
+	border-radius: 4px !important;
+}
+/* Calendar divider */
+#new_f-dates-container.new_f-dates-container #ui-datepicker-div::after {
+	background-color: #e2e8f0 !important;
+	width: 1px !important;
+}
+/* Days of week */
+#new_f-dates-container.new_f-dates-container #ui-datepicker-div th {
+	color: #94a3b8 !important;
+}
+/* Calendar arrows highlight override */
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div td.ceil.ui-state-highlight-right::before,
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div td.ceil.ui-state-active::before {
+	border-color: #dbeafe transparent transparent !important;
+}
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div td.ceil.ui-state-highlight-right::after,
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div td.ceil.ui-state-active::after {
+	border-color: transparent transparent transparent #dbeafe !important;
+}
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div td.ceil.ui-state-highlight-left::before {
+	border-color: transparent #dbeafe transparent transparent !important;
+}
+.new_f-dates-container#new_f-dates-container #ui-datepicker-div td.ceil.ui-state-highlight-left::after {
+	border-color: transparent transparent #dbeafe transparent !important;
+}
+
+/* ===== DURATION DROPDOWN ===== */
+.duration .new_f-dropdown-item {
+	color: #1e293b !important;
+}
+.duration .new_f-dropdown-item .new_f-duration-days {
+	color: #94a3b8 !important;
+}
+
+/* ===== PEOPLE SELECTOR ===== */
+.new_f-people-item {
+	border-radius: 8px !important;
+	transition: all .15s ease !important;
+}
+.new_f-people-item.active {
+	background-color: #2563eb !important;
+	color: #fff !important;
+	border-radius: 8px !important;
+}
+.new_f-people-item:hover {
+	background-color: #eff6ff !important;
+}
+.new_f-children-accordion-btn {
+	border-color: #e2e8f0 !important;
+	border-radius: 8px !important;
+	color: #334155 !important;
+}
+.new_f-children-accordion-btn::after {
+	border-color: #94a3b8 transparent transparent !important;
+}
+.new_f-children-accordion-body {
+	background: #f8fafc !important;
+	border-color: #e2e8f0 !important;
+	border-radius: 0 0 8px 8px !important;
+}
+.new_f-children-list-item {
+	background: #2563eb !important;
+	color: #fff !important;
+	border-radius: 8px !important;
+}
+.new_f-children-age-item {
+	border-radius: 6px !important;
+}
+.new_f-children-age-item:hover {
+	background: #2563eb !important;
+	color: #fff !important;
+}
+
+/* ===== MODAL HEADERS (mobile fullscreen) ===== */
+.new_t-tab-content-top,
+.new_t-modal-body-top,
+.new_f-dropdown-body-top {
+	background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%) !important;
+	color: #fff !important;
+}
+
+/* ===== ADVANCED SEARCH ===== */
+.new_f-ext-btn-container {
+	margin-top: 8px !important;
+	margin-bottom: 16px !important;
+}
+.new_f-form .new_f-ext-btn {
+	color: rgba(255,255,255,.85) !important;
+}
+.new_f-ext-btn-text {
+	color: rgba(255,255,255,.9) !important;
+	text-decoration: none !important;
+	border-bottom: 1px dashed rgba(255,255,255,.5) !important;
+	padding-bottom: 1px !important;
+}
+.new_f-ext-btn-text::before {
+	border-color: rgba(255,255,255,.8) transparent transparent !important;
+}
+.ext-opened .new_f-ext-btn-text::before {
+	border-color: transparent transparent rgba(255,255,255,.8) !important;
+}
+
+/* Advanced search container */
+.new_f-ext-container {
+	background: #f1f5f9 !important;
+	border-radius: 0 0 16px 16px !important;
+	box-shadow: inset 0 1px 3px rgba(0,0,0,.04) !important;
+	padding: 28px 0 24px !important;
+	background-image: none !important;
+}
+.new_f-ext-container::before {
+	display: none !important;
+}
+/* Filter titles */
+.new_f-ext-bl-title {
+	color: #1e40af !important;
+}
+.new_f-ext-bl-title span {
+	color: #94a3b8 !important;
+}
+.new_f-ext-bl label {
+	color: #475569 !important;
+}
+/* Slider track */
+.new_f-ext-container .ui-slider-range,
+.new_f-ext-container .slider-container .ui-widget-content {
+	background: #e2e8f0 !important;
+}
+.new_f-ext-container .ui-slider-range {
+	background: linear-gradient(90deg, #3b82f6, #2563eb) !important;
+}
+.new_f-ext-container .ui-slider .ui-slider-handle {
+	background: #fff !important;
+	border: 2px solid #3b82f6 !important;
+	box-shadow: 0 2px 6px rgba(59,130,246,.25) !important;
+}
+.new_f-ext-container .new_f-ext-bl-rat .ui-slider-range,
+.new_f-ext-container .new_f-ext-bl-price .ui-widget-content {
+	background: #e2e8f0 !important;
+}
+/* Scale markers */
+.new_f-ext-scale-item::before,
+.new_f-ext-bl-cat label::before,
+.new_f-ext-bl-food label::before {
+	background: #cbd5e1 !important;
+}
+/* Services link color */
+.new_f-label-name {
+	color: #2563eb !important;
+}
+/* Clear filters link */
+.new_f-ext-clear-btn {
+	color: #3b82f6 !important;
+}
+/* Apply button in ext search */
+.new_f-ext-container .new_f-dropdown-btn-apply {
+	background: linear-gradient(135deg, #f97316, #ea580c) !important;
+	border-radius: 10px !important;
+	color: #fff !important;
+	box-shadow: 0 3px 10px rgba(249,115,22,.25) !important;
+}
+.new_f-ext-container .new_f-dropdown-btn-apply:hover {
+	background: linear-gradient(135deg, #fb923c, #f97316) !important;
+}
+
+/* ===== TABLET FORM ===== */
+.new_m-mobile-form:not(.new_mobile-form) .new_f-form-submit,
+.new_m-mobile-form:not(.new_mobile-form) .new_f-form-field {
+	border-radius: 10px !important;
+	border: 1.5px solid #e2e8f0 !important;
+	height: 44px !important;
+}
+.new_m-mobile-form:not(.new_mobile-form) .new_f-form-field {
+	background-color: #f8fafc !important;
+}
+.new_m-mobile-form:not(.new_mobile-form) .new_f-form-field:hover,
+.new_m-mobile-form:not(.new_mobile-form) .new_f-form-field:focus-within {
+	border-color: #3b82f6 !important;
+	background-color: #fff !important;
+}
+.new_m-mobile-form:not(.new_mobile-form) .new_f-form-submit {
+	border: none !important;
+}
+
+/* ===== VERTICAL (MOBILE) FORM ===== */
+.new_mobile-form .new_f-container {
+	border-radius: 16px !important;
+}
+.new_mobile-form .new_f-form-field {
+	border: 1.5px solid #e2e8f0 !important;
+	border-radius: 10px !important;
+	height: 48px !important;
+	background-color: #f8fafc !important;
+	margin-bottom: 10px !important;
+}
+.new_mobile-form .new_f-form-field:hover,
+.new_mobile-form .new_f-form-field:focus-within {
+	border-color: #3b82f6 !important;
+	background-color: #fff !important;
+}
+.new_mobile-form .new_f-form .new_f-form-submit {
+	border-radius: 12px !important;
+	height: 52px !important;
+	font-size: 17px !important;
+}
+
+/* ===== MOBILE FULLSCREEN OVERLAYS ===== */
+@media all and (max-width: 478px) {
+	.new_f-dropdown-container:not(#new_os-date-check) .new_f-dropdown-body,
+	.new_layer-open .new_t-change-people .new_f-dropdown-body {
+		background: #fff !important;
+	}
+	.new_f-dropdown-item {
+		padding: 10px 16px !important;
+		font-size: 16px !important;
+		border-bottom: 1px solid #f1f5f9;
+	}
+	.new_f-dropdown-item.selected {
+		background-color: #eff6ff !important;
+		color: #1e40af !important;
+	}
+	/* Bottom buttons */
+	.new_f-dropdown-btn-cancel {
+		background-color: #f1f5f9 !important;
+		border-top-color: #e2e8f0 !important;
+		color: #475569 !important;
+	}
+	.new_f-dropdown-btn-apply {
+		background: linear-gradient(135deg, #f97316, #ea580c) !important;
+		color: #fff !important;
+		font-weight: 700 !important;
+	}
+	/* Calendar header mobile */
+	.new_f-dropdown-body-date .new_f-dropdown-body-top {
+		background: linear-gradient(135deg, #1d4ed8, #2563eb) !important;
+	}
+	/* Calendar tip */
+	.new_f-dates-container#new_f-dates-container .calendar-tip {
+		background-color: #f97316 !important;
+		color: #fff !important;
+	}
+	/* Mobile calendar day names */
+	.new_f-dates-container#new_f-dates-container .mobile-calendar-days .mobile-calendar-day {
+		color: #94a3b8 !important;
+	}
+	.new_f-dates-container#new_f-dates-container .mobile-calendar-days {
+		background-color: rgba(255,255,255,.95) !important;
+		border-bottom: 1px solid #e2e8f0;
+	}
+	/* Country list mobile */
+	.new_f-container #ctyList {
+		background: #fff !important;
+		border: none !important;
+	}
+	.new_f-container #cntList {
+		background: #fff !important;
+	}
+	#ctyList li {
+		background-color: transparent !important;
+	}
+	#ctyList .labelName,
+	#ctyList .itemPrice {
+		background: transparent !important;
+	}
+	/* Resort apply button */
+	#ctyList .new_f-dropdown-btn-apply {
+		background-color: #2563eb !important;
+		border-radius: 6px !important;
+	}
+	/* Advanced search mobile */
+	.new_f-ext-container {
+		background: #f8fafc !important;
+		border-radius: 0 !important;
+	}
+
+	/* Override white form fields for mobile form */
+	.new_f-form-field {
+		height: 48px !important;
+	}
+	.new_f-form .new_f-form-submit {
+		height: 52px !important;
+	}
+}
+
+/* ===== HOVER STATES DESKTOP ===== */
+@media all and (min-width: 479px) {
+	body:not(.iOS) .new_f-container #new_os-to .ui-menu .ui-menu-item .ui-corner-all:hover,
+	body:not(.iOS) .new_f-container #new_os-to .ui-menu .ui-menu-item .ui-corner-all:hover *,
+	body:not(.iOS) .new_f-container #new_os-to .ui-menu .ui-menu-item .ui-state-focus,
+	body:not(.iOS) .new_f-container #new_os-to .ui-menu .ui-menu-item .ui-state-focus * {
+		background: #f8fafc !important;
+	}
+	body:not(.iOS) .new_f-container #new_os-to .ui-menu .ui-menu-item.active .ui-corner-all,
+	body:not(.iOS) .new_f-container #new_os-to .ui-menu .ui-menu-item.active .ui-corner-all * {
+		background: #eff6ff !important;
+	}
+	.new_f-dropdown-item:hover {
+		background-color: #f8fafc !important;
+	}
+	/* Date hover */
+	.new_f-dates-container#new_f-dates-container #ui-datepicker-div .ui-datepicker-calendar td.new_ceil-tours-exists:hover a {
+		border-color: #2563eb !important;
+	}
+	body:not(.new_tour-one-col-sm) .new_f-dates-container#new_f-dates-container .new_first_calendar_open #ui-datepicker-div td.new_ceil-tours-exists:hover,
+	.new_f-dates-container#new_f-dates-container .new_second_calendar_open #ui-datepicker-div td.new_ceil-tours-exists:hover {
+		background-color: #2563eb !important;
+		border-radius: 6px !important;
+	}
+	/* People hover */
+	.new_f-people-item:hover {
+		background-color: #eff6ff !important;
+		color: #1e40af !important;
+	}
+	.new_f-children-age-item:hover {
+		background: #2563eb !important;
+		color: #fff !important;
+		border-radius: 6px !important;
+	}
+	/* ctyList desktop */
+	#ctyList .new_f-dropdown-body-bottom {
+		background-color: #f8fafc !important;
+	}
+	#ctyList .new_f-dropdown-btn-apply {
+		background-color: #2563eb !important;
+		border-radius: 6px !important;
+	}
+}
+
+/* ===== SCROLLBAR STYLING ===== */
+#new_os-to .new_f-dropdown-body.popup #cntList::-webkit-scrollbar-thumb,
+#ctyList .ctyLists-wrapper::-webkit-scrollbar-thumb {
+	background-color: #cbd5e1 !important;
+	border-radius: 6px !important;
+}
+#new_os-to .new_f-dropdown-body.popup #cntList::-webkit-scrollbar-track {
+	background-color: #f8fafc !important;
+}
+#ctyList .ctyLists-wrapper::-webkit-scrollbar-track {
+	background-color: #fff !important;
+}
+
+/* ===== PEOPLE DROPDOWN ===== */
+.new_f-dropdown-container.people .new_f-dropdown-body {
+	border-radius: 12px !important;
+	box-shadow: 0 12px 36px rgba(0,0,0,.12) !important;
+}
+
+/* ===== FORM TEXT COLOR ===== */
+.new_f-form {
+	color: #334155 !important;
+}
