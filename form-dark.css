@@ -7,11 +7,6 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-/* ===== FIX: Parent container overflow — allows dropdown to show fully ===== */
-.area-wrapper {
-		overflow: visible !important;
-}
-
 /* ===== GLOBALS — font-size fix: Inter renders ~8% larger than Open Sans ===== */
 .new_os,
 .new_f-container *,
