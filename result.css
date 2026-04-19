@@ -271,6 +271,146 @@
 	-webkit-backdrop-filter: blur(16px);
 	border: 1px solid rgba(226,232,240,0.5);
 }
+
+/* ===== ZebraTour conversion hub ===== */
+#zebraConversionHub {
+	background: linear-gradient(135deg, #eff6ff 0%, #ffffff 45%, #eef2ff 100%);
+	border: 1px solid #dbeafe;
+	border-radius: 18px;
+	padding: 18px;
+	margin: 0 0 14px;
+	box-shadow: 0 8px 24px rgba(15, 23, 42, .08);
+}
+.zebra-conv-head {
+	display: flex;
+	gap: 18px;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+.zebra-conv-kicker {
+	margin: 0 0 4px;
+	color: #1d4ed8;
+	font-size: 12px;
+	font-weight: 800;
+	letter-spacing: .04em;
+	text-transform: uppercase;
+}
+.zebra-conv-title {
+	margin: 0;
+	font-size: 24px;
+	line-height: 1.2;
+	color: #0f172a;
+}
+.zebra-conv-subtitle {
+	margin: 8px 0 0;
+	font-size: 14px;
+	color: #475569;
+	max-width: 680px;
+}
+.zebra-conv-actions {
+	display: flex;
+	gap: 10px;
+	flex-wrap: wrap;
+}
+.zebra-conv-cta {
+	border: 0;
+	border-radius: 999px;
+	padding: 11px 16px;
+	font-weight: 700;
+	font-size: 14px;
+	text-decoration: none;
+	cursor: pointer;
+}
+.zebra-conv-cta-primary {
+	color: #fff;
+	background: linear-gradient(135deg, #2563eb, #4338ca);
+	box-shadow: 0 6px 16px rgba(37, 99, 235, .32);
+}
+.zebra-conv-cta-ghost {
+	background: #fff;
+	color: #1e3a8a;
+	border: 1px solid #bfdbfe;
+}
+.zebra-conv-trust {
+	display: flex;
+	gap: 12px;
+	flex-wrap: wrap;
+	margin: 12px 0 14px;
+}
+.zebra-conv-trust span {
+	background: rgba(255,255,255,.75);
+	border: 1px solid #c7d2fe;
+	border-radius: 999px;
+	padding: 6px 10px;
+	font-size: 12px;
+	color: #1e293b;
+}
+.zebra-quick-filters {
+	display: flex;
+	gap: 8px;
+	flex-wrap: wrap;
+}
+.zebra-filter-chip {
+	border: 1px solid #cbd5e1;
+	background: #fff;
+	color: #334155;
+	border-radius: 999px;
+	padding: 8px 12px;
+	font-size: 13px;
+	font-weight: 600;
+	cursor: pointer;
+}
+.zebra-filter-chip.active {
+	color: #fff;
+	border-color: transparent;
+	background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+}
+
+#zebraMobileLeadBar {
+	position: fixed;
+	left: 10px;
+	right: 10px;
+	bottom: 10px;
+	z-index: 2000;
+	display: none;
+	gap: 8px;
+	padding: 8px;
+	border-radius: 14px;
+	background: rgba(15, 23, 42, .94);
+	box-shadow: 0 14px 30px rgba(0,0,0,.28);
+	backdrop-filter: blur(8px);
+}
+.zebra-mobile-lead {
+	flex: 1;
+	border-radius: 10px;
+	padding: 10px 12px;
+	font-size: 13px;
+	font-weight: 700;
+	border: 0;
+	text-decoration: none;
+	text-align: center;
+}
+.zebra-mobile-lead-secondary {
+	background: #fff;
+	color: #1e293b;
+}
+.zebra-mobile-lead-primary {
+	background: linear-gradient(135deg, #22c55e, #16a34a);
+	color: #fff;
+}
+
+@media screen and (max-width: 768px) {
+	.zebra-conv-title {
+		font-size: 20px;
+	}
+	#zebraMobileLeadBar {
+		display: flex;
+	}
+	.new_r-container {
+		padding-bottom: 110px;
+	}
+}
 .new_r-filter * {
 	vertical-align: middle;
 	cursor: pointer;
@@ -1410,4 +1550,3 @@ html {
 	font-size: 18px;
 	font-weight: 700;
 }
-

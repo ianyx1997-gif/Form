@@ -149,6 +149,119 @@
     });
   }
 
+  // ===== 7a. CONVERSION HUB + QUICK FILTER EXPERIENCE =====
+  function createConversionHub() {
+    if (document.getElementById('zebraConversionHub')) return;
+    var panel = document.querySelector('.new_r-panel');
+    if (!panel || !panel.parentNode) return;
+
+    var hub = document.createElement('section');
+    hub.id = 'zebraConversionHub';
+    hub.innerHTML =
+      '<div class="zebra-conv-head">' +
+        '<div class="zebra-conv-title-wrap">' +
+          '<p class="zebra-conv-kicker">Zebra Tour · ofertă personalizată</p>' +
+          '<h2 class="zebra-conv-title">Găsește vacanța perfectă în câteva secunde</h2>' +
+          '<p class="zebra-conv-subtitle">Compară hoteluri, salvează favorite și primește recomandarea unui consultant dedicat.</p>' +
+        '</div>' +
+        '<div class="zebra-conv-actions">' +
+          '<a class="zebra-conv-cta zebra-conv-cta-primary" href="https://wa.me/37378326222?text=' + encodeURIComponent('Bună! Vreau o ofertă personalizată pe baza acestor rezultate de pe zebratur.md: ' + window.location.href) + '" target="_blank" rel="noopener">Cere ofertă în 5 minute</a>' +
+          '<button class="zebra-conv-cta zebra-conv-cta-ghost" type="button" id="zebraOpenWishlistFromHub">Vezi favoritele mele</button>' +
+        '</div>' +
+      '</div>' +
+      '<div class="zebra-conv-trust">' +
+        '<span>✔️ Consultanță reală pe WhatsApp</span>' +
+        '<span>✔️ Oferte verificate de agenți</span>' +
+        '<span>✔️ Compari rapid preț, rating și masă</span>' +
+      '</div>' +
+      '<div class="zebra-quick-filters" id="zebraQuickFilters"></div>';
+
+    panel.parentNode.insertBefore(hub, panel);
+
+    var wishlistBtn = hub.querySelector('#zebraOpenWishlistFromHub');
+    if (wishlistBtn) {
+      wishlistBtn.addEventListener('click', function() {
+        toggleWishlistPanel(true);
+      });
+    }
+  }
+
+  function setupQuickFilters() {
+    var row = document.getElementById('zebraQuickFilters');
+    if (!row) return;
+
+    row.innerHTML = '';
+    var filters = [
+      { id: 'all', label: 'Toate ofertele', fn: function() { return true; } },
+      { id: 'rating', label: 'Rating 8+', fn: function(wrap) {
+        var ratingEl = wrap.querySelector('.new_r-item-rating-value');
+        if (!ratingEl) return false;
+        var value = parseFloat((ratingEl.textContent || '').replace(',', '.').replace(/[^\d.]/g, ''));
+        return value >= 8;
+      } },
+      { id: 'ai', label: 'All Inclusive', fn: function(wrap) {
+        var food = (wrap.querySelector('.new_r-item-food') || {}).textContent || '';
+        return /all|ультра|inclusive/i.test(food);
+      } },
+      { id: 'family', label: 'Familii', fn: function(wrap) {
+        var text = wrap.textContent || '';
+        return /family|copii|дет/i.test(text);
+      } },
+      { id: 'beach', label: 'Plajă aproape', fn: function(wrap) {
+        var geo = (wrap.querySelector('.new_r-item-geo') || {}).textContent || '';
+        return /plaj|beach|mare|sea/i.test(geo);
+      } }
+    ];
+
+    function applyFilter(filterId) {
+      var selected = filters.find(function(f) { return f.id === filterId; }) || filters[0];
+      var cards = document.querySelectorAll('.new_r-item-wrap');
+      var visible = 0;
+
+      cards.forEach(function(card) {
+        var show = selected.fn(card);
+        card.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+
+      var counter = document.getElementById('zebraResultsCounter');
+      if (counter) {
+        counter.innerHTML = '<span class="count-num">' + visible + '</span> hoteluri după filtrul rapid';
+      }
+
+      row.querySelectorAll('.zebra-filter-chip').forEach(function(chip) {
+        chip.classList.toggle('active', chip.getAttribute('data-filter') === selected.id);
+      });
+    }
+
+    filters.forEach(function(filter) {
+      var chip = document.createElement('button');
+      chip.type = 'button';
+      chip.className = 'zebra-filter-chip' + (filter.id === 'all' ? ' active' : '');
+      chip.setAttribute('data-filter', filter.id);
+      chip.textContent = filter.label;
+      chip.addEventListener('click', function() { applyFilter(filter.id); });
+      row.appendChild(chip);
+    });
+  }
+
+  function createMobileLeadBar() {
+    if (document.getElementById('zebraMobileLeadBar')) return;
+    var bar = document.createElement('div');
+    bar.id = 'zebraMobileLeadBar';
+    bar.innerHTML =
+      '<button type="button" class="zebra-mobile-lead zebra-mobile-lead-secondary" id="zebraMobileFavBtn">Favorite</button>' +
+      '<a class="zebra-mobile-lead zebra-mobile-lead-primary" target="_blank" rel="noopener" href="https://wa.me/37378326222?text=' + encodeURIComponent('Bună! Aș dori o recomandare rapidă pentru o vacanță. Link rezultate: ' + window.location.href) + '">Consultant acum</a>';
+    document.body.appendChild(bar);
+
+    var favBtn = document.getElementById('zebraMobileFavBtn');
+    if (favBtn) {
+      favBtn.addEventListener('click', function() {
+        toggleWishlistPanel(true);
+      });
+    }
+  }
+
   // ===== 7. RE-APPLY ON DYNAMIC UPDATES =====
   function watchForUpdates() {
     var wrapper = document.querySelector('.new_r-wrapper');
@@ -160,6 +273,7 @@
         highlightBestDeal();
         setupHotelTooltips();
         setupScrollReveal();
+        setupQuickFilters();
       }, 300);
     });
 
@@ -1204,11 +1318,14 @@
 
   waitForWidget(function() {
 
+    createConversionHub();
     createResultsCounter();
+    setupQuickFilters();
     highlightBestDeal();
     setupScrollReveal();
     setupHotelTooltips();
     setupKeyboardNav();
+    createMobileLeadBar();
     watchForUpdates();
     addWishlistHearts();
   });
